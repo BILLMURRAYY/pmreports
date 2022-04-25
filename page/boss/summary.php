@@ -1,12 +1,19 @@
 <?php session_start();
+include("../service/check_login_page.php");
 require_once("../service/condb.php");
-
 ?>
-
-<?php include("../include/head.php"); ?>
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -53,7 +60,7 @@ require_once("../service/condb.php");
         }
     </style>
 
-    <script>
+    <script charset="UTF-8">
         function showUser(str) {
             // alert(str);
             if (str == "") {
@@ -66,7 +73,55 @@ require_once("../service/condb.php");
                         document.getElementById("txtHint").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajax.php?q=" + str, true);
+                xmlhttp.open("GET", "ajax1.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        }
+        function showUser1(str) {
+            // alert(str);
+            if (str == "") {
+                document.getElementById("txtHint1").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint1").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajax2.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        }
+        function showUser2(str,str1) {
+            // alert(str);
+            if (str == "") {
+                document.getElementById("txtHint2").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint2").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajax3.php?q=" + str+"&q1="+str1, true);
+                xmlhttp.send();
+            }
+        }
+        function showUser3(str,job_type,member_id) {
+            // alert(str);
+            if (str == "") {
+                document.getElementById("txtHint3").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint3").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "ajax4.php?year=" + str+"&job_type="+job_type+"&member_id="+member_id, true);
                 xmlhttp.send();
             }
         }
@@ -83,15 +138,15 @@ require_once("../service/condb.php");
                 <div class=" card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">แบบประเมินพนักงาน</h3>
+                            <h3 class="card-title">Summary</h3>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="form-group">
-                            <form>
+                            <!-- <form> -->
                                 <label class="col col-form-label">แผนก :</label>
-                                <div class="col">
+                                <!-- <div class="col"> -->
                                     <select class="select2 form-control" name="depart" onchange="showUser(this.value)" style="width: 100%;">
 
                                         <option value="">เลือกรายการ :</option>
@@ -137,11 +192,11 @@ require_once("../service/condb.php");
                 <option value="หน่วยบุคคล">หน่วยบุคคล</option> -->
 
                                     </select>
-                                </div>
-                            </form>
+                                <!-- </div> -->
+                            <!-- </form> -->
 
-                            <br>
-                            <div id="txtHint"><b>โปรดเลือกแผนกเพื่อทำการเประเมินผลพนักงาน</b></div>
+                            <!-- <br> -->
+                            <div id="txtHint"><b>โปรดเลือกแผนกเพื่อดูผลสรุปของพนักงาน</b></div>
 
                             <!-- <label class="col-2 col-form-label">ชื่อพนักงาน :</label>
                             <div class="col-sm-4">

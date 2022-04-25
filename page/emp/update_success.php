@@ -1,5 +1,6 @@
 <?php session_start(); ?> 
 <?php include("../service/check_login_page.php"); ?>
+<?php require_once("../service/condb.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,14 +13,6 @@
     <?php include('../include/meta.php') ?>
 
     <?php include("../include/head.php"); ?>
-    
-    <script src="../../assets/js/form_add.js"></script>
-    <!-- include summernote css/js-->
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"> -->
-    <!-- <link href="../../assets/js/dist/summernote.css" rel="stylesheet"> -->
-    
-
     <style>
         .contain {
             padding: 25px;
@@ -32,37 +25,7 @@
         .card-footer {
             text-align: center;
         }
-    </style>
-
-    <script>
-        var counter = 0;
-
-        function inits() {
-            document.getElementById('moreFields').onclick = moreFields;
-            moreFields();
-
-        }
-
-        function moreFields() {
-            counter++;
-            var newFields = document.getElementById('report_form').cloneNode(true);
-            newFields.id = '';
-            newFields.style.display = 'block';
-            var newField = newFields.childNodes;
-            for (var i = 0; i < newField.length; i++) {
-                var theName = newField[i].name
-                if (theName)
-                    newField[i].name = theName + counter;
-            }
-
-            // var newFields1 = document.getElementById('remove-button').cloneNode(true);
-            // newFields1.style.display = 'block';
-            
-            var insertHere = document.getElementById('writeroot');
-            insertHere.parentNode.insertBefore(newFields, insertHere);
-            // insertHere.parentNode.insertBefore(newFields1, insertHere);
-        }
-    </script>
+    </style>  
     <script>
         function archiveFunction() {
         event.preventDefault(); // prevent form submit
@@ -96,14 +59,14 @@
     <div class="wrapper">
         <?php include("nav.php"); ?>
         <?php include("../include/sidebar_emp.php"); ?>
-
-
+        
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">
                 <div class=" card-default">
+                <?php print_r($_GET);?>  
                     <div class="card card-primary ">
                         <div class="card-header" style="background:#004385; color:white;">
-                            <h3 class="card-title">แบบฟอร์มการปฎิบัติงาน </h3>
+                            <h3 class="card-title">แบบฟอร์มupdateการปฎิบัติงาน </h3>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
@@ -111,21 +74,29 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <form id="postForm" action="back_add_report.php" method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
+                        <form id="postForm" action="back_update_success.php" method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
+                            <?php
+                                $sql = "SELECT * FROM report WHERE report_id = ".$_GET['report_id']."";
+                                $query = mysqli_query($condb,$sql);
+                                $rows = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
+                            ?>
+                            <input type="hidden" name="send_report_id" value="<?php echo $_GET['send_report_id']?>">
+                            <input type="hidden" name="report_id" value="<?php echo $rows['report_id']?>">
                             <div class="card-body" id="report_form" style="display: block;">
                                 <div class="card-body">
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">ชื่อหัวข้อรายงาน :</label>
                                         <div class="col-sm-10">
-                                            <input name="header[]" type="text" class="form-control" id="" placeholder="" required>
+                            
+                                            <input name="header" type="text" class="form-control" id="" placeholder="" value="<?php echo $rows['header']?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">รายละเอียดการปฎิบัติงาน :</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="detail[]" id="exampleFormControlTextarea1" rows="5" required></textarea>
+                                            <textarea class="form-control" name="detail" id="exampleFormControlTextarea1" rows="5" ><?php echo $rows['detail']?></textarea>
 
                                         </div>
 
@@ -135,7 +106,8 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">สถานที่ปฎิบัติงาน :</label>
                                         <div class="col-sm-4">
-                                            <select name="workplace[]" class="select2 form-control" style="width: 100%;" required>
+                                            <select name="workplace" class="select2 form-control" style="width: 100%;" required>
+                                                <option value="<?php echo $rows['workplace']?>"><?php echo $rows['workplace']?></option>
                                                 <option value="สำนักงาน">สำนักงาน</option>
                                                 <option value="บ้าน">นอกสถานที่</option>
                                             </select>
@@ -143,7 +115,8 @@
 
                                         <label class="col-sm-2 col-form-label">ประเภทงาน :</label>
                                         <div class="col-sm-4">
-                                            <select name="job_type[]" class="select2 form-control" style="width: 100%;" required>
+                                            <select name="job_type" class="select2 form-control" style="width: 100%;" required>
+                                                <option value="<?php echo $rows['job_type']?>"><?php echo $rows['job_type']?></option>
                                                 <option value="งานประจำ">งานประจำ</option>
                                                 <option value="งานที่ตอบตัวชี้วัดคำรับรองการปฏิบัติงานของคณะ">งานที่ตอบตัวชี้วัดคำรับรองการปฏิบัติงานของคณะ</option>
                                             </select>
@@ -156,7 +129,8 @@
                                     <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">ความสำเร็จงาน :</label>
                                         <div class="col-sm-2" style="">
-                                            <select name="success[]" class="select2 form-control" style="width: 100%;" required>
+                                            <select name="success" class="select2 form-control" style="width: 100%;" required>
+                                                <option value="<?php echo $rows['success']?>"><?php echo $rows['success']?> %</option>
                                                 <option value="10">10 %</option>
                                                 <option value="20">20 %</option>
                                                 <option value="30">30 %</option>
@@ -172,11 +146,11 @@
                                         <label class="col-sm-2 col-form-label">วันที่เริ่มทำงาน :</label>
                                         <div class="input-group col-sm-6">
                                             <div class="input-group">
-                                                <input type="date" name="start_range[]" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" required>
+                                                <input type="date" name="start_range" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" value="<?php echo $rows['working_range_start']?>" >
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">ถึง</i></span>
                                                 </div>
-                                                <input type="date" name="end_range[]" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" required>
+                                                <input type="date" name="end_range" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" value="<?php echo $rows['working_range_end']?>" >
                                             </div>
                                         </div>
                                     </div>
@@ -186,53 +160,54 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="problem[]" id="" cols="30" rows="10" placeholder=""></textarea>
+                                            <textarea class="form-control" name="problem" id="" cols="30" rows="10" placeholder=""  ><?php echo $rows['problem']?></textarea>
                                         </div>
                                     </div>
+                                  <?php
+                                    if ($rows['file'] != "") {
+                                        $file = $rows['file'];
+
+                                        echo " <div id='pdfplace'>";
+                                        echo " <center>";
+                                        echo "<a href='../../assets/images/$file'><input class='btn11 btn-danger btn-sm' type='button' value='คลิกที่นี้เพื่อดาวน์โหลดไฟล์'></a>";
+                                        echo " </center>";
+                                        echo "<br>";
+                                    }
+                                    ?>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">อัปโหลดไฟล์ (จำกัดขนาดไฟล์ไม่เกิน 4.MB)</label>
                                         <div class="col-sm-10">
-                                        <!-- <input type="file" name="file[]" class="custom-file-label" id="myfile" > -->
+                                        <!-- <input type="file" name="file" class="form-control" id="myfile" value=""> -->
                                         <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="file[]">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                        <input type="file" class="custom-file-input" id="customFile" name="file">
+                                        <label class="custom-file-label" for="customFile"><?php echo $rows['file']?></label>
                                         </div>
-                                        <!-- <div class="form-group"> -->
-
-<!-- <div class="custom-file">
-<input type="file" class="custom-file-input" id="customFile">
-<label class="custom-file-label" for="customFile">Choose file</label>
-</div>
-</div> -->
-
-                                        <!-- <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-input" type="file" for="customFile" name="file[]">Choose file</label> -->
 
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- <input type="button" class="btn btn-danger" id="btndel" value="Remove review" onclick="this.parentNode.parentNode.removeChild(this.parentNode);"><br /> <i class="fas fa-trash"></i>ลบรายงาน<br /> -->
-                                <div class="btn btn-danger " id="remove-button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" >
+                                <!-- <div class="btn btn-danger " id="remove-button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" >
                                     <i class="fas fa-trash"></i>
                                     ลบรายงาน
-                                </div>
+                                </div> -->
 
 
                                 <hr>
                             </div>
                             <!-- /.cardbody -->
 
-                            <span id="writeroot"></span>
+                            <!-- <span id="writeroot"></span> -->
                             <!-- <form id="postForm" action="back_add_report.php" method="POST" enctype="multipart/form-data" onsubmit="return postForm()"> -->
                             <div class="card-footer">
                             
                                 <button type="submit" class="btn btn-primary" onclick="archiveFunction()"><i class="fas fa-save"></i> บันทึกรายงาน</button>
 
-                                <div class="btn btn-info " id="moreFields" onclick="inits()">
+                                <!-- <div class="btn btn-info " id="moreFields" onclick="inits()">
                                     <i class="fas fa-plus-circle"></i>
                                     เพิ่มรายงาน
-                                </div>
+                                </div> -->
                             </div>
                         </form>
                         <!-- </form> -->
@@ -249,8 +224,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
     <script src="../../assets/js/dist/summernote.min.js"></script>
-    
-<!-- <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script> -->
 
     <script>
     $(function () {

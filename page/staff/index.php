@@ -1,30 +1,19 @@
 <?php session_start(); ?> 
-<?php include("../include/head.php"); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
-<?php
-    // $x= $_GET['x'];
-    // if(isset($_GET['x'])){
-    //     echo"<script>const Toast = Swal.mixin({
-    //         toast: true,
-    //         position: 'top-end',
-    //         showConfirmButton: false,
-    //         timer: 3000,
-    //         timerProgressBar: true,
-    //         didOpen: (toast) => {
-    //             toast.addEventListener('mouseenter', Swal.stopTimer)
-    //             toast.addEventListener('mouseleave', Swal.resumeTimer)
-    //         }
-    //         })
-    
-    //         Toast.fire({
-    //         icon: 'success',
-    //         title: 'Signed in successfully'
-    //         })</script>";
-    // }
+<!DOCTYPE html>
+<html lang="en">
 
-?>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
+    
     <style>
         .contain {
             padding: 25px;

@@ -1,7 +1,18 @@
-<?php session_start(); ?>
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?> 
+<?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -49,7 +60,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <table id="example2" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped">
 
                             <thead>
                                 <tr>
@@ -74,9 +85,9 @@
                                 // $department_id = '1';
                                 // $_SESSION["member_id"] = 1;
 
-                                $department = 'หัวหน้าคณบดี';
-                                $member_id = '2';
-                                $_SESSION["member_id"] = 2;
+                                // $department = 'หัวหน้าคณบดี';
+                                $member_id = $_SESSION["member_id"];
+                                // $_SESSION["member_id"] = 2;
 
                                 // $department = 'รองคณบดีฝ่ายบริหาร';
                                 // $department_id = '3';
@@ -107,8 +118,8 @@
                                 ?>
 
                                     <tr>
-                                        <td><?php echo $count++ ?></td>
-                                        <td><?php echo $value['date'] ?></td>
+                                        <td style="width:5%"><?php echo $count++ ?></td>
+                                        <td style="width:15%"><?php echo $value['date'] ?></td>
 
                                         <?php
                                         $member_receive_id = $value['member_receive_id'];
@@ -120,15 +131,23 @@
                                         $query2 = mysqli_query($condb, $result2);
                                         $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
                                         foreach ($rows2 as $value2) {
+                                            $color = '';
+                                            if($value['level']=='boss'){
+                                                $color = 'danger';
+                                            } elseif($value['level']=='staff'){
+                                                $color = 'warning';
+                                            } elseif($value['level']=='employee'){
+                                                $color = 'success';
+                                            }
                                         ?>
                                             <td><?php echo $value2['first_name'] . " " . $value2['last_name'] ?></td>
-                                            <td><?php echo $value2['department_name'] ?></td>
+                                            <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
                                         <?php
                                         }
                                         ?>
                                         <td><?php echo $value['header'] ?></td>
 
-                                        <td align="center"><button class="btn btn-warning"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['first_name'] . " " . $value['last_name'] ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>"><i class="fas fa-eye"></i></a></button></td>
+                                        <td style="width:10%" align="center"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['first_name'] . " " . $value['last_name'] ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <!-- <td align="center"><button><a href="#">Detail</a></button></td> -->
                                     </tr>
                                 <?php } ?>
@@ -151,6 +170,7 @@
             </div>
         </div>
     </div>
+    <?php include("../include/footer.php"); ?>
 
     <script>
         $(function() {
@@ -158,9 +178,10 @@
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": true,
-                "paging": false,
+                "paging": true,
                 "ordering": true,
                 "info": false,
+                "autoWidth": false,
                 "buttons": ["copy", "excel", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -174,4 +195,5 @@
             });
         });
     </script>
+
 </body>

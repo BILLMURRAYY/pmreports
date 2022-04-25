@@ -1,10 +1,21 @@
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?>
+<?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
 
+    <?php include("../include/head.php"); ?>
     <!-- Ekko Lightbox -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .contain {
             padding: 25px;
@@ -31,6 +42,10 @@
 
         .btn11 {
             padding: 15px;
+        }
+
+        textarea {
+            height: 500px;
         }
     </style>
 </head>
@@ -66,131 +81,160 @@
 
                         ?>
                         <?php
-                        $report_id = explode(",", $report_id);
+                        // $report_id = explode(",", $report_id);
                         // echo "<per>";
                         // print_r ($id_report);
                         // echo "</per>";
-                        foreach ($report_id as $value) {
-                            $result = "SELECT * FROM report WHERE report_id = $value";
-                            $query = mysqli_query($condb, $result);
-                            $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
-                            // echo "<pre>";
-                            // print_R($rows);
-                            // echo "</pre>";
+                        $text = [];
+                        $arr = [];
+                        // foreach ($report_id as $value) {
+                        $result = "SELECT * FROM report WHERE report_id = $report_id";
+                        $query = mysqli_query($condb, $result);
+                        $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
+                        // echo "<pre>";
+                        // print_R($rows);
+                        // echo "</pre>";
 
-                            foreach ($rows as $values) {
+                        foreach ($rows as $values) {
+                            array_push($text, $values['header']);
+                            array_push($arr, $values['success']);
+                            // print_r($text);
+                            // print_r($arr);
                         ?>
-                                <div class="card-body">
-                                    <!-- Timelime example  -->
+                            <div class="card-body">
+                                <!-- Timelime example  -->
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- The time line -->
-                                            <div class="timeline">
-                                                <!-- timeline time label -->
-                                                <div class="time-label">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- The time line -->
+                                        <div class="timeline">
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
 
-                                                    <span class="bg-info"><?php echo $department_receive  ?></span>
-                                                </div>
-                                                <!-- /.timeline-label -->
+                                                <span class="bg-info"><?php echo $department_receive  ?></span>
+                                            </div>
+                                            <!-- /.timeline-label -->
 
 
-                                                <!-- timeline item -->
-                                                <div style="height: auto;">
-                                                    <i class="fas fa-user bg-green"></i>
+                                            <!-- timeline item -->
+                                            <div style="height: auto;">
+                                                <i class="fas fa-user bg-green"></i>
 
-                                                    <div class="timeline-item">
-                                                        <!-- <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span> -->
-                                                        <h1 class="timeline-header"> <label for="">หัวข้อ : <?php echo $values['header']; ?></label> </h1>
-                                                        <div class="timeline-body">
+                                                <div class="timeline-item">
+                                                    <!-- <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span> -->
+                                                    <h1 class="timeline-header"> <label for="">หัวข้อ : <?php echo $values['header']; ?></label> </h1>
+                                                    <div class="timeline-body">
 
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">รายละเอียดงาน :</label>
-                                                                <div class="col-10 form-control">
-                                                                    <?php echo $values['detail']; ?>
-                                                                </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">รายละเอียดงาน :</label>
+                                                            <div class="col-10"><?php echo $values['detail']; ?></div>
+
+                                                            <!-- <textarea class="col-10 form-control"></textarea> -->
+                                                        </div>
+
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">สถานที่ปฎิบัติงาน :</label>
+                                                            <div class="col-sm-3">
+                                                                <label class="col-form-label"><?php echo $values['workplace']; ?></label>
+                                                            </div>
+                                                            <label class="col-sm-2 col-form-label">ประเภทงาน :</label>
+                                                            <div class="col-sm-5">
+                                                                <label class="col-form-label"><?php echo $values['job_type']; ?></label>
                                                             </div>
 
+                                                        </div>
 
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">สถานที่ปฎิบัติงาน :</label>
-                                                                <div class="col-sm-3">
-                                                                    <label class="col-form-label"><?php echo $values['workplace']; ?></label>
-                                                                </div>
-                                                                <label class="col-sm-2 col-form-label">วันที่และเวลาทำงาน:</label>
-                                                                <div class="col-sm-4">
-                                                                    <label class="col-form-label"><?php echo $values['working_range_start']; ?> | <span>End :<?php echo $values['working_range_end']; ?></span></label>
-                                                                </div>
+                                                        <div class=".form-group row">
+                                                            <label class="col-sm-2 col-form-label">วันที่และเวลาทำงาน:</label>
+                                                            <div class="col-sm-4">
+                                                                <label class="col-form-label"><?php echo $values['working_range_start']; ?> <span>- <?php echo $values['working_range_end']; ?></span></label>
                                                             </div>
+                                                        </div>
 
-
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
-                                                                <div class="col-10 form-control">
-                                                                    <?php echo $values['problem']; ?>
-                                                                </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
+                                                            <div class="col-10 ">
+                                                                <?php echo $values['problem']; ?>
                                                             </div>
+                                                        </div>
 
 
-                                                            <!-- สร้างเงื่อนไข ถ้าพบว่ามีไฟล์ให้แแสดงหน้า ifame ถ้าไม่เจอให้เเสดงหน้ารูป ถ้าเจอทั้งสองแบ่งเป็ฯ 2 ฝั่ง -->
-                                                            <div class="">
+                                                        <!-- สร้างเงื่อนไข ถ้าพบว่ามีไฟล์ให้แแสดงหน้า ifame ถ้าไม่เจอให้เเสดงหน้ารูป ถ้าเจอทั้งสองแบ่งเป็ฯ 2 ฝั่ง -->
+                                                        <!-- <div class="">
                                                                 <div class="form-group row">
 
                                                                     <label class="col-sm-2 col-form-label">ไฟล์เอกสาร</label>
 
                                                                     <div class="col-10">
-                                                                        <?php echo $values['file']; ?> <p> คลิ๊กดาวน์โหลด </p>
+                                                                        <?php //echo $values['file']; 
+                                                                        ?> <p> คลิ๊กดาวน์โหลด </p>
                                                                     </div>
                                                                 </div>
 
+                                                            </div> -->
+                                                        <?php
+                                                        if ($values['file'] != "") {
+                                                            $file = $values['file'];
+
+                                                            echo " <div id='pdfplace'>";
+                                                            echo " <center>";
+                                                            echo "<a href='../../assets/images/$file'><button class='btn btn-danger btn-sm'>คลิกที่นี้เพื่อดาวน์โหลดไฟล์</button></a>";
+                                                            echo " </center>";
+                                                            echo "<br>";
+                                                        }
+                                                        ?>
+
+
+                                                        <!-- /.card -->
+                                                        <!-- /div photo -->
+                                                        <!-- Canvas ChartJS -->
+                                                        <div class="card card-success">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title">Success</h3>
+
+                                                                <div class="card-tools">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                        <i class="fas fa-minus"></i>
+                                                                    </button>
+
+                                                                </div>
                                                             </div>
-
-                                                            <!-- BAR CHART -->
-
-                                                            <div class="card card-success">
-                                                                <div class="card-header">
-                                                                    <h3 class="card-title">กราฟ</h3>
-
-                                                                    <div class="card-tools">
-                                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                                            <i class="fas fa-minus"></i>
-                                                                        </button>
-
-                                                                    </div>
+                                                            <div class="card-body">
+                                                                <div class="chart">
+                                                                    <!-- <canvas id="myChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
+                                                                    <canvas id="myChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
                                                                 </div>
-                                                                <div class="card-body">
-                                                                    <div class="chart">
-                                                                        <!-- <canvas id="myChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
-                                                                        <canvas id="myChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- /.card-body -->
                                                             </div>
-                                                            <!-- /.card -->
-                                                            <!-- /div photo -->
-
-
+                                                            <!-- /.card-body -->
                                                         </div>
-                                                        <!-- /.timeline-body -->
-                                                    </div>
-                                                    <!-- END timeline item -->
-                                                </div>
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                    </div>
 
+                                                    </div>
+                                                    <!-- /.timeline-body -->
+                                                </div>
+                                                <!-- END timeline item -->
+
+                                            </div>
+                                        </div>
+
+                                        <!-- /.col -->
+                                    </div>
                                 </div>
-                                <!-- /.timeline -->
-                        <?php }} ?>
-                        
+
+                            </div>
+                            <!-- /.timeline -->
+                        <?php }
+                        //} 
+                        ?>
+
 
                     </div>
                 </div>
             </div>
         </div>
 
-        <script>
+
+        <!-- <script>
             const ctx = document.getElementById('myChart').getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'bar',
@@ -219,7 +263,7 @@
                     }
                 },
             });
-        </script>
+        </script> -->
         <script>
             $(function() {
                 // Summernote
@@ -275,6 +319,78 @@
                 });
             })
         </script>
+
+        <!-- Chart JS -->
+        <script type="text/javascript">
+            // const arrq = [];
+            // arrq.push(<?php //echo $arr[0] 
+                            ?>);
+            // arrq.push(<?php //echo $arr[1] 
+                            ?>);
+
+            // arrq.push(<?php //echo $arr[2] 
+                            ?>);
+            // const labels = ['a', 'ฟห'];
+            const label = <?php echo json_encode($text); ?>;
+            const arr = <?php echo json_encode($arr); ?>;
+            const data = {
+                labels: label,
+                datasets: [{
+                    data: arr,
+                    // January: 60,
+                    // February: 90, 
+                    // sebruary: 100, 
+                    // sebrduary: 100, 
+                    // sebrgguary: 100, 
+                    // webruary: 20, 
+                    // aFeebruary: 20,
+
+                    backgroundColor: [
+                        'rgba(255, 99, 132)',
+                        'rgba(255, 159, 64)',
+                        'rgba(255, 205, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(54, 162, 235)',
+                        'rgba(153, 102, 255)',
+                        'rgba(201, 203, 207)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    plugins: {
+                        legend: false,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+            };
+        </script>
+        <script>
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        </script>
+
         <!-- ChartJS -->
         <script src="../../assets/bootstrap/template/plugins/chart.js/Chart.min.js"></script>
 
@@ -283,5 +399,6 @@
         <script src="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
         <!-- Filterizr-->
         <script src="../../assets/bootstrap/template/plugins/filterizr/jquery.filterizr.min.js"></script>
+        <?php include("../include/footer.php"); ?>
 
 </body>

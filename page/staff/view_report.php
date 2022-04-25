@@ -1,10 +1,19 @@
 <?php session_start(); ?>
-<?php include("../include/head.php"); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
 
+    <?php include("../include/head.php"); ?>
+    
     <!-- Ekko Lightbox -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

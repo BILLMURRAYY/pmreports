@@ -1,16 +1,18 @@
 <?php
-// echo "<pre>";
-// print_r($_POST);
-// print_r($_FILES);
-// echo "</pre>";
+session_start();
+echo "<pre>";
+print_r($_POST);
+print_r($_FILES);
+echo "</pre>";
+
 
 
 require_once("../service/condb.php"); 
 
 
 // !!!! กำหนด session
-$member_id = 3;
-$department_id = 3;
+$member_id = $_SESSION['member_id'];
+$department_id = $_SESSION['department_id'];
 
 // $header = ['header_0','header_1','header_2','header_3','header_4','header_5'];
 // $detail = ['detail_0','detail_1','detail_2','detail_3','detail_4','detail_5'];
@@ -24,42 +26,49 @@ $department_id = 3;
 $header = $_POST['header'];
 $detail = $_POST['detail'];
 $workplace = $_POST['workplace'];
+$job_type = $_POST['job_type'];
 $success = $_POST['success'];
 $start_range = $_POST['start_range'];
 $end_range = $_POST['end_range'];
 $file = $_FILES['file'];
 $problem = $_POST['problem'];
-
+// echo count($file["name"]);
 // echo $_FILES['file'];
-
+// exit();
 //!!! CHECK FILE
-if(isset($file)) {
+$newnames=[];
+for($i = 0 ; $i < count($file["name"]);$i++ ){
+    // echo $file["name"][$i]."<br>";
+
     $errors     = array();
     $value_file = 1;
     $maxsize    = 4194304;
+if(isset($file["name"][$i])) {
     // $maxsize    = 2097152;
     // $maxsize    = 97152;
     // $maxsize    = 300;
     $acceptable = array(
-        'application/pdf'
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         // 'image/jpeg',
         // 'image/jpg',
         // 'image/gif',
         // 'image/png'
     );
 // || ($_FILES["file"]["size"] == 0)
-    if(($_FILES['file']['size'] >= $maxsize) ) {
+    if(($_FILES['file']['size'][$i] >= $maxsize) ) {
         $errors[] = 'File too large. File must be less than 4 megabytes.';
         
         // echo "<script>";
         //     echo "history.back(); ";
         // echo "</script>";
     }
-    if($_FILES["file"]["size"] == 0){
+    if($_FILES["file"]["size"][$i] == 0){
         $value_file = 0;
     }
 
-    if((!in_array($_FILES['file']['type'], $acceptable)) && (!empty($_FILES["file"]["type"]))) {
+    if((!in_array($_FILES['file']['type'][$i], $acceptable)) && (!empty($_FILES["file"]["type"][$i]))) {
         $errors[] = 'Invalid file type. Only PDF types are accepted.';
         // echo "<script>";
         //     // echo "alert(' มีผู้ใช้ username นี้แล้ว กรุณาสมัครใหม่อีกครั้ง !');";
@@ -79,23 +88,26 @@ if(isset($file)) {
             $path="../../assets/images/";  
         
             //เอาชื่อไฟล์เก่าออกให้เหลือแต่นามสกุล
-            $type = strrchr($_FILES['file']['name'],".");
+            $type = strrchr($_FILES['file']['name'][$i],".");
                 
             //ตั้งชื่อไฟล์ใหม่โดยเอาเวลาไว้หน้าชื่อไฟล์เดิม
             $newname = $date.$numrand.$type;
             $path_copy=$path.$newname;
             $path_link="m_Img/".$newname;
-            $GLOBALS['newnames'] = $newname;
+            // $GLOBALS['newnames'] = $newname;
+            array_push($newnames,$newname);
         
             //คัดลอกไฟล์ไปเก็บที่เว็บเซริ์ฟเวอร์
-            move_uploaded_file($_FILES['file']['tmp_name'],$path_copy);  	
+            move_uploaded_file($_FILES['file']['tmp_name'][$i],$path_copy);  	
         
         // move_uploaded_file($_FILES['gile']['tmpname'], '/store/to/location.file');
     }elseif($value_file == 0){
-        $GLOBALS['newnames'] = '';
+        // $GLOBALS['newnames'] = '';
+        array_push($newnames,'');
 
     } else {
         foreach($errors as $error) {
+            // exit();
             echo '<script>alert("'.$error.'");</script>';
             echo "<script>";
             // echo "alert(' มีผู้ใช้ username นี้แล้ว กรุณาสมัครใหม่อีกครั้ง !');";
@@ -106,11 +118,16 @@ if(isset($file)) {
         die(); //Ensure no more processing is done
     }
 }
+}
 //! END CHECK FILE
-// echo $newnames;
-// exit();
+print_r($newnames);
 
-$report_id = [];
+$sql2 = "SELECT flow_report FROM department WHERE department_id = $department_id";
+$query2 = mysqli_query($condb,$sql2);
+$row2 = mysqli_fetch_array($query2);
+$values = $row2['flow_report'];
+
+// $report_id = [];
 // $name_img = array('0');
 for($x = 0; $x < count($header); $x++){
 
@@ -123,10 +140,12 @@ for($x = 0; $x < count($header); $x++){
         header,
         detail,
         workplace,
+        job_type,
         success,
         working_range_start,
         working_range_end,
-        problem
+        problem,
+        file
     
     )
     VALUES
@@ -134,10 +153,12 @@ for($x = 0; $x < count($header); $x++){
         '$header[$x]',
         '$detail[$x]',
         '$workplace[$x]',
+        '$job_type[$x]',
         '$success[$x]',
         '$start_range[$x]',
         '$end_range[$x]',
-        '$problem[$x]'
+        '$problem[$x]',
+        '$newnames[$x]'
     
     )
     ";
@@ -146,7 +167,21 @@ for($x = 0; $x < count($header); $x++){
     // !
     $query = mysqli_query($condb,$sql);
     $last_report_id = mysqli_insert_id($condb);
-    array_push($report_id, $last_report_id);
+    // array_push($report_id, $last_report_id);
+
+    $sql3 = "INSERT INTO send_report
+    (
+        member_send_id,
+        department_receive,
+        report_id
+    ) 
+    VALUES
+    (
+    '$member_id',
+    '$values',
+    '$last_report_id'
+    )";
+    $query3 = mysqli_query($condb,$sql3);
 
 //  echo $header[$x] . "<br>";
 //  echo $detail[$x] . "<br>";
@@ -160,39 +195,41 @@ for($x = 0; $x < count($header); $x++){
 //  echo "<br>";
 //  echo $sql;
 }
+// exit();
 
 
 // exit();
 
 // !
-$report_id = implode(",",$report_id);
-$sql2 = "SELECT flow_report FROM department WHERE department_id = $department_id";
-$query2 = mysqli_query($condb,$sql2);
+// $report_id = implode(",",$report_id);
+// $sql2 = "SELECT flow_report FROM department WHERE department_id = $department_id";
+// $query2 = mysqli_query($condb,$sql2);
 
-foreach($query2 as $value){
+// foreach($query2 as $value){
 
-    $values = $value['flow_report'];
-    $sql3 = "INSERT INTO send_report
-    (
-        member_send_id,
-        department_receive,
-        file,
-        report_id
-    ) 
-    VALUES
-    (
-    '$member_id',
-    '$values',
-    '$newname',
-    '$report_id'
-    )";
-    $query3 = mysqli_query($condb,$sql3);
+//     $values = $value['flow_report'];
+//     $sql3 = "INSERT INTO send_report
+//     (
+//         member_send_id,
+//         department_receive,
+//         file,
+//         report_id
+//     ) 
+//     VALUES
+//     (
+//     '$member_id',
+//     '$values',
+//     '$newname',
+//     '$report_id'
+//     )";
+//     $query3 = mysqli_query($condb,$sql3);
 
-}
+// }
+mysqli_close($condb);
 
-if ($query2) {
+if ($query3) {
     echo "<script type='text/javascript'>";
-    echo "alert('Upload File Succesfuly');";
+    // echo "alert('Upload File Succesfuly');";
     echo "window.location = 'report.php'; ";
     echo "</script>";
 } else {

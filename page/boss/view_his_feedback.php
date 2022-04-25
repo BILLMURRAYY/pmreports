@@ -1,9 +1,20 @@
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?> 
+<?php include("../service/check_login_page.php"); ?>
 <?php
 require_once("../service/condb.php");
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -87,8 +98,10 @@ require_once("../service/condb.php");
                                         <!-- <img class="img-circle img-bordered-sm" src="" alt="user image"> -->
                                         <span class="">วันที่ส่ง : <?php echo $values['date']; ?></span>
                                     </div>
-                                    <div class="form-control">
-                                        <p>
+                                    <br>
+                                    <div class="col">
+
+                                        <p> <span>Detail :</span>
                                             <?php echo $values['detail']; ?>
                                         </p>
                                     </div>
@@ -104,9 +117,6 @@ require_once("../service/condb.php");
         </div>
         <!-- /.col -->
         <!--  -->
-    </div>
-    </div>
-    </div>
     </div>
 
     <script>
@@ -131,4 +141,6 @@ require_once("../service/condb.php");
             });
         });
     </script>
+    <?php include("../include/footer.php"); ?>
+
 </body>

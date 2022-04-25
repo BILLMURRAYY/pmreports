@@ -1,10 +1,21 @@
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?> 
+<?php include("../service/check_login_page.php"); ?>
 <?php
 require_once("../service/condb.php");
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -69,7 +80,7 @@ require_once("../service/condb.php");
                             <h3 class="card-title">รายงานผลการปฎิบัติงาน</h3>
                         </div>
                         <div style="text-align: right;">
-                            <button class="btn b_add text-right "><a class="t_add" href="form_report.php" style="color: white;"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
+                        <a class="t_add" href="form_report.php" style="color: white;"><button class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</button></a>
                         </div>
                     </div>
 
@@ -84,8 +95,11 @@ require_once("../service/condb.php");
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
                                     <th>หัวข้อ</th>
+                                    <th>ประเภทงาน</th>
+                                    <th>ควมสำเร็จ</th>
+                                    <th>update</th>
                                     <th>ดู</th>
-                                    <th>ลบ</th>
+                                    <!-- <th>ลบ</th> -->
                                 </tr>
                             </thead>
 
@@ -96,20 +110,22 @@ require_once("../service/condb.php");
                                 // $result->execute(); //
                                 // $row = $result->fetch(PDO::FETCH_BOTH);
                                 // ! กำหนดค่า session
-                                $department = 'หัวหน้าคณบดี';
+                                // $department = 'หัวหน้าคณบดี';
                                 // $_SESSION["member_id"] = 1;
-                                $member_id = 3;
+                                // $member_id = 3;
 
                                 // $department = 'รองคณบดีฝ่ายบริหาร';
                                 // $_SESSION["member_id"] = 2;
 
                                 $result = "SELECT * FROM send_report 
-            -- inner JOIN member
-            -- on member.member_id = send_report.member_send_id
-            -- inner join department
-            -- on department.department_id = member.department_id
-            WHERE member_send_id = $member_id
-            ORDER BY send_report_id DESC";
+                                inner JOIN report
+                                on send_report.report_id = report.report_id
+                                -- inner JOIN member
+                                -- on member.member_id = send_report.member_send_id
+                                -- inner join department
+                                -- on department.department_id = member.department_id
+                                WHERE member_send_id = ".$_SESSION["member_id"]."
+                                ORDER BY send_report_id DESC";
                                 $query = mysqli_query($condb, $result);
 
                                 $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
@@ -120,39 +136,52 @@ require_once("../service/condb.php");
 
                                 $count = 1;
                                 foreach ($rows as $value) {
-
+                                    $color_suc = '';
+                                    if($value['success']<='50'){
+                                        $color_suc = 'danger';
+                                    } elseif($value['success']<'100'){
+                                        $color_suc = 'warning';
+                                    } elseif($value['success']=='100'){
+                                        $color_suc = 'success';
+                                    }
                                 ?>
                                     <tr>
-                                        <td><?php echo $count++ ?></td>
-                                        <td><?php echo $value['date'] ?></td>
+                                        <td style="width:5%"><?php echo $count++ ?></td>
+                                        <td style="width:15%"><?php echo $value['date'] ?></td>
 
                                         <?php
-                                        $report_id = $value['report_id'];
-                                        $report_id = explode(",", $report_id);
-                                        $header = [];
-                                        foreach ($report_id as $value2) {
-                                            $result2 = "SELECT header FROM report WHERE report_id = $value2";
-                                            // echo $result2;
-                                            $query2 = mysqli_query($condb, $result2);
-                                            $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
-                                            // echo "<pre>";
-                                            // print_R($rows2);
-                                            // echo "</pre>";
-                                            foreach ($rows2 as $value3) {
-                                                // echo $value2['header'];
-                                                array_push($header, $value3['header']);
-                                            }
-                                        }
-                                        // print_r($header); 
-                                        $header2 = implode(",", $header);
-                                        // echo $header2;            
-                                        // exit();
+                                        // $report_id = $value['report_id'];
+                                        // $report_id = explode(",", $report_id);
+                                        // $header = [];
+                                        // foreach ($report_id as $value2) {
+                                        //     $result2 = "SELECT header FROM report WHERE report_id = $value2";
+                                        //     // echo $result2;
+                                        //     $query2 = mysqli_query($condb, $result2);
+                                        //     $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
+                                        //     // echo "<pre>";
+                                        //     // print_R($rows2);
+                                        //     // echo "</pre>";
+                                        //     foreach ($rows2 as $value3) {
+                                        //         // echo $value2['header'];
+                                        //         array_push($header, $value3['header']);
+                                        //     }
+                                        // }
+                                        // // print_r($header); 
+                                        // $header2 = implode(",", $header);
+                                        // // echo $header2;            
+                                        // // exit();
                                         ?>
 
 
-                                        <td><?php echo $header2 ?></td>
-                                        <td align="center"><button class="btn btn-warning"><a href="view_report.php?report_id=<?php echo $value['report_id'] ?>&department_receive=<?php echo $value['department_receive'] ?>"><i class="fas fa-eye"></i></a></button></td>
-                                        <td><a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                        <td><?php echo $value['header'] ?></td>
+                                        <td style="width:20%"><?php echo $value['job_type'] ?></td>
+                                        <td style="width:10%"><h5><span class="badge bg-<?php echo $color_suc ?>"><?php echo $value['success']; ?>%</span><h5></td>
+                                        <!-- <td align="center"><button class="btn btn-warning"><a href="view_report.php?report_id=<?php echo $value['report_id'] ?>&department_receive=<?php echo $value['department_receive'] ?>"><i class="fas fa-eye"></i></a></button></td> -->
+                                        <td style="width:10%"><a href="update_success.php?report_id=<?php echo $value['report_id'] ?>&send_report_id=<?php echo $value['send_report_id'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td>
+
+                        <td align="center" style="width:10%"><a href="view_report.php?report_id=<?php echo $value['report_id'] ?>&department_receive=<?php echo $value['department_receive'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                        
+                                        
 
 
                                     </tr>
@@ -164,8 +193,11 @@ require_once("../service/condb.php");
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
                                     <th>หัวข้อ</th>
+                                    <th>ประเภทงาน</th>
+                                    <th>ควมสำเร็จ</th>
+                                    <th>update</th>
                                     <th>ดู</th>
-                                    <th>ลบ</th>
+                                    <!-- <th>ลบ</th> -->
                                 </tr>
                             </tfoot>
                         </table>
@@ -175,7 +207,8 @@ require_once("../service/condb.php");
             </div>
         </div>
     </div>
-
+    <?php include("../include/footer.php"); ?>
+    
 
     <script>
         $(function() {
@@ -183,9 +216,10 @@ require_once("../service/condb.php");
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": true,
-                "paging": false,
+                "paging": true,
                 "ordering": true,
                 "info": false,
+                "autoWidth": false,
                 "buttons": ["copy", "excel", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -199,4 +233,29 @@ require_once("../service/condb.php");
             });
         });
     </script>
+    <?php
+    if($_SESSION['check_login']==1){
+        $_SESSION['check_login'] =0;
+        echo "<script>";
+        echo "const Toast = Swal.mixin({
+         toast: true,
+         position: 'top-end',
+         showConfirmButton: false,
+         timer: 3000,
+         timerProgressBar: true,
+         didOpen: (toast) => {
+             toast.addEventListener('mouseenter', Swal.stopTimer)
+             toast.addEventListener('mouseleave', Swal.resumeTimer)
+         }
+         })
+ 
+         Toast.fire({
+         icon: 'success',
+         title: 'Signed in successfully'
+         })";
+        echo"</script>";
+    }
+
+    ?>  
+
 </body>

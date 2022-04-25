@@ -1,9 +1,18 @@
 <?php session_start(); ?> 
-<?php include("../include/head.php"); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -26,6 +35,33 @@
             text-align: center;
         }
     </style>
+    <script>
+        function archiveFunction() {
+        event.preventDefault(); // prevent form submit
+        var form = event.target.form; // storing the form
+        Swal.fire({
+        title: 'Are you sure Logout?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Send Feedback!',
+            // 'Your file has been deleted.',
+            'success'
+            ).then((result) => {
+            form.submit();
+            })
+        }
+        })
+        }
+
+       
+    </script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -33,7 +69,7 @@
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_boss.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -92,7 +128,7 @@
                                 <input type="hidden" name="member_send_id" value="<?php echo $member_send_id ?>">
                                 <br>
                                 <div class="" style="text-align: center;">
-                                    <button style="padding: 10px; text-alight:center;" type="submit" class="btn11 btn-danger btn-sm"><i class="fas fa-paper-plane"></i> ส่งfeedback</button>
+                                    <button style="padding: 10px; text-alight:center;" type="submit" class="btn btn-danger" onclick="archiveFunction()"><i class="fas fa-paper-plane"></i> ส่งfeedback</button>
                                 </div>
                             </div>
                         </form>
@@ -102,6 +138,7 @@
             </div>
         </div>
     </div>
+    <?php include("../include/footer.php"); ?>
 
     <script>
         $(function() {

@@ -18,7 +18,7 @@
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php" class="nav-link">ดูข้อมูลของพนักงาน</a>
-      </li> -->
+      </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="feedback.php" class="nav-link">ดูfeedbackที่ส่งเข้ามา</a>
       </li>
@@ -26,16 +26,16 @@
         <a href="form_report.php" class="nav-link">ส่งรายงาน</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="chart.php" class="nav-link">ดูผลประเมิน</a>
-      </li>
+        <a href="estimate.php" class="nav-link">ประเมินพนักงาน</a>
+      </li> -->
       
     </ul>
    
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <!-- <ul class="navbar-nav ml-auto"> -->
       
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -66,8 +66,8 @@
       </li>
       <li class="nav-item">
         
-      </li>
-    </ul>
+      </li> -->
+    <!-- </ul> -->
   </nav>
   <!-- /.navbar -->
 

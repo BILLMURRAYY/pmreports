@@ -1,16 +1,23 @@
 <?php session_start();
+include("../service/check_login_page.php");
 require_once("../service/condb.php");
-
 ?>
-
-<?php include("../include/head.php"); ?>
-
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <?php include("../include/head.php"); ?>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
 
 
     <style>

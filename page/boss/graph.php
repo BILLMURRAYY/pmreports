@@ -1,5 +1,4 @@
 <?php session_start();
-include("../service/check_login_page.php");
 require_once("../service/condb.php");
 // echo "<pre>";
 // print_r($_POST);
@@ -68,7 +67,7 @@ require_once("../service/condb.php");
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <?php include("nav.php"); ?>
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_boss.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">

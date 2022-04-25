@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
 
+    <!-- Section Meta tag -->
+    <?php include('page/include/meta.php') ?>
+
+    <?php //include('page/include/head.php') ?>
     <link href="assets/bootstrap/template/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,6 +29,13 @@
 </head>
 
 <style>
+    
+    @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@500&display=swap');
+        body {
+            font-family: 'Mitr', sans-serif;
+            /* font-size: 48px; */
+            font-weight: 100;
+        }
     body {
         background: linear-gradient(#05B2DC, #0497C7, #076B96, #065A84, #033860);
         text-align: center;
@@ -35,14 +46,14 @@
     }
 
     img {
-        width: 60%;
-        height: 60%;
+        width: 70%;
+        height: 70%;
 
     }
 
-    .bg-login {
+    /* .bg-login {
         background: #000;
-    }
+    } */
 </style>
 
 <body class="login-page">
@@ -52,8 +63,8 @@
             <div class="card ">
                 <div class="card-header text-center">
                     <!-- <a href="#" class="h1"><b>photo_icon_icit</b>LTE</a> -->
-                    <img src="assets/images/kmutnb_logo.png" alt="">
-                    <!-- <p>ล็อคอินบัญชีด้วย</p> -->
+                    <img src="assets/logo/icit_account_logo.png" alt="">
+                    <!-- <p>Login</p> -->
                     <!-- <img src="assets/images/icit.png" alt=""> -->
                 </div>
                 <div class="card-body">
@@ -97,13 +108,13 @@
     <!-- /login -->
 
 
-
+    <?php //include('page/include/footer.php') ?>
     <!-- jQuery -->
-    <script src="assets/bootstrap/template/plugins/jquery/jquery.min.js"></script>
+    <!-- <script src="assets/bootstrap/template/plugins/jquery/jquery.min.js"></script> -->
     <!-- Bootstrap 4 -->
-    <script src="assets/bootstrap/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="assets/bootstrap/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
     <!-- AdminLTE App -->
-    <script src="assets/bootstrap/template/dist/js/adminlte.min.js"></script>
+    <!-- <script src="assets/bootstrap/template/dist/js/adminlte.min.js"></script> -->
 
     <!-- <script>
        const Toast = Swal.mixin({

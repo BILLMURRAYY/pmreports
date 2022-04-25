@@ -1,12 +1,12 @@
 <?php
 session_start();
 require_once("../service/condb.php");
-// echo "<pre>";
-// print_R($_POST);
-// echo "</pre>";
+echo "<pre>";
+print_R($_POST);
+echo "</pre>";
 
 $member_id = $_SESSION["member_id"];
-// echo $member_id;
+echo $member_id;
 $member_send_id = $_POST["member_send_id"];
 $header_name = $_POST["header_name"];
 $detail = $_POST["detail"];
@@ -20,9 +20,9 @@ $sql = "INSERT INTO feedback
             '$header_name',
             '$detail'
             )";
-$query = mysqli_query($conn,$sql);
+$query = mysqli_query($condb,$sql);
 
-$last_report_id = mysqli_insert_id($conn);
+$last_report_id = mysqli_insert_id($condb);
 
 // exit();
 

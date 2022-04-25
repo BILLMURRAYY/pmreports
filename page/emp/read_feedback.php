@@ -1,9 +1,20 @@
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?> 
+<?php include("../service/check_login_page.php"); ?>
 <?php
 require_once("../service/condb.php");
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -33,7 +44,7 @@ require_once("../service/condb.php");
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_emp.php"); ?>
+        <?php include("../include/sidebar_staff.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -77,33 +88,33 @@ require_once("../service/condb.php");
                         <div class="card-body">
                             <div class="callout callout-info">
 
-                                <h5>ชื่อผู้ส่ง :<?php echo $member_send_name ?></h5>
+                                <h5>ชื่อผู้ส่ง : <?php echo $member_send_name ?></h5>
                                 <span class="">วันที่ส่ง : <?php echo $values['date']; ?></span>
-                                </br></br>
+                    </br></br>
                                 <div class="post clearfix">
                                     <div class="col">
                                         <!-- <img class="img-circle img-bordered-sm" src="" alt="user image"> -->
+                                       
                                     </div>
-
-                                    <span>รายลเอียดข้อความ <p class="form-control"><?php echo $values['detail']; ?>/p></span>
-
+                                    
+                                    <p><span>รายละเอียดข้อความ : <?php echo $values['detail']; ?></span></p>
+                                    
+                                        
+                                  
+                                    </div>
                                 </div>
                             </div>
+                            <hr>
                         </div>
-                        <hr>
+                    <?php } ?>
                 </div>
-            <?php } ?>
+                <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
-    </div>
-    <!-- /.col -->
-    <!--  -->
-    </div>
-    </div>
-    </div>
-    </div>
+        
+    
+    
 
     <script>
         $(function() {
@@ -127,4 +138,6 @@ require_once("../service/condb.php");
             });
         });
     </script>
+        <?php include("../include/footer.php"); ?>
+
 </body>

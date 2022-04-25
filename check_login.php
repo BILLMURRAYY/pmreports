@@ -50,7 +50,7 @@ if ($email == $row["email"] and $password == $row["password"]) {
     if ($_SESSION["level"] == "admin") {
         header("Location: page/admin/");
     } elseif ($_SESSION["level"] == "boss") {
-        header("Location:page/boss1/");
+        header("Location:page/boss/");
     } elseif ($_SESSION["level"] == "staff") {
         // echo "<script>";
         // echo "const Toast = Swal.mixin({
@@ -75,9 +75,9 @@ if ($email == $row["email"] and $password == $row["password"]) {
         //   })";
             // echo "window.location.href = 'page/staff/index.php';";
         //   echo "</script>";
-        header("Location: page/staff/index.php");
+        header("Location: page/staff/");
     } elseif ($_SESSION["level"] == "employee") {
-        header("Location: page/emp1/");
+        header("Location: page/emp/");
     }
 } else {
     // exit();

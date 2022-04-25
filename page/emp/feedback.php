@@ -1,9 +1,19 @@
-<?php session_start(); ?>
-
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?> 
+<?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OPRS SYSTEM</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+
+    <?php include("../include/head.php"); ?>
+
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- link search www -->
@@ -17,11 +27,11 @@
         }
 
         .card-title {
-            font-size: 30px;
+            font-size: 25px;
         }
 
         a {
-            color: black;
+            color: white;
         }
 
         table {
@@ -57,7 +67,7 @@
 
 
                     <!-- /.card-header -->
-                    <div class="card-body  ">
+                    <!-- <div class="card-body  ">
                         <div class="card-tools">
                             <div class="input-group">
                                 <input type="search" class="form-control form-control-lg" id="myInput" placeholder="ค้นหาข้อมูล">
@@ -68,16 +78,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped" id="myTable">
+                    <!-- <div class="table-responsive mailbox-messages"> -->
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped" id="example1" >
                             <thead>
                                 <tr>
                                     <!-- <th><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button></th> -->
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
-                                    <th>ชื่อผู้ส่ง</th>
+                                    <th>ผู้รายงาน</th>
                                     <th>แผนก</th>
                                     <th>หัวข้อ</th>
                                     <th>ดู</th>
@@ -94,9 +105,9 @@
                                 // $department = 'หัวหน้าคณบดี';
                                 // $_SESSION["member_id"] = 1;
 
-                                $department = 'รองคณบดีฝ่ายบริหาร';
-                                $department_id = 3;
-                                $_SESSION["member_id"] = 3;
+                                // $department = 'รองคณบดีฝ่ายบริหาร';
+                                $department_id = $_SESSION["department_id"];
+                                // $_SESSION["member_id"] = 3;
 
                                 //? Select FROM send_feedback  , member , departmen 
                                 $result = "SELECT * FROM `send_feedback`
@@ -123,8 +134,8 @@
                                 ?>
                                     <tr>
 
-                                        <td><?php echo $count++ ?></td>
-                                        <td><?php echo $value['date'] ?></td>
+                                        <td style="width:5%"><?php echo $count++ ?></td>
+                                        <td style="width:15%"><?php echo $value['date'] ?></td>
                                         <?php
                                         $member_send_id = $value['member_send_id'];
                                         $result2 = "SELECT * FROM member 
@@ -135,12 +146,20 @@
                                         $query2 = mysqli_query($condb, $result2);
                                         $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
                                         foreach ($rows2 as $value2) {
+                                            $color = '';
+                                            if($value2['level']=='boss'){
+                                                $color = 'danger';
+                                            } elseif($value2['level']=='staff'){
+                                                $color = 'warning';
+                                            } elseif($value2['level']=='employee'){
+                                                $color = 'success';
+                                            }
                                         ?>
                                             <td><?php echo $value2['first_name'] . " " . $value2['last_name'] ?></td>
-                                            <td><?php echo $value2['department_name'] ?></td>
+                                            <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value2['department_name'] ?></span><h5></td>
                                             <td><?php echo $value['header'] ?></td>
                                             
-                                            <td align="center"><button class="btn btn-warning"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['first_name'] . " " . $value2['last_name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>"><i class="fas fa-eye"></i></a></button></td>
+                                            <td style="width:10%" align="center"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['first_name'] . " " . $value2['last_name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <?php
                                         }
                                         ?>
@@ -151,7 +170,7 @@
                                 <!-- <th><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button></th> -->
                                 <th>ลำดับ</th>
                                 <th>วันที่ส่ง</th>
-                                <th>ชื่อผู้ส่ง</th>
+                                <th>ผู้รายงาน</th>
                                 <th>แผนก</th>
                                 <th>หัวข้อ</th>
                                 <th>ดู</th>
@@ -159,6 +178,7 @@
                         </table>
 
                     </div>
+                    <!-- </div> -->
 
 
 
@@ -168,15 +188,8 @@
             </div>
         </div>
     </div>
-    </div>
+    <?php include("../include/footer.php"); ?>
 
-    <!-- jQuery -->
-    <script src="../../assets/bootstrap/template/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="../../assets/bootstrap/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../assets/bootstrap/template/dist/js/demo.js"></script>
 
     <!-- table -->
     <script>
@@ -185,9 +198,10 @@
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": true,
-                "paging": false,
+                "paging": true,
                 "ordering": true,
                 "info": false,
+                "autoWidth": false,
                 "buttons": ["copy", "excel", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -244,4 +258,5 @@
             });
         });
     </script>
+
 </body>
