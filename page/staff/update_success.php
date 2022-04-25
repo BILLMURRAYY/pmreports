@@ -169,7 +169,7 @@
 
                                         echo " <div id='pdfplace'>";
                                         echo " <center>";
-                                        echo "<a href='../../assets/images/$file'><input class='btn11 btn-danger btn-sm' type='button' value='คลิกที่นี้เพื่อดาวน์โหลดไฟล์'></a>";
+                                        echo "<a href='../../assets/images/$file'><input class='btn btn-danger ' type='button' value='คลิกที่นี้เพื่อดาวน์โหลดไฟล์'></a>";
                                         echo " </center>";
                                         echo "<br>";
                                     }
@@ -179,7 +179,7 @@
                                         <div class="col-sm-10">
                                         <!-- <input type="file" name="file" class="form-control" id="myfile" value=""> -->
                                         <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="file">
+                                        <input type="file" class="custom-file-input" id="customFile" name="file" accept="application/pdf , application/msword ,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                         <label class="custom-file-label" for="customFile"><?php echo $rows['file']?></label>
                                         </div>
 

@@ -180,7 +180,7 @@ require_once("../service/condb.php");
                                     </form>
                                 </li> -->
                                 <li class="nav-item">
-                                <a  class="nav-link" onclick="logout()">
+                                <a href=""  class="nav-link" onclick="logout()">
                                         <i class="nav-icon far fa-circle text-info"></i>
                                         <p>ออกจากระบบ</p>
                                     </a>

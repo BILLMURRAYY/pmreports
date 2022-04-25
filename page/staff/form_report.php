@@ -194,7 +194,7 @@
                                         <div class="col-sm-10">
                                         <!-- <input type="file" name="file[]" class="custom-file-label" id="myfile" > -->
                                         <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="file[]">
+                                        <input type="file" class="custom-file-input" id="customFile" name="file[]" accept="application/pdf , application/msword ,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                         <!-- <div class="form-group"> -->

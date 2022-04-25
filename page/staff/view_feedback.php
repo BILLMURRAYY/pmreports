@@ -188,7 +188,7 @@
 
                                                                 echo " <div id='pdfplace'>";
                                                                 echo " <center>";
-                                                                echo "<a href='../../assets/images/$file'><button class='btn11 btn-danger btn-sm'>คลิกที่นี้เพื่อดาวน์โหลดไฟล์</button></a>";
+                                                                echo "<a href='../../assets/images/$file'><button class='btn btn-danger '>คลิกที่นี้เพื่อดาวน์โหลดไฟล์</button></a>";
                                                                 echo " </center>";
                                                                 echo "<br>";
                                                             }
