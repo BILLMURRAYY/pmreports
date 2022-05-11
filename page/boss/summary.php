@@ -15,9 +15,9 @@ require_once("../service/condb.php");
 
     <?php include("../include/head.php"); ?>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
 
 
     <style>
@@ -89,7 +89,7 @@ require_once("../service/condb.php");
                         document.getElementById("txtHint1").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajax2.php?q=" + str, true);
+                xmlhttp.open("GET", "ajax3.php?q=" + str, true);
                 xmlhttp.send();
             }
         }
@@ -138,14 +138,14 @@ require_once("../service/condb.php");
                 <div class=" card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">Summary</h3>
+                            <h3 class="card-title">สรุปผลการรายงานของพนักงาน</h3>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="form-group">
                             <!-- <form> -->
-                                <label class="col col-form-label">แผนก :</label>
+                                <label class="col col-form-label">ตำแหน่งงาน :</label>
                                 <!-- <div class="col"> -->
                                     <select class="select2 form-control" name="depart" onchange="showUser(this.value)" style="width: 100%;">
 
@@ -196,7 +196,7 @@ require_once("../service/condb.php");
                             <!-- </form> -->
 
                             <!-- <br> -->
-                            <div id="txtHint"><b>โปรดเลือกแผนกเพื่อดูผลสรุปของพนักงาน</b></div>
+                            <div id="txtHint"><b>โปรดเลือกตำแหน่งงานเพื่อดูผลสรุปของพนักงาน</b></div>
 
                             <!-- <label class="col-2 col-form-label">ชื่อพนักงาน :</label>
                             <div class="col-sm-4">

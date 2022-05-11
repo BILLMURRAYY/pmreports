@@ -4,7 +4,9 @@ require_once("../service/condb.php");  //ไฟล์เชื่อมต่อ
 
 
 $member_id = $_GET["member_id"];
-$sql = "DELETE FROM member
+echo $member_id;
+// exit();
+$sql = "DELETE FROM member1
 WHERE member_id = $member_id ";
 $query = mysqli_query($condb,$sql);
 

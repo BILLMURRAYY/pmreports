@@ -64,29 +64,76 @@
         }
     </script>
     <script>
-        function archiveFunction() {
-        event.preventDefault(); // prevent form submit
-        var form = event.target.form; // storing the form
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-            ).then((result) => {
-            form.submit();
-            })
-        }
-        })
-        }
+        // !!!!!!!!!!!!!
+        // function archiveFunction() {
+        // event.preventDefault(); // prevent form submit
+        // var form = event.target.form; // storing the form
+        // Swal.fire({
+        // title: 'Are you sure?',
+        // text: "You won't be able to revert this!",
+        // icon: 'warning',
+        // showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        // confirmButtonText: 'Yes, delete it!'
+        // }).then((result) => {
+        // if (result.isConfirmed) {
+        //     Swal.fire(
+        //     'Deleted!',
+        //     'Your file has been deleted.',
+        //     'success'
+        //     ).then((result) => {
+        //     form.submit();
+        //     })
+        // }
+        // })
+        // }
+
+        // $('#postForm').on('submit',function() {  
+        //     // event.preventDefault(); // prevent form submit
+        // // var form = event.target.form; // storing the form
+        // // let form = $(this).closest('form');
+        // Swal.fire({
+        // title: 'Are you sure?',
+        // text: "You won't be able to revert this!",
+        // icon: 'warning',
+        // showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        // confirmButtonText: 'Yes, delete it!'
+        // }).then((result) => {
+        //     Swal.fire(
+        //     'Deleted!',
+        //     'Your file has been deleted.',
+        //     'success'
+        //     ).then((result) => {
+        //     this.submit();
+        //     })
+        // if (result.isConfirmed) {
+        // }
+        // })
+        // });
+
+        // $(document).ready(function(){
+        // $('#postForm').on('submit',function() {  //Don't foget to change the id form
+        // $.ajax({
+        //     url:'back_add_report.php', //===PHP file name====
+        //     data:$(this).serialize(),
+        //     type:'POST',
+        //     success:function(data){
+        //     console.log(data);
+        //     //Success Message == 'Title', 'Message body', Last one leave as it is
+        //     swal("¡Success!", "Message sent!", "success");
+        //     },
+        //     error:function(data){
+        //     //Error Message == 'Title', 'Message body', Last one leave as it is
+        //     swal("Oops...", "Something went wrong :(", "error");
+        //     }
+        // });
+        // // e.preventDefault(); //This is to Avoid Page Refresh and Fire the Event "Click"
+        // });
+        // });
+</script>
 
        
     </script>
@@ -111,7 +158,9 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <form id="postForm" action="back_add_report.php" method="POST" enctype="multipart/form-data" onsubmit="return postForm()">
+                        <!-- action="back_add_report.php" -->
+                        <!-- onsubmit="return postForm()" -->
+                        <form id="postForm" action="back_add_report.php"  method="POST" enctype="multipart/form-data" >
 
                             <div class="card-body" id="report_form" style="display: block;">
                                 <div class="card-body">
@@ -157,6 +206,7 @@
                                     <label class="col-sm-2 col-form-label">ความสำเร็จงาน :</label>
                                         <div class="col-sm-2" style="">
                                             <select name="success[]" class="select2 form-control" style="width: 100%;" required>
+                                                <option value="0">0 %</option>
                                                 <option value="10">10 %</option>
                                                 <option value="20">20 %</option>
                                                 <option value="30">30 %</option>
@@ -194,7 +244,7 @@
                                         <div class="col-sm-10">
                                         <!-- <input type="file" name="file[]" class="custom-file-label" id="myfile" > -->
                                         <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="file[]">
+                                        <input type="file" class="custom-file-input" id="customFile" name="file[]" accept="application/pdf , application/msword ,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                         <!-- <div class="form-group"> -->
@@ -228,6 +278,7 @@
                             <div class="card-footer">
                             
                                 <button type="submit" class="btn btn-primary" onclick="archiveFunction()"><i class="fas fa-save"></i> บันทึกรายงาน</button>
+                                <!-- onclick="archiveFunction()" -->
 
                                 <div class="btn btn-info " id="moreFields" onclick="inits()">
                                     <i class="fas fa-plus-circle"></i>
@@ -243,7 +294,7 @@
             </div>
         </div>
     </div>
-    <?php include("../include/footer.php"); ?>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -256,6 +307,9 @@
     $(function () {
     bsCustomFileInput.init();
     });
+    </script>
+    <script>
+       
     </script>
 
     <script type="">
@@ -321,6 +375,6 @@ $('textarea[name="content"]').html($('#summernote').code());
         });
     </script>
 
-
+<?php include("../include/footer.php"); ?>
 
 </body>

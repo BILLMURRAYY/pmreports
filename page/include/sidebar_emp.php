@@ -30,6 +30,7 @@
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
             <!-- <img src="#" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> รูปภาพ -->
+            <img src="../../assets/images/favicons/logo.png" alt="AdminLTE Logo" class="brand-image " style="">
             <span class="brand-text font-weight-light">OPRS</span>
         </a>
 
@@ -97,6 +98,16 @@
                                         <p>
                                             feedback
                                             <!-- <i class="fas fa-angle-left right"></i> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="view_summary.php" class="nav-link">
+                                        <i class="nav-icon fas fal fa-table"></i>
+                                       
+                                        <p>
+                                        สรุปผลการรายงาน
+                                            <!-- <i class="right fas fa-angle-left"></i> -->
                                         </p>
                                     </a>
                                 </li>

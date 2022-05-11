@@ -53,9 +53,9 @@
                 <div class="card-header text-center">
                     <!-- <a href="#" class="h1"><b>photo_icon_icit</b>LTE</a> -->
                     <!-- <img src="assets/images/kmutnb_logo.png" alt=""> -->
-                    <p>Admin Login</p>
-                    <p>username : root</p>
-                    <p>password : 11111</p>
+                    <h3>Admin Login</h3>
+                    <!-- <p>username : root</p>
+                    <p>password : 11111</p> -->
                     <!-- <img src="assets/images/icit.png" alt=""> -->
                 </div>
                 <div class="card-body">

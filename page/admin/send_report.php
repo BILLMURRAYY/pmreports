@@ -76,7 +76,7 @@ $count = 1;
                 <div class="card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">จัดการรายงานผล</h3>
+                            <h3 class="card-title">จัดการตำแหน่งงาน</h3>
                         </div>
                         <div style="text-align: right;">
                         <a href="form_add_depart.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มการจัดส่งรายงาน</button></a>
@@ -104,10 +104,10 @@ $count = 1;
                             <thead>
                                 <tr>
                                     <th>ลำดับ</th>
-                                    <th>แผนก</th>
+                                    <th>ตำแหน่งงาน</th>
                                     <th>สิทธิ์การเข้าถึง</th>
                                     <th>ส่งรายงาน</th>
-                                    <th>ส่งประเมิน</th>
+                                    <th>ดูรายงาน</th>
                                     <th>แก้ไข</th>
                                     <th>ลบ</th>
                                 </tr>
@@ -131,8 +131,8 @@ $count = 1;
                                         <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['level'] ?></span><h5></td>
                                         <td><?php echo $value['flow_report'] ?></td>
                                         <td><?php echo $value['flow_estimate'] ?></td>
-                                        <td> <a href="edit_depart.php?department_id=<?php echo $value['department_id'] ?>" class="btn btn-info"><i class="far fa-edit"></i>แก้ไข</a></td>
-                                        <td><a href="back_del_depart.php?department_id=<?php echo $value['department_id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i>ลบ</a></td>
+                                        <td> <a href="edit_depart.php?department_id=<?php echo $value['department_id'] ?>" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                                        <td><a href="back_del_depart.php?department_id=<?php echo $value['department_id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                 <?php } ?>
 
@@ -141,10 +141,10 @@ $count = 1;
                             <tfoot>
                                 <tr>
                                     <th>ลำดับ</th>
-                                    <th>แผนก</th>
+                                    <th>ตำแหน่งงาน</th>
                                     <th>สิทธิ์การเข้าถึง</th>
                                     <th>ส่งรายงาน</th>
-                                    <th>ส่งประเมิน</th>
+                                    <th>ดูรายงาน</th>
                                     <th>แก้ไข</th>
                                     <th>ลบ</th>
                                 </tr>

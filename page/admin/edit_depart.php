@@ -90,22 +90,22 @@ $count = 1;
 
                                 <div class="form-group">
                                     
-                                    <label for="exampleInputEmail1">ชื่อแผนก</label>
+                                    <label for="exampleInputEmail1">ชื่อตำแหน่งงาน</label>
                                     <input value="<?php echo $valuei['department_name'] ?>" name="department_name" type="input" class="form-control" id="depart" placeholder=" " required>
                                 </div>
 
                                 <div class="form-group ">
 
                                     <label class="col-sm-2 col-form-label">สิทธิ์การเข้าถึง</label>
-                                    <div class="col">
+                                    <!-- <div class="col"> -->
                                         <select class="select2 form-control" name="level" style="width: 100%;" required>
                                             <option value="<?php echo $valuei['level'] ?>"><?php echo $valuei['level'] ?></option>
-                                            <option value="admin">admin</option>
+                                            <!-- <option value="admin">admin</option> -->
                                             <option value="boss">boss</option>
                                             <option value="staff">staff</option>
                                             <option value="employee">employee</option>
                                         </select>
-                                    </div>
+                                    <!-- </div> -->
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">

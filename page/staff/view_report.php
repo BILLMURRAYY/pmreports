@@ -55,6 +55,7 @@
     <div class="wrapper">
         <?php include("nav.php"); ?>
         <?php include("../include/sidebar_staff.php"); ?>
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -62,7 +63,8 @@
                     <div class="card">
                         <div class="card-header " style="background:#004385 ;color:white;">
                             <div>
-                                <h3 class="card-title">ไทม์ไลน์การปฎิบัติงาน</h3>
+                                <h3 class="card-title">รายงานผลการปฎิบัติงาน
+</h3>
                             </div>
                             <!-- <div style="text-align: right;">
                                 <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
@@ -97,8 +99,23 @@
                         // echo "</pre>";
 
                         foreach ($rows as $values) {
-                            array_push($text, $values['header']);
+                            if(!empty($values['his_success']) ||$values['his_success']>=0){
+                                $arr = explode(",",$values['his_success']);
+                            }
                             array_push($arr, $values['success']);
+                            if(!empty($values['his_date'])){
+                                $text = explode(",",$values['his_date']);
+                                $i = 0;
+                                foreach($text as $value){
+                                    // array_push($text, DateThai($value));
+                                    $text[$i] = DateThai($value);
+                                    $i++;
+                                }
+                                }
+                            array_push($text, DateThai($values['working_range_end']));
+
+                            // array_push($text, $values['his_date']);
+                            // array_push($arr, $values['success']);
                             // print_r($text);
                             // print_r($arr);
                         ?>
@@ -128,7 +145,10 @@
 
                                                         <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label">รายละเอียดงาน :</label>
-                                                            <div class="col-10"><?php echo $values['detail']; ?></div>
+                                                            <div class="col-10">
+                                                                <!-- <label class="col-form-label"><?php echo $values['detail']; ?></label> -->
+                                                                <textarea style="background-color: white; border:0;resize: none;width: 100%;height: 150px;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea1"  disabled><?php echo $values['detail']?></textarea>
+                                                            </div>
 
                                                             <!-- <textarea class="col-10 form-control"></textarea> -->
                                                         </div>
@@ -149,7 +169,7 @@
                                                         <div class=".form-group row">
                                                             <label class="col-sm-2 col-form-label">วันที่และเวลาทำงาน:</label>
                                                             <div class="col-sm-4">
-                                                                <label class="col-form-label"><?php echo $values['working_range_start']; ?> <span>- <?php echo $values['working_range_end']; ?></span></label>
+                                                                <label class="col-form-label"><?php echo DateThai($values['working_range_start']); ?> <span>ถึง <?php echo DateThai($values['working_range_end']); ?></span></label>
                                                             </div>
                                                         </div>
 
@@ -192,7 +212,7 @@
                                                         <!-- Canvas ChartJS -->
                                                         <div class="card card-success">
                                                             <div class="card-header">
-                                                                <h3 class="card-title">Success</h3>
+                                                                <h3 class="card-title">ความสำเร็จ</h3>
 
                                                                 <div class="card-tools">
                                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

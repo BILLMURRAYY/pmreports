@@ -1,12 +1,12 @@
 <!-- Main Footer -->
-<footer class="main-footer">
+<!-- <footer class="main-footer"> -->
     <!-- To the right -->
-    <div class="pull-right hidden-xs">
+    <!-- <div class="pull-right hidden-xs">
         OPRS SYSTEM
-    </div>
+    </div> -->
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2021 All rights reserved.
-</footer>
+    <!-- <strong>Copyright &copy; 2021 All rights reserved. -->
+<!-- </footer> -->
     <!-- jQuery -->
     <script src="../../assets/bootstrap/template/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->

@@ -69,14 +69,14 @@
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_boss.php"); ?>
+        <?php include("../include/sidebar_staff.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">ฟอร์มส่งfeedback</h3>
+                            <h3 class="card-title">ฟอร์มส่งข้อเสนอแนะ</h3>
                         </div>
                         <!-- <div style="text-align: right;">
                             <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
@@ -128,7 +128,7 @@
                                 <input type="hidden" name="member_send_id" value="<?php echo $member_send_id ?>">
                                 <br>
                                 <div class="" style="text-align: center;">
-                                    <button style="padding: 10px; text-alight:center;" type="submit" class="btn btn-danger" onclick="archiveFunction()"><i class="fas fa-paper-plane"></i> ส่งfeedback</button>
+                                    <button style="padding: 10px; text-alight:center;" type="submit" class="btn btn-danger" onclick="archiveFunction()"><i class="fas fa-paper-plane"></i> ส่งข้อเสนอแนะ</button>
                                 </div>
                             </div>
                         </form>

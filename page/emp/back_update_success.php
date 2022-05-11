@@ -5,6 +5,7 @@ echo "<pre>";
 print_r($_POST);
 print_r($_FILES);
 echo "</pre>";
+// exit();
 $member_id = $_SESSION['member_id'];
 $send_report_id = $_POST['send_report_id'];
 $report_id = $_POST['report_id'];
@@ -16,6 +17,8 @@ $success = $_POST['success'];
 $start_range = $_POST['start_range'];
 $end_range = $_POST['end_range'];
 $problem = $_POST['problem'];
+$his_success = $_POST['his_success'];
+$his_date = $_POST['his_date'];
 $file = $_FILES['file'];
 // Don't update file
 if($file['size'] == 0){
@@ -36,6 +39,8 @@ if($file['size'] == 0){
         working_range_start,
         working_range_end,
         problem,
+        his_success,
+        his_date,
         file
     
     )
@@ -49,6 +54,8 @@ if($file['size'] == 0){
         '$start_range',
         '$end_range',
         '$problem',
+        '$his_success',
+        '$his_date',
         '$files'
     
     )
@@ -82,10 +89,10 @@ if($file['size'] == 0){
     )";
     $query3 = mysqli_query($condb,$sql3);
     
-    $delete_report ="DELETE FROM report WHERE report_id = $report_id";
-    $delete_reports = mysqli_query($condb,$delete_report);
     $delete_send_report ="DELETE FROM send_report WHERE send_report_id = $send_report_id";
     $delete_send_reports = mysqli_query($condb,$delete_send_report);
+    $delete_report ="DELETE FROM report WHERE report_id = $report_id";
+    mysqli_query($condb,$delete_report);
     // exit();
     // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
 }else{
@@ -161,6 +168,8 @@ if($file['size'] == 0){
                     working_range_start,
                     working_range_end,
                     problem,
+                    his_success,
+                    his_date,
                     file
                 
                 )
@@ -174,6 +183,8 @@ if($file['size'] == 0){
                     '$start_range',
                     '$end_range',
                     '$problem',
+                    '$his_success',
+                    '$his_date',
                     '$newname'
                 
                 )
@@ -219,10 +230,10 @@ if($file['size'] == 0){
                 echo ("error");
                 }
                 
-                $delete_report ="DELETE FROM report WHERE report_id = $report_id";
-                $delete_reports = mysqli_query($condb,$delete_report);
                 $delete_send_report ="DELETE FROM send_report WHERE send_report_id = $send_report_id";
                 $delete_send_reports = mysqli_query($condb,$delete_send_report);
+                $delete_report ="DELETE FROM report WHERE report_id = $report_id";
+                $delete_reports = mysqli_query($condb,$delete_report);
             
             // move_uploaded_file($_FILES['gile']['tmpname'], '/store/to/location.file');
         }elseif($value_file == 0){

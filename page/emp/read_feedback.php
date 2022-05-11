@@ -1,8 +1,6 @@
 <?php session_start(); ?> 
 <?php include("../service/check_login_page.php"); ?>
-<?php
-require_once("../service/condb.php");
-?>
+<?php require_once("../service/condb.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,14 +42,15 @@ require_once("../service/condb.php");
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_emp.php"); ?>
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">Feedback</h3>
+                            <h3 class="card-title">ข้อเสนอแนะ</h3>
                         </div>
                         <!-- <div style="text-align: right;">
                             <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
@@ -89,7 +88,11 @@ require_once("../service/condb.php");
                             <div class="callout callout-info">
 
                                 <h5>ชื่อผู้ส่ง : <?php echo $member_send_name ?></h5>
-                                <span class="">วันที่ส่ง : <?php echo $values['date']; ?></span>
+                                <?php
+                                    $date = explode(" ",$values['date']);
+                                    $date = DateThai($date[0]);
+                                ?>
+                                <span class="">วันที่ส่ง : <?php echo $date; ?></span>
                     </br></br>
                                 <div class="post clearfix">
                                     <div class="col">

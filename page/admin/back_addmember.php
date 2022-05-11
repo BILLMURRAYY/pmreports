@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-        
-    
 <?php
-
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+exit();
 //1. เชื่อมต่อ database: 
 require_once("../service/condb.php");  //ไฟล์เชื่อมต่อกับ database 
 

@@ -13,7 +13,6 @@
     <?php include('../include/meta.php') ?>
 
     <?php include("../include/head.php"); ?>
-
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- link search www -->
@@ -51,14 +50,14 @@
         <?php include("nav.php"); ?>
 
         <?php include("../include/sidebar_emp.php"); ?>
-
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">feedback </h3>
+                            <h3 class="card-title">ข้อเสนอแนะ</h3>
                         </div>
                         <!-- <div style="text-align: right;">
                             <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
@@ -88,8 +87,8 @@
                                     <!-- <th><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button></th> -->
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
-                                    <th>ผู้รายงาน</th>
-                                    <th>แผนก</th>
+                                    <th>ผู้ส่ง</th>
+                                    <th>ตำแหน่งงาน</th>
                                     <th>หัวข้อ</th>
                                     <th>ดู</th>
                                 </tr>
@@ -106,7 +105,7 @@
                                 // $_SESSION["member_id"] = 1;
 
                                 // $department = 'รองคณบดีฝ่ายบริหาร';
-                                $department_id = $_SESSION["department_id"];
+                                $member_id = $_SESSION["member_id"];
                                 // $_SESSION["member_id"] = 3;
 
                                 //? Select FROM send_feedback  , member , departmen 
@@ -117,7 +116,7 @@
                                         -- ON member.department_id = department.department_id
                                         inner JOIN feedback
                                         ON send_feedback.feedback_id = feedback.feedback_id
-                                        WHERE member_receive_id = $department_id
+                                        WHERE member_receive_id = $member_id
                                         ORDER BY send_feedback_id DESC";
 
                                 $query = mysqli_query($condb, $result);
@@ -135,16 +134,23 @@
                                     <tr>
 
                                         <td style="width:5%"><?php echo $count++ ?></td>
-                                        <td style="width:15%"><?php echo $value['date'] ?></td>
+                                        <?php
+                                        
+                                        $date = explode(" ",$value['date']);
+                                        $date = DateThai($date[0]);
+
+                                        ?>
+                                        <td ><?php echo $date ?></td>
                                         <?php
                                         $member_send_id = $value['member_send_id'];
                                         $result2 = "SELECT * FROM member 
                                                     INNER JOIN department
-                                                    ON department.department_id = member.member_id
+                                                    ON department.department_id = member.department_id
                                                     WHERE member_id = $member_send_id";
 
                                         $query2 = mysqli_query($condb, $result2);
                                         $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
+                                        // print_r($rows2);
                                         foreach ($rows2 as $value2) {
                                             $color = '';
                                             if($value2['level']=='boss'){
@@ -155,11 +161,11 @@
                                                 $color = 'success';
                                             }
                                         ?>
-                                            <td><?php echo $value2['first_name'] . " " . $value2['last_name'] ?></td>
+                                            <td><?php echo $value2['name'] ?></td>
                                             <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value2['department_name'] ?></span><h5></td>
                                             <td><?php echo $value['header'] ?></td>
                                             
-                                            <td style="width:10%" align="center"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['first_name'] . " " . $value2['last_name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                            <td style="width:10%" align="center"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <?php
                                         }
                                         ?>
@@ -170,8 +176,8 @@
                                 <!-- <th><button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i></button></th> -->
                                 <th>ลำดับ</th>
                                 <th>วันที่ส่ง</th>
-                                <th>ผู้รายงาน</th>
-                                <th>แผนก</th>
+                                <th>ผู้ส่ง</th>
+                                <th>ตำแหน่งงาน</th>
                                 <th>หัวข้อ</th>
                                 <th>ดู</th>
                             </tfoot>

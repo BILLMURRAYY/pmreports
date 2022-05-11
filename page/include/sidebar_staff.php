@@ -13,18 +13,18 @@ require_once("../service/condb.php");
 
 ?>
 <script>
-    function confirm_logout(){
-        if(confirm("Logout")){
-            window.location="../../index.php";
-        }
-    }
+    // function confirm_logout(){
+    //     if(confirm("Logout")){
+    //         window.location="../../index.php";
+    //     }
+    // }
 </script>
 <script>
         function logout() {
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
         Swal.fire({
-        title: 'Are you sure Logout?',
+        title: 'ออกจากระบบ?',
         // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -33,11 +33,12 @@ require_once("../service/condb.php");
         confirmButtonText: 'Yes!'
         }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-            'Logout!',
+            Swal.fire({
+            title:'ออกจากระบบ สำเร็จ!',
+            icon: 'success'
             // 'Your file has been deleted.',
-            'success'
-            ).then((result) => {
+            
+            }).then((result) => {
                 window.location="../../logout.php";
             })
         }
@@ -51,6 +52,7 @@ require_once("../service/condb.php");
         <!-- Brand Logo -->
         <a href="index.php" class="brand-link">
             <!-- <img src="#" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> รูปภาพ -->
+            <img src="../../assets/images/favicons/logo.png" alt="AdminLTE Logo" class="brand-image " style="">
             <span class="brand-text font-weight-light">OPRS</span>
         </a>
 
@@ -131,7 +133,7 @@ require_once("../service/condb.php");
                                         <i class="nav-icon fas  fa-comment"></i>
                                        
                                         <p>
-                                            feedback
+                                            ข้อเสนอแนะ
                                             <!-- <i class="fas fa-angle-left right"></i> -->
                                         </p>
                                     </a>
@@ -140,7 +142,7 @@ require_once("../service/condb.php");
                                     <a href="history_feedback.php" class="nav-link">
                                         <i class="nav-icon fas fad fa-history"></i>
                                         <p>
-                                            ประวัติส่งfeedback             
+                                            ประวัติส่งข้อเสนอแนะ            
                                         </p>
                                     </a>
                                 </li>
@@ -149,7 +151,17 @@ require_once("../service/condb.php");
                                         <i class="nav-icon fas fal fa-table"></i>
                                        
                                         <p>
-                                            Summary
+                                        สรุปผลการรายงานของพนักงาน
+                                            <!-- <i class="right fas fa-angle-left"></i> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="view_summary.php" class="nav-link">
+                                        <i class="nav-icon fas fal fa-table"></i>
+                                       
+                                        <p>
+                                        สรุปผลการรายงาน
                                             <!-- <i class="right fas fa-angle-left"></i> -->
                                         </p>
                                     </a>

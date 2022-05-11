@@ -82,7 +82,7 @@ $count = 1;
                             <h3 class="card-title">ข้อมูลสมาชิก</h3>
                         </div>
                         <div style="text-align: right;">
-                        <a href="form_add_member.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มสมาชิก</button></a>
+                        <a href="form_add_member1.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มสมาชิก</button></a>
                         </div>
                     </div>
 
@@ -103,10 +103,10 @@ $count = 1;
                                 <tr>
                                     <th>ลำดับ</th>
                                     <th>ชื่อ - นามสกุล</th>
-                                    <th>Email</th>
-                                    <!-- <th>Tel</th> -->
-                                    <th>Department</th>
-                                    <th>Level</th>
+                                    <th>Username</th>
+                                    <!-- <th>เบอร์โทรศัพท์</th> -->
+                                    <th>ตำแหน่งงาน</th>
+                                    <th>ระดับตำแหน่ง</th>
                                     <!-- <th>รีเซตรหัสผ่าน</th> -->
                                     <th>แก้ไข</th>
                                     <th>ลบ</th>
@@ -126,13 +126,16 @@ $count = 1;
                                 ?>
                                     <tr>
                                         <td><?php echo $count++ ?></td>
-                                        <td><?php echo $value['first_name'] . " " . $value['last_name'] ?></td>
-                                        <td><?php echo $value['email'] ?></td>
+                                        <!-- <td><?php //echo $value['first_name'] . " " . $value['last_name'] ?></td> -->
+                                        <td><?php echo $value['name'] ?></td>
+                                        <td><?php echo $value['username'] ?></td>
+                                        <!-- <td><?php echo $value['tel'] ?></td> -->
+                                        <!-- <td><?php echo $value['email'] ?></td> -->
                                         <!-- <td><?php echo $value['tel'] ?></td> -->
                                         <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
                                         <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['level'] ?></span><h5></td>
                                         <!-- <td><a href="repass.php?id_member=<?php echo $value['member_id'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td> -->
-                                        <td> <a href="edit_member.php?member_id=<?php echo $value['member_id'] ?>" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                                        <td> <a href="edit_member1.php?member_id=<?php echo $value['member_id'] ?>" class="btn btn-info"><i class="far fa-edit"></i></a></td>
                                         <td><a href="back_del_member.php?member_id=<?php echo $value['member_id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                 <?php } ?>
@@ -146,10 +149,10 @@ $count = 1;
                                 <tr>
                                     <th>ลำดับ</th>
                                     <th>ชื่อ - นามสกุล</th>
-                                    <th>Email</th>
-                                    <!-- <th>Tel</th> -->
-                                    <th>Department</th>
-                                    <th>Level</th>
+                                    <th>Username</th>
+                                    <!-- <th>เบอร์โทรศัพท์</th> -->
+                                    <th>ตำแหน่งงาน</th>
+                                    <th>ระดับตำแหน่ง</th>
                                     <!-- <th>รีเซตรหัสผ่าน</th> -->
                                     <th>แก้ไข</th>
                                     <th>ลบ</th>

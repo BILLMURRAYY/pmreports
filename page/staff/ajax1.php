@@ -50,7 +50,7 @@ $q = $_GET['q'];
 
                 echo "<label class='col col-form-label'>ชื่อ-สกุล :</label>";
                 // echo "<div class='col'>";
-                    echo "<select class='select2 form-control' name='depart' onchange='showUser1(this.value)' style='width: 100%;'>";
+                    echo "<select class='select2 form-control' name='member_id' onchange='showUser1(this.value)' style='width: 100%;'>";
         
                         echo "<option value=''>เลือกรายการ :</option>";
                 while ($value = mysqli_fetch_array($query)) {
@@ -60,7 +60,7 @@ $q = $_GET['q'];
                     // $flow_estimate = explode(",", $flow_estimate);
                     // print_r($flow_estimate);
 
-                        echo "<option value=".$value["member_id"].">" .$value['first_name'] . " " . $value['last_name']."</option>";
+                        echo "<option value=".$value["member_id"].">" .$value['name'] ."</option>";
 
                         // echo "<option value=" . $row['member_id'] . ">" . $row['first_name'] . " " . $row['last_name'] . "</option>";
 
@@ -69,7 +69,7 @@ $q = $_GET['q'];
                 }
                 echo "</select>";
                 mysqli_close($condb);
-                echo "<div id='txtHint1'><b>โปรดเลือกแผนกเพื่อดูผลสรุปของพนักงาน</b></div>";
+                echo "<div id='txtHint1'><b>โปรดเลือกชื่อ-สกุลเพื่อดูผลสรุปของพนักงาน</b></div>";
                 ?>
 
                 <!-- <option value="รองคณบดีฝ่ายบริหาร">รองคณบดีฝ่ายบริหาร</option>

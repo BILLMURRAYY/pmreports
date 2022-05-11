@@ -43,13 +43,14 @@
         <?php include("nav.php"); ?>
 
         <?php include("../include/sidebar_staff.php"); ?>
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
                     <div class="card-header ">
                         <div>
-                            <h3 class="card-title">ประวัติการส่ง Feedback</h3>
+                            <h3 class="card-title">ประวัติการส่งข้อเสนอแนะ</h3>
                         </div>
                         <!-- <div style="text-align: right;">
                             <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
@@ -119,7 +120,13 @@
 
                                     <tr>
                                         <td style="width:5%"><?php echo $count++ ?></td>
-                                        <td style="width:15%"><?php echo $value['date'] ?></td>
+                                        <?php
+                                        
+                                        $date = explode(" ",$value['date']);
+                                        $date = DateThai($date[0]);
+
+                                        ?>
+                                        <td ><?php echo $date ?></td>
 
                                         <?php
                                         $member_receive_id = $value['member_receive_id'];
@@ -140,14 +147,14 @@
                                                 $color = 'success';
                                             }
                                         ?>
-                                            <td><?php echo $value2['first_name'] . " " . $value2['last_name'] ?></td>
+                                            <td><?php echo $value2['name']?></td>
                                             <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
                                         <?php
                                         }
                                         ?>
                                         <td><?php echo $value['header'] ?></td>
 
-                                        <td style="width:10%" align="center"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['first_name'] . " " . $value['last_name'] ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                        <td style="width:10%" align="center"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['name']  ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <!-- <td align="center"><button><a href="#">Detail</a></button></td> -->
                                     </tr>
                                 <?php } ?>

@@ -1,15 +1,15 @@
 <?php require_once("../service/condb.php"); ?>
 <?php
-$job_type = $_GET['q'];
+// $job_type = $_GET['q'];
 // echo "ประเภทงาน : ".$job_type."<br>";
 // echo gettype($job_type) . "<br>";
-$member_id = $_GET['q1'];
+$member_id = $_GET['q'];
 // echo "member_id พนักงาน : ".$member_id."<br>";
 // echo gettype($member_id) . "<br>";
 // exit();
-echo "<form action='graph.php' method='post'>";
-    echo "<input type='hidden' name='member_id' value='".$member_id."'>";
-    echo "<input type='hidden' name='job_type' value='".$job_type."'><br>";
+echo "<form action='graph1.php' method='post'>";
+    echo "<input type='hidden' name='member_id' value='".$member_id."'><br>";
+    // echo "<input type='hidden' name='job_type' value='".$job_type."'><br>";
     // echo "<div class='d-grid gap-2'>";
     echo "<button  type='submit' class='btn btn-success btn-lg btn-block'>ค้นหา</button>";
     // echo "</div>";

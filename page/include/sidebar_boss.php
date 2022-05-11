@@ -3,7 +3,7 @@
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
         Swal.fire({
-        title: 'Are you sure Logout?',
+        title: 'ออกจากระบบ?',
         // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -12,11 +12,12 @@
         confirmButtonText: 'Yes!'
         }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-            'Logout!',
+            Swal.fire({
+            title:'ออกจากระบบ สำเร็จ!',
+            icon: 'success'
             // 'Your file has been deleted.',
-            'success'
-            ).then((result) => {
+            
+            }).then((result) => {
                 window.location="../../logout.php";
             })
         }
@@ -29,15 +30,17 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
+    <img src="../../assets/images/favicons/logo.png" alt="AdminLTE Logo" class="brand-image " style="">
       <span class="brand-text font-weight-light">OPRS</span>
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-transition os-host-scrollbar-horizontal-hidden">
+    <div class="sidebar">
+    <!-- <div class="sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-transition os-host-scrollbar-horizontal-hidden"> -->
       
-      <div class="os-padding">
-        <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
-          <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
+      <!-- <div class="os-padding"> -->
+        <!-- <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;"> -->
+          <!-- <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;"> -->
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <!-- <div class="image"> -->
@@ -142,9 +145,9 @@
                             </ul>
                         </nav>
                         <!-- /.sidebar-menu -->
-                    </div>
-                </div>
-            </div>
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
             <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable os-scrollbar-auto-hidden">
                 <div class="os-scrollbar-track">
                     <div class="os-scrollbar-handle" style="width: 100%; transform: translate(0px, 0px);"></div>

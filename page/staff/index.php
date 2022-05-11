@@ -45,6 +45,7 @@
         <?php include("nav.php"); ?>
 
         <?php include("../include/sidebar_staff.php"); ?>
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -74,7 +75,8 @@
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
                                     <th>ผู้รายงาน</th>
-                                    <th>แผนก</th>
+                                    <!-- <th>แผนก</th> -->
+                                    <th>ตำแหน่งงาน</th>
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>
@@ -139,7 +141,7 @@
                                         $color = 'success';
                                     }
                                     $color_suc = '';
-                                    if($value['success']<='50'){
+                                    if($value['success']=='0'){
                                         $color_suc = 'danger';
                                     } elseif($value['success']<'100'){
                                         $color_suc = 'warning';
@@ -149,8 +151,14 @@
                                 ?>
                                     <tr>
                                         <td style="width:5%"><?php echo $count++ ?></td>
-                                        <td style="width:15%"><?php echo $value['date'] ?></td>
-                                        <td><?php echo $value['first_name'] . " " . $value['last_name'] ?></td>
+                                        <?php
+                                        
+                                        $date = explode(" ",$value['date']);
+                                        $date = DateThai($date[0]);
+
+                                        ?>
+                                        <td ><?php echo $date ?></td>
+                                        <td><?php echo $value['name']?></td>
 
                                         <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
 
@@ -179,7 +187,7 @@
                                         <td><?php echo $value['header']; ?></td>
                                         <td style="width:20%"><?php echo $value['job_type']; ?></td>
                                         <td style="width:10%"><h5><span class="badge bg-<?php echo $color_suc ?>"><?php echo $value['success']; ?>%</span><h5></td>
-                                        <td style="width:10%" align="center"><a href="view_feedback.php?report_id=<?php echo $value['report_id'] ?>&member_send_name=<?php echo $value['first_name'] . " " . $value['last_name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>&send_report_id=<?php echo $value['send_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                        <td style="width:10%" align="center"><a href="view_feedback.php?report_id=<?php echo $value['report_id'] ?>&member_send_name=<?php echo $value['name']?>&member_send_id=<?php echo $value['member_send_id'] ?>&send_report_id=<?php echo $value['send_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
 
                                         <!-- <td><a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a></td> -->
 
@@ -202,7 +210,7 @@
                                     <th>ลำดับ</th>
                                     <th>วันที่ส่ง</th>
                                     <th>ผู้รายงาน</th>
-                                    <th>แผนก</th>
+                                    <th>ตำแหน่งงาน</th>
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>

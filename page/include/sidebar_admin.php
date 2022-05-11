@@ -1,12 +1,42 @@
 <!-- <body class="sidebar-mani layout-fixed sidebar-closed sidebar-collapse " style="height: auto;"> -->
+<script>
+        function logout() {
+        event.preventDefault(); // prevent form submit
+        var form = event.target.form; // storing the form
+        Swal.fire({
+        title: 'ออกจากระบบ?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+            title:'ออกจากระบบ สำเร็จ!',
+            icon: 'success'
+            // 'Your file has been deleted.',
+            
+            }).then((result) => {
+                window.location="../../logout.php";
+            })
+        }
+        })
+        }
+
+       
+    </script>
+<body class="sidebar-mani layout-fixed sidebar-closed sidebar-collapse " style="height: auto;">
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-   
-      <a href="#" class="brand-link">
-        <!-- <img src="#" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-        <span class="brand-text font-weight-light">OPRS</span>
+   <!-- <center> -->
+      <a href="#" class="brand-link ">
+        <img src="../../assets/images/favicons/logo.png" alt="AdminLTE Logo" class="brand-image " style="">
+        <!-- img-circle elevation- -->
+        <h4 class="brand-text font-weight-light">OPRS</h4>
       </a>
-   
+      <!-- </center> -->
 
 
     <!-- Sidebar -->
@@ -26,10 +56,10 @@
                 ?>
                 <!-- <img src="../../assets/images/<?php //echo $rows0['img'] ?>" class="img-circle elevation-2" alt="User Image"> -->
               </div>
-              <div class="info" style="text-align: center;">
-                <a href="#" class="d-block"><?php echo $_SESSION["member_name"] ?>
+              <div class="info text-center" style="text-align: center;">
+                <a href="#" class="d-block"><h5><?php echo $_SESSION["member_name"] ?></h5>
                 </a>
-                <span style="color: white;"><?php //echo  $_SESSION["department_name"] ;?></span>
+                <!-- <span style="color: white;"><?php //echo  $_SESSION["department_name"] ;?></span> -->
               </div>
             </div>
 
@@ -65,7 +95,7 @@
                     <a href="send_report.php" class="nav-link">
                       <i class="nav-icon fas fa-list"></i>
                       <p>
-                        จัดการรายงานผล
+                        จัดการตำแหน่งงาน
                         <!-- <i class="fas fa-angle-left right"></i> -->
                       </p>
                     </a>
@@ -101,7 +131,7 @@
                   </li> -->
 
                   <li class="nav-item">
-                    <a href="../../logout.php" class="nav-link">
+                    <a href="" class="nav-link" onclick="logout()">
                       <i class="nav-icon far fa-circle text-info"></i>
                       <p>ออกจากระบบ</p>
                     </a>
@@ -129,4 +159,4 @@
       <!-- /.sidebar -->
   </aside>
 
-<!-- </body> -->
+</body>

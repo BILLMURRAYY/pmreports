@@ -32,17 +32,17 @@
         var form = event.target.form; // storing the form
         Swal.fire({
         title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, Update it!'
         }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Update!',
+            // 'Your file has been deleted.',
             'success'
             ).then((result) => {
             form.submit();
@@ -131,6 +131,7 @@
                                         <div class="col-sm-2" style="">
                                             <select name="success" class="select2 form-control" style="width: 100%;" required>
                                                 <option value="<?php echo $rows['success']?>"><?php echo $rows['success']?> %</option>
+                                                <option value="0">0 %</option>
                                                 <option value="10">10 %</option>
                                                 <option value="20">20 %</option>
                                                 <option value="30">30 %</option>
@@ -142,15 +143,36 @@
                                                 <option value="90">90 %</option>
                                                 <option value="100">100 %</option>
                                             </select>
+                                            <?php
+                                            $his_success =[];
+                                            if(!is_null($rows['his_success'])){
+                                                if(!empty($rows['his_date'])){
+                                            $his_success = explode(",",$rows['his_success']);
+                                            }}
+                                            array_push($his_success,$rows['success']);
+                                            $his_success = implode(",",$his_success)
+                                            ?>
+                                            <input type="hidden" name="his_success" value="<?php echo $his_success ?>">
                                         </div>
                                         <label class="col-sm-2 col-form-label">วันที่เริ่มทำงาน :</label>
                                         <div class="input-group col-sm-6">
                                             <div class="input-group">
-                                                <input type="date" name="start_range" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" value="<?php echo $rows['working_range_start']?>" >
+                                                <input type="date" name="start_range" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" value="<?php echo $rows['working_range_start']?>" disabled>
+                                                <input type="hidden" name="start_range" value="<?php echo $rows['working_range_start']?>">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">ถึง</i></span>
                                                 </div>
                                                 <input type="date" name="end_range" id="issueinput4" class="form-control" name="datefixed" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Date Fixed" data-original-title="" title="" value="<?php echo $rows['working_range_end']?>" >
+                                                <?php
+                                                $his_date= [];
+                                                if(!is_null($rows['his_date'])){
+                                                if(!empty($rows['his_date'])){
+                                                $his_date = explode(",",$rows['his_date']);
+                                                }}
+                                                array_push($his_date,$rows['working_range_end']);
+                                                $his_date = implode(",",$his_date)
+                                                ?>
+                                                <input type="hidden" name="his_date" value="<?php echo $his_date ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +191,7 @@
 
                                         echo " <div id='pdfplace'>";
                                         echo " <center>";
-                                        echo "<a href='../../assets/images/$file'><input class='btn11 btn-danger btn-sm' type='button' value='คลิกที่นี้เพื่อดาวน์โหลดไฟล์'></a>";
+                                        echo "<a href='../../assets/images/$file'><input class='btn btn-danger ' type='button' value='คลิกที่นี้เพื่อดาวน์โหลดไฟล์'></a>";
                                         echo " </center>";
                                         echo "<br>";
                                     }
@@ -179,7 +201,7 @@
                                         <div class="col-sm-10">
                                         <!-- <input type="file" name="file" class="form-control" id="myfile" value=""> -->
                                         <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="file">
+                                        <input type="file" class="custom-file-input" id="customFile" name="file" accept="application/pdf , application/msword ,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                         <label class="custom-file-label" for="customFile"><?php echo $rows['file']?></label>
                                         </div>
 

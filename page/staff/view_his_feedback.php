@@ -45,6 +45,7 @@ require_once("../service/condb.php");
         <?php include("nav.php"); ?>
 
         <?php include("../include/sidebar_staff.php"); ?>
+        <?php include('../include/function_date.php');?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -96,7 +97,11 @@ require_once("../service/condb.php");
 
                                     <div class="col">
                                         <!-- <img class="img-circle img-bordered-sm" src="" alt="user image"> -->
-                                        <span class="">วันที่ส่ง : <?php echo $values['date']; ?></span>
+                                        <?php
+                                            $date = explode(" ",$values['date']);
+                                            $date = DateThai($date[0]);
+                                        ?>
+                                        <span class="">วันที่ส่ง : <?php echo $date; ?></span>
                                     </div>
                                     <br>
                                     <div class="col">

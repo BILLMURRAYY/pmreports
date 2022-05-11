@@ -1,9 +1,6 @@
 <?php session_start(); ?> 
 <?php include("../service/check_login_page.php"); ?>
-<?php
-require_once("../service/condb.php");
-
-?>
+<?php require_once("../service/condb.php");?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,6 +67,7 @@ require_once("../service/condb.php");
         <?php include("nav.php"); ?>
 
         <?php include("../include/sidebar_emp.php"); ?>
+        <?php include('../include/function_date.php');?>
 
 
         <div class="content-wrapper" style="min-height: 608px;">
@@ -97,7 +95,7 @@ require_once("../service/condb.php");
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>
-                                    <th>update</th>
+                                    <th>แก้ไข</th>
                                     <th>ดู</th>
                                     <!-- <th>ลบ</th> -->
                                 </tr>
@@ -137,7 +135,7 @@ require_once("../service/condb.php");
                                 $count = 1;
                                 foreach ($rows as $value) {
                                     $color_suc = '';
-                                    if($value['success']<='50'){
+                                    if($value['success']=='0'){
                                         $color_suc = 'danger';
                                     } elseif($value['success']<'100'){
                                         $color_suc = 'warning';
@@ -147,7 +145,13 @@ require_once("../service/condb.php");
                                 ?>
                                     <tr>
                                         <td style="width:5%"><?php echo $count++ ?></td>
-                                        <td style="width:15%"><?php echo $value['date'] ?></td>
+                                        <?php
+                                        
+                                        $date = explode(" ",$value['date']);
+                                        $date = DateThai($date[0]);
+
+                                        ?>
+                                        <td ><?php echo $date ?></td>
 
                                         <?php
                                         // $report_id = $value['report_id'];
@@ -195,7 +199,7 @@ require_once("../service/condb.php");
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>
-                                    <th>update</th>
+                                    <th>แก้ไข</th>
                                     <th>ดู</th>
                                     <!-- <th>ลบ</th> -->
                                 </tr>
@@ -233,29 +237,5 @@ require_once("../service/condb.php");
             });
         });
     </script>
-    <?php
-    if($_SESSION['check_login']==1){
-        $_SESSION['check_login'] =0;
-        echo "<script>";
-        echo "const Toast = Swal.mixin({
-         toast: true,
-         position: 'top-end',
-         showConfirmButton: false,
-         timer: 3000,
-         timerProgressBar: true,
-         didOpen: (toast) => {
-             toast.addEventListener('mouseenter', Swal.stopTimer)
-             toast.addEventListener('mouseleave', Swal.resumeTimer)
-         }
-         })
- 
-         Toast.fire({
-         icon: 'success',
-         title: 'Signed in successfully'
-         })";
-        echo"</script>";
-    }
-
-    ?>  
 
 </body>

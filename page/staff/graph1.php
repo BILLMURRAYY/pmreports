@@ -1,4 +1,5 @@
 <?php session_start();
+include("../service/check_login_page.php");
 require_once("../service/condb.php");
 // echo "<pre>";
 // print_r($_POST);
@@ -40,11 +41,11 @@ require_once("../service/condb.php");
             font-size: 20px;
         }
 
-        .table td,
+        /* .table td,
         .table {
             padding: 10px;
             border: 1px solid #CDC9C9;
-        }
+        } */
 
         .head1 td {
             background: #17a2b8;
@@ -67,7 +68,7 @@ require_once("../service/condb.php");
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <?php include("nav.php"); ?>
-        <?php include("../include/sidebar_boss.php"); ?>
+        <?php include("../include/sidebar_staff.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">
@@ -91,11 +92,28 @@ require_once("../service/condb.php");
 
                             <div class="col">
                                 <?php
-                                $job_type = $_POST['job_type'];
+                                // $job_type = $_POST['job_type'];
+                                // $member_id = $_POST['member_id'];
+                                // $job_type = $_POST['job_type'];
                                 $member_id = $_POST['member_id'];
                                 // echo "<pre>";
                                 // print_r($_POST);
                                 // echo "</pre>";
+                                $sql = "SELECT name , department_name FROM member
+                                INNER JOIN department
+                                ON member.department_id = department.department_id
+                                WHERE member_id = $member_id";
+                                $query_member = mysqli_query($condb, $sql);
+                                $result_member = mysqli_fetch_array($query_member);
+                                echo "ชื่อ-สกุล : ".$result_member['name']."<br>";
+                                echo "ตำแหน่งงาน : ".$result_member['department_name']."<br>";
+                                echo "member_id : ".$member_id;
+                                // if(!empty($_GET['getjob_type'])){
+                                //     $job_type =$_GET['getjob_type'];
+                                // }
+                                // if(!empty($_GET['getmember_id'])){
+                                //     $member_id =$_GET['getmember_id'];
+                                // }
                                 // $q= "SELECT DATE_FORMAT(send_report.date, '%c') as month , COUNT(MONTH(send_report.date)) as count 
                                 // FROM send_report
                                 // inner join report
@@ -114,39 +132,62 @@ require_once("../service/condb.php");
                                 inner join report
                                 on send_report.report_id = report.report_id
                                 WHERE";
-                                $arr = ['งานประจำ', 'งานที่ตอบตัวชี้วัดคำรับรองการปฏิบัติงานของคณะ'];
-                                if (!empty($_GET['year'])) { //หากมีการเลือกปี ให้แสดงยอดขายของเดือนที่อยู่ในปีนั้นๆ
-                                    $getYear = $_GET['year'];
-                                    $mysql .= " send_report.member_send_id = " . $_POST['member_id'] . " AND report.job_type='" . $arr[$_POST['job_type']] . "' AND YEAR(send_report.date)='" . $getYear . "'";
-                                    $mysql2 .= " send_report.member_send_id = " . $_POST['member_id'] . " AND report.job_type='" . $arr[$_POST['job_type']] . "' AND report.success='100' AND YEAR(send_report.date)='" . $getYear . "'";
+                                $mysql3 = "SELECT DATE_FORMAT(send_report.date, '%c') as month , COUNT(MONTH(send_report.date)) as count 
+                                FROM send_report
+                                inner join report
+                                on send_report.report_id = report.report_id
+                                WHERE";
+                                $job = ['งานประจำ', 'งานที่ตอบตัวชี้วัดคำรับรองการปฏิบัติงานของคณะ'];
+                                // $job = ["งานประจำ","งานที่ตอบตัวชี้วัดคำรับรองการปฏิบัติงานของคณะ"];
+                                if (!empty($_POST['year'])||!empty($_POST['job_type'])) { //หากมีการเลือกปี ให้แสดงยอดขายของเดือนที่อยู่ในปีนั้นๆ
+                                    $getYear = $_POST['year'];
+                                    $getJob = $_POST['job_type'];
+                                    $mysql .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $getJob . "' AND YEAR(send_report.date)='" . $getYear . "'";
+                                    $mysql2 .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $getJob . "' AND report.success='100' AND YEAR(send_report.date)='" . $getYear . "'";
+                                    $mysql3 .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $getJob . "' AND report.success='0' AND YEAR(send_report.date)='" . $getYear . "'";
                                     // ShipperID = 3 change success = 100 | YEAR (date)
                                     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-                                    //  เพิ่ม where | member_id = $_GET['member_id'] AND job_type = $arr[$_GET['job_type']];
+                                    //  เพิ่ม where | member_id = $_GET['member_id'] AND job_type = $job[$_GET['job_type']];
                                 } else { //หากไม่เลือกอะไร ให้แสดงยอดขายในปีปัจจุบัน
                                     $getYear = date('Y');
-                                    $mysql .= " send_report.member_send_id = " . $_POST['member_id'] . " AND report.job_type='" . $arr[$_POST['job_type']] . "' AND YEAR(send_report.date)='" . $getYear . "'";
-                                    $mysql2 .= " send_report.member_send_id = " . $_POST['member_id'] . " AND report.job_type='" . $arr[$_POST['job_type']] . "' AND report.success='100' AND YEAR(send_report.date)='" . $getYear . "'";
+                                    $getJob = $job[0];
+                                    $mysql .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $job[0] . "' AND YEAR(send_report.date)='" . $getYear . "'";
+                                    $mysql2 .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $job[0] . "' AND report.success='100' AND YEAR(send_report.date)='" . $getYear . "'";
+                                    $mysql3 .= " send_report.member_send_id = " . $member_id . " AND report.job_type='" . $job[0] . "' AND report.success='0' AND YEAR(send_report.date)='" . $getYear . "'";
                                 }
                                 $mysql .= " GROUP BY YEAR(send_report.date), MONTH(send_report.date) 
                                 ORDER BY DATE_FORMAT(send_report.date,'%m') ASC";
                                 $mysql2 .= " GROUP BY YEAR(send_report.date), MONTH(send_report.date) 
+                                ORDER BY DATE_FORMAT(send_report.date,'%m') ASC";
+                                $mysql3 .= " GROUP BY YEAR(send_report.date), MONTH(send_report.date) 
                                 ORDER BY DATE_FORMAT(send_report.date,'%m') ASC";
                                 // $getYear=date('Y');
                                 // echo $mysql . "<br>";
                                 // echo $mysql2 . "<br>";
                                 // exit();
                                 ?>
-
+                                
                                 <div align="center">
-                                    <form id="form1" name="form1" method="post" action="">
-                                        <input type="hidden" name="job_type" value="<?php echo $job_type ?>">
+                                    <form   method="post" action="graph1.php">
                                         <input type="hidden" name="member_id" value="<?php echo $member_id ?>">
-                                        <label for="month"></label>
+                                        <!-- <input type="hidden" name="member_id" value="<?php //echo $member_id ?>"> -->
+                                        <label for="job_type"></label>
+                                        เลือกประเภทงาน
+                                        <select name="job_type" id="job_type">
+                                            <?php 
+                                            foreach ($job as $job_value) { 
+                                                //<?= $getJob == $job[0] ? 'selected' : '' ?>
+                                                ?>
+                                                <option value="<?= $job_value ?>" <?= $getJob == $job_value ? 'selected' : '' ?>><?php echo $job_value ?></option>
+                                            <?php  } ?>
+                                        </select>
+
+                                        <label for="year"></label>
                                         เลือกปี
                                         <select name="year" id="year">
                                             <?php for ($year = 2022; $year <= date('Y'); $year++) { ?>
-                                                <option value="<?= $year ?>" <?= $getYear == $year ? 'selected' : '' ?>><?= ($year + 543) ?></option>
+                                                <option value="<?= $year ?>" <?= $getYear == $year ? 'selected' : '' ?>><?php echo ($year + 543) ?></option>
                                             <?php  } ?>
                                         </select>
                                         <?php //echo date('Y');
@@ -164,7 +205,7 @@ require_once("../service/condb.php");
                                 
 
                                 <?php
-                                $sql = "SELECT  DATE_FORMAT(OrderDate, '%c') as month , COUNT(MONTH(OrderDate)) as count   FROM Orders WHERE YEAR(OrderDate)=1997  GROUP BY YEAR(OrderDate), MONTH(OrderDate) ORDER BY DATE_FORMAT(OrderDate,'%m') ASC";
+                                // $sql = "SELECT  DATE_FORMAT(OrderDate, '%c') as month , COUNT(MONTH(OrderDate)) as count   FROM Orders WHERE YEAR(OrderDate)=1997  GROUP BY YEAR(OrderDate), MONTH(OrderDate) ORDER BY DATE_FORMAT(OrderDate,'%m') ASC";
                                 $query = mysqli_query($condb, $mysql);
                                 // $result = mysqli_fetch_all($query);
                                 // echo "<pre>";
@@ -172,7 +213,8 @@ require_once("../service/condb.php");
                                 // echo "</pre>";
                                 $totals = [];
                                 // $totals1 = [];
-                                $fails = [];
+                                $fail = [];
+                                $progress = [];
                                 $successs = [];
                                 while ($show = mysqli_fetch_assoc($query)) {
                                     $totals[$show['month'] - 1] = $show['count'];
@@ -182,10 +224,14 @@ require_once("../service/condb.php");
                                 // echo "</pre>";
                                 // echo "<br>";
 
-                                $sql2 = "SELECT  DATE_FORMAT(OrderDate, '%c') as month , COUNT(MONTH(OrderDate)) as count   FROM Orders WHERE ShipperID = 3 AND YEAR(OrderDate)=1997  GROUP BY YEAR(OrderDate), MONTH(OrderDate) ORDER BY DATE_FORMAT(OrderDate,'%m') ASC";
+                                // $sql2 = "SELECT  DATE_FORMAT(OrderDate, '%c') as month , COUNT(MONTH(OrderDate)) as count   FROM Orders WHERE ShipperID = 3 AND YEAR(OrderDate)=1997  GROUP BY YEAR(OrderDate), MONTH(OrderDate) ORDER BY DATE_FORMAT(OrderDate,'%m') ASC";
                                 $query2 = mysqli_query($condb, $mysql2);
                                 while ($show2 = mysqli_fetch_assoc($query2)) {
                                     $successs[$show2['month'] - 1] = $show2['count'];
+                                }
+                                $query3 = mysqli_query($condb, $mysql3);
+                                while ($show3 = mysqli_fetch_assoc($query3)) {
+                                    $fail[$show3['month'] - 1] = $show3['count'];
                                 }
                                 // echo "<pre>";
                                 // print_r($successs);
@@ -208,6 +254,36 @@ require_once("../service/condb.php");
                                 // inner join report
                                 // on 
                                 $months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+                                
+                                //! 100%
+                                for ($i = 0; $i < COUNT($months); $i++) {
+                                    // echo $i;
+                                    if (!isset($successs[$i])) {
+                                        // echo '0<br>';
+                                        $successs[$i] = 0;
+                                    } else {
+                                        // echo '1<br>';
+                                    }
+                                }
+                                ksort($successs);
+                                // echo "<pre>";
+                                // print_r($successs);
+                                // echo "</pre>";
+                                
+                                //! 0%
+                                for ($i = 0; $i < COUNT($months); $i++) {
+                                    // echo $i;
+                                    if (!isset($fail[$i])) {
+                                        // echo '0<br>';
+                                        $fail[$i] = 0;
+                                    } else {
+                                        // echo '1<br>';
+                                    }
+                                }
+                                ksort($fail);
+                                // echo "<pre>";
+                                // print_r($fail);
+                                // echo "</pre>";
                                 //! total
                                 for ($i = 0; $i < COUNT($months); $i++) {
                                     // echo $i;
@@ -224,67 +300,63 @@ require_once("../service/condb.php");
                                 // echo "</pre>";
                                 // echo "<br>";
 
-                                //! 100%
+                                //! 1-99%
                                 for ($i = 0; $i < COUNT($months); $i++) {
-                                    // echo $i;
-                                    if (!isset($successs[$i])) {
-                                        // echo '0<br>';
-                                        $successs[$i] = 0;
-                                    } else {
-                                        // echo '1<br>';
-                                    }
+                                    $totals[$i] = $totals[$i]-$fail[$i];
                                 }
-                                ksort($successs);
-                                // echo "<pre>";
-                                // print_r($successs);
-                                // echo "</pre>";
-
-                                //! 0%
                                 for ($i = 0; $i < COUNT($months); $i++) {
-                                    $fails[$i] = $totals[$i] - $successs[$i];
+                                    $progress[$i] = $totals[$i] - $successs[$i];
                                 }
                                 // echo "<pre>";
-                                // print_r($fails);
+                                // print_r($progress);
                                 // echo "</pre>";
                                 ?>
                                 <br>
+                                
+                                <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <td>เดือน</td>
-                                        <td>รวม</td>
-                                        <td>100%</td>
-                                        <td>0%</td>
+                                        <td width="30%">เดือน</td>
+                                        <td>ดำเนินการสำเร็จ</td>
+                                        <td>กำลังดำเนินการ</td>
+                                        <td>ยังไม่ได้ดำเนินการ</td>
+                                        <td>จำนวนที่รายงาน</td>
                                     </tr>
-                                    </thead>
+                                </thead>
                                     <?php
                                         $total_report = 0;
                                         $total_report_suc = 0;
+                                        $total_report_progress = 0;
                                         $total_report_fail = 0;
                                         $month=array(0=>'มกราคม',1=>'กุมภาพันธ์',2=>'มีนาคม',3=>'เมษายน',4=>'พฤษภาคม',5=>'มิถุนายน',6=>'กรกฎาคม',7=>'สิงหาคม',8=>'กันยายน',9=>'ตุลาคม',10=>'พฤศจิกายน',11=>'ธันวาคม');
                                         foreach($month as $key_m => $val_m){
                                             $total_report+=$totals[$key_m];
                                             $total_report_suc+=$successs[$key_m];
-                                            $total_report_fail+=$fails[$key_m];
+                                            $total_report_progress+=$progress[$key_m];
+                                            $total_report_fail+=$fail[$key_m];
                                     ?>
-                                    <tbody>
+                                <tbody>
                                     <tr>
-                                        <td><?=$val_m?></td>
-                                        <td><?=$totals[$key_m]?></td>
-                                        <td><?=$successs[$key_m]?></td>
-                                        <td><?=$fails[$key_m]?></td>
+                                        <td><?php echo $val_m?></td>
+                                        <td><?php echo $successs[$key_m]?></td>
+                                        <td><?php echo $progress[$key_m]?></td>
+                                        <td><?php echo $fail[$key_m]?></td>
+                                        <td><?php echo $totals[$key_m]?></td>
                                     </tr>
-                                    </tbody>
+                                </tbody>
                                     <?php  } ?>
-                                    <tbody>
+                                <tbody>
                                     <tr>
                                         <td>รายงานรวมทั้งหมด : </td>
-                                        <td align="right"><?=$total_report?></td>
-                                        <td align="right"><?=$total_report_suc?></td>
-                                        <td align="right"><?=$total_report_fail?></td>
+                                        <td align="right"><?php echo $total_report_suc?></td>
+                                        <td align="right"><?php echo $total_report_progress?></td>
+                                        <td align="right"><?php echo $total_report_fail?></td>
+                                        <td align="right"><?php echo $total_report?></td>
                                     </tr>
-                                    </tbody>
+                                </tbody>
                                 </table>
+                                </div>
                                 </div>
                             </div>
                             <!-- End col -->
@@ -306,11 +378,12 @@ require_once("../service/condb.php");
 
     <!-- dom -->
     <script>
-        // const month = <?php //echo json_encode(array_keys($month)); 
+        // const month = <?php //echo json_encode(jobay_keys($month)); 
                             ?>;
         const month = <?php echo json_encode($months); ?>;
         const total = <?php echo json_encode($totals); ?>;
-        const fail = <?php echo json_encode($fails); ?>;
+        const progress = <?php echo json_encode($progress); ?>;
+        const fail = <?php echo json_encode($fail); ?>;
         const success = <?php echo json_encode($successs); ?>;
         var barChartData = {
             labels: month
@@ -329,28 +402,29 @@ require_once("../service/condb.php");
                 //   "ธันวาคม"
                 // ]
                 ,
-            datasets: [{
-                    label: "total",
+            datasets: [
+                {
+                    label: "ดำเนินการสำเร็จ",
                     yAxisID: 'bar-stack',
                     backgroundColor: "rgb(9, 154, 131)",
-                    //   borderColor: "rgb(9, 154, 131)",
-                    borderWidth: 1,
-                    stack: 'now1',
-                    // data: [20,30,20,17,15,20,20,30,20,17,15,20]
-                    data: total
-                },
-                {
-                    label: "100%",
-                    yAxisID: 'bar-stack',
-                    backgroundColor: "rgb(9, 154, 188)",
-                    //   borderColor: "rgb(9, 154, 188)",
+                    //   borderColor: "",
                     borderWidth: 1,
                     stack: 'bef',
                     // data: [10, 14, 15, 11, 7,10,10, 14, 15, 11, 7,10]
                     data: success
                 },
                 {
-                    label: "0%",
+                    label: "กำลังดำเน้นการ",
+                    yAxisID: 'bar-stack',
+                    backgroundColor: "rgb(255, 187, 0)",
+                    //   borderColor: "rgb(255, 70, 62)",
+                    borderWidth: 1,
+                    stack: 'bef',
+                    // data: [10, 16, 5, 6,6, 10,10, 16, 5, 6,6, 10]
+                    data: progress
+                },
+                {
+                    label: "ยังไม่ได้ดำเน้นการ",
                     yAxisID: 'bar-stack',
                     backgroundColor: "rgb(255, 70, 62)",
                     //   borderColor: "rgb(255, 70, 62)",
@@ -358,8 +432,17 @@ require_once("../service/condb.php");
                     stack: 'bef',
                     // data: [10, 16, 5, 6,6, 10,10, 16, 5, 6,6, 10]
                     data: fail
+                },
+                {
+                    label: "จำนวนที่รายงาน",
+                    yAxisID: 'bar-stack',
+                    backgroundColor: "rgb(9, 154, 188)",
+                    //   borderColor: "rgb(9, 154, 188)",
+                    borderWidth: 1,
+                    stack: 'now1',
+                    // data: [20,30,20,17,15,20,20,30,20,17,15,20]
+                    data: total
                 }
-                
 
                 // ,
                 // {

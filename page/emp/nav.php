@@ -1,11 +1,3 @@
-<!-- Main Header -->
-
-<style>
- 
-</style>
-<!-- header -->
-
-
 <body class="hold-transition sidebar-mini layout-fixed" >
 <!-- Preloader -->
 

@@ -57,9 +57,9 @@
     <!-- font -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro"> -->
     <style type="text/css">
-        @import url('https://fonts.googleapis.com/css2?family=Mitr:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
         body {
-            font-family: 'Mitr', sans-serif;
+            font-family: 'Sarabun', sans-serif;
             /* font-size: 48px; */
             font-weight: 100;
         }
