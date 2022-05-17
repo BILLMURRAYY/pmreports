@@ -31,7 +31,7 @@
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
         Swal.fire({
-        title: 'Are you sure?',
+        title: 'ยืนยันการอัพเดต?',
         // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -41,9 +41,9 @@
         }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
-            'Update!',
+            'อัพเดตสำเร็จ!',
             // 'Your file has been deleted.',
-            'success'
+            // 'success'
             ).then((result) => {
             form.submit();
             })
@@ -63,7 +63,7 @@
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">
                 <div class=" card-default">
-                <?php print_r($_GET);?>  
+                <?php //print_r($_GET);?>  
                     <div class="card card-primary ">
                         <div class="card-header" style="background:#004385; color:white;">
                             <h3 class="card-title">แบบฟอร์มupdateการปฎิบัติงาน </h3>
@@ -182,7 +182,7 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="problem" id="" cols="30" rows="10" placeholder=""  ><?php echo $rows['problem']?></textarea>
+                                            <textarea class="form-control" name="problem" id="" cols="30" rows="5" placeholder=""  ><?php echo $rows['problem']?></textarea>
                                         </div>
                                     </div>
                                   <?php
@@ -241,12 +241,21 @@
         </div>
     </div>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
     <script src="../../assets/js/dist/summernote.min.js"></script>
 
+    <script>
+        $('textarea').each(function () {
+  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+}).on('input', function () {
+  this.style.height = 'auto';
+  this.style.height = (this.scrollHeight) + 'px';
+});
+    </script>
     <script>
     $(function () {
     bsCustomFileInput.init();

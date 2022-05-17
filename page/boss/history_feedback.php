@@ -19,7 +19,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a {
@@ -123,20 +123,24 @@
                                         <?php
                                         
                                         $date = explode(" ",$value['date']);
-                                        $date = DateThai($date[0]);
+                                        $dates = DateThai($date[0]);
 
                                         ?>
-                                        <td ><?php echo $date ?></td>
+                                        <td ><?php echo $dates ?><br><?php echo $date[1] ?></td>
 
                                         <?php
                                         $member_receive_id = $value['member_receive_id'];
+                                        // echo $member_receive_id;
                                         $result2 = "SELECT * FROM member 
                                                     INNER JOIN department
-                                                    ON department.department_id = member.member_id
+                                                    ON department.department_id = member.department_id
                                                     WHERE member_id = $member_receive_id";
 
                                         $query2 = mysqli_query($condb, $result2);
                                         $rows2 = mysqli_fetch_all($query2, MYSQLI_ASSOC);
+                                        // echo "<pre>";
+                                        // print_r($rows2);
+                                        // echo "</pre>";
                                         foreach ($rows2 as $value2) {
                                             $color = '';
                                             if($value['level']=='boss'){
@@ -152,9 +156,10 @@
                                         <?php
                                         }
                                         ?>
+                                        <!-- <td><a href="view_feedback.php?report_id=<?php echo $value['sf_sent_report_id'] ?>"><?php echo $value['header'] ?></a></td> -->
                                         <td><?php echo $value['header'] ?></td>
 
-                                        <td style="width:10%" align="center"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['name']  ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                        <td style="width:10%" align="center"><a href="view_his_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value['name']  ?>&member_receive_id=<?php echo $value['member_receive_id'] ?>&sf_sent_report_id=<?php echo $value['sf_sent_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <!-- <td align="center"><button><a href="#">Detail</a></button></td> -->
                                     </tr>
                                 <?php } ?>
@@ -178,6 +183,7 @@
         </div>
     </div>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
 
     <script>
         $(function() {

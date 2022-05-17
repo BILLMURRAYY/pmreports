@@ -50,7 +50,7 @@ require_once("../service/condb.php");
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_boss.php"); ?>
         <?php include('../include/function_date.php'); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">

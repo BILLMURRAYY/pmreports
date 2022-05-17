@@ -25,7 +25,7 @@ $count = 1;
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a,

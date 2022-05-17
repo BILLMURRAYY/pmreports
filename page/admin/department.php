@@ -24,7 +24,7 @@ $count = 1;
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a,
@@ -79,7 +79,7 @@ $count = 1;
                             <h3 class="card-title">จัดการตำแหน่งงาน</h3>
                         </div>
                         <div style="text-align: right;">
-                        <a href="form_add_depart.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มการจัดส่งรายงาน</button></a>
+                        <a href="form_add_depart.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มตำแหน่งงาน</button></a>
 
                             </a>
                         </div>

@@ -19,7 +19,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a {
@@ -148,10 +148,10 @@
                                         <?php
                                         
                                         $date = explode(" ",$value['date']);
-                                        $date = DateThai($date[0]);
+                                        $dates = DateThai($date[0]);
 
                                         ?>
-                                        <td ><?php echo $date ?></td>
+                                        <td ><?php echo $dates ?><br><?php echo $date[1] ?></td>
 
                                         <?php
                                         // $report_id = $value['report_id'];
@@ -212,7 +212,7 @@
         </div>
     </div>
     <?php include("../include/footer.php"); ?>
-    
+    <?php include("../include/notification.php"); ?>
 
     <script>
         $(function() {

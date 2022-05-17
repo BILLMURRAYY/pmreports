@@ -18,6 +18,7 @@
     <!-- Ekko Lightbox -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
     <style>
         .contain {
             padding: 25px;
@@ -25,7 +26,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         .card-footer {
@@ -67,12 +68,26 @@
                             </div> -->
                         </div>
                         <?php
-                        $report_id = $_GET['report_id'];
-                        $report_id_feedback = $_GET['report_id'];
-                        $member_send_name = $_GET['member_send_name'];
-                        $member_send_id = $_GET['member_send_id'];
+                        
                         // $file = $_GET['file'];
                         $send_report_id = $_GET['send_report_id'];
+                        $result = "SELECT * FROM send_report 
+                                inner JOIN report
+                                on send_report.report_id = report.report_id
+                                inner JOIN member
+                                on member.member_id = send_report.member_send_id
+                                inner join department
+                                on department.department_id = member.department_id
+                                WHERE send_report_id = $send_report_id";
+                        $query = mysqli_query($condb, $result);
+                        $rows = mysqli_fetch_array($query, MYSQLI_ASSOC);
+                        // echo "<pre>";
+                        // print_r($rows);
+                        // echo "</pre>";
+                        $report_id = $rows['report_id'];
+                        $report_id_feedback = $rows['report_id'];
+                        $member_send_name = $rows['name'];
+                        $member_send_id = $rows['member_id'];
                         // echo "<br>";
                         // echo "report_id : " . $report_id;
                         // echo "<br>";
@@ -165,7 +180,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">รายละเอียดงาน : </label>
                                                                 <div class="col-10">
-                                                                    <label class="col-form-label"><?php echo $values['detail']; ?></label>
+                                                                <textarea style="background-color: white; border:0;resize: none;width: 100%;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea1"  disabled><?php echo $values['detail']?></textarea>
                                                                 </div>
                                                                 <!-- <textarea class="col-10 form-control">
                                                                     
@@ -196,7 +211,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
                                                                 <div class="col-10">
-                                                                    <?php echo $values['problem']; ?>
+                                                                <textarea style="background-color: white; border:0;resize: none;width: 100%;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea2"  disabled><?php echo $values['problem']; ?></textarea>
                                                                 </div>
                                                             </div>
 
@@ -293,6 +308,7 @@
                         <div class="timeline-footer" data-toggle="modal" data-target="#exampleModalCenter">
 
                             <form action="send_feedback.php" method="get">
+                                <input type="hidden" name="send_report_id" value="<?php echo $send_report_id ?>">
                                 <input type="hidden" name="report_id" value="<?php echo $report_id_feedback ?>">
                                 <input type="hidden" name="member_send_name" value="<?php echo $member_send_name ?>">
                                 <input type="hidden" name="member_send_id" value="<?php echo $member_send_id ?>">
@@ -315,6 +331,7 @@
 
 
         <script type="text/javascript">
+            
             window.onload = function() {
                 var myPDF = new PDFObject({
                     url: "pdf/<?php echo $file ?>",
@@ -361,6 +378,8 @@
             });
         </script> -->
         <script>
+            autosize(document.getElementById("exampleFormControlTextarea1"));
+            autosize(document.getElementById("exampleFormControlTextarea2"));
             // $(function() {
             //     // Summernote
             //     $('#summernote').summernote()
@@ -505,4 +524,5 @@
         <!-- Filterizr-->
         <script src="../../assets/bootstrap/template/plugins/filterizr/jquery.filterizr.min.js"></script>
         <?php include("../include/footer.php"); ?>
+        <?php include("../include/notification.php"); ?>
 </body>

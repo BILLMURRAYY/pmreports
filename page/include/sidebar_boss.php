@@ -103,16 +103,16 @@
                                     <i class="nav-icon fas fad fa-history"></i>
 
                                         <p>
-                                            ประวัติส่งfeedback             
+                                        ประวัติส่งข้อเสนอแนะ            
                                         </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="summary.php" class="nav-link">
-                                        <i class="nav-icon fas fal fa-table"></i>
+                                    <i class="nav-icon fas fa-chart-pie"></i>
                                        
                                         <p>
-                                            Summary
+                                        สรุปผลการรายงานของพนักงาน
                                             <!-- <i class="right fas fa-angle-left"></i> -->
                                         </p>
                                     </a>
@@ -138,7 +138,7 @@
 
                                 <li class="nav-item">
                                 <a class="nav-link" onclick="logout()">
-                                        <i class="nav-icon far fa-circle text-info"></i>
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
                                         <p>ออกจากระบบ</p>
                                     </a>
                                 </li>

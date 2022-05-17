@@ -227,5 +227,6 @@ require_once("../service/condb.php");
         });
     </script>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
 
 </body>

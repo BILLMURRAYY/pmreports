@@ -17,6 +17,7 @@
     <!-- Ekko Lightbox -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
     <style>
         .contain {
             padding: 25px;
@@ -127,10 +128,10 @@
                                         <!-- The time line -->
                                         <div class="timeline">
                                             <!-- timeline time label -->
-                                            <div class="time-label">
+                                            <!-- <div class="time-label">
 
                                                 <span class="bg-info"><?php echo $department_receive  ?></span>
-                                            </div>
+                                            </div> -->
                                             <!-- /.timeline-label -->
 
 
@@ -176,7 +177,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
                                                             <div class="col-10 ">
-                                                                <?php echo $values['problem']; ?>
+                                                            <textarea style="background-color: white; border:0;resize: none;width: 100%;height: 150px;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea2"  disabled><?php echo $values['problem']; ?></textarea>
                                                             </div>
                                                         </div>
 
@@ -286,6 +287,8 @@
             });
         </script> -->
         <script>
+            autosize(document.getElementById("exampleFormControlTextarea1"));
+            autosize(document.getElementById("exampleFormControlTextarea2"));
             $(function() {
                 // Summernote
                 $('#summernote').summernote()
@@ -421,5 +424,6 @@
         <!-- Filterizr-->
         <script src="../../assets/bootstrap/template/plugins/filterizr/jquery.filterizr.min.js"></script>
         <?php include("../include/footer.php"); ?>
+        <?php include("../include/notification.php"); ?>
 
 </body>

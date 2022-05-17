@@ -7,6 +7,7 @@ echo "</pre>";
 
 $member_id = $_SESSION["member_id"];
 echo $member_id;
+$send_report_id = $_POST["send_report_id"];
 $member_send_id = $_POST["member_send_id"];
 $header_name = $_POST["header_name"];
 $detail = $_POST["detail"];
@@ -30,12 +31,14 @@ $sql2 = "INSERT INTO send_feedback
             (
                 member_send_id,
                 member_receive_id,
+                sf_sent_report_id,
                 feedback_id
             ) 
             VALUES
             (
             '$member_id',
             '$member_send_id',
+            '$send_report_id',
             '$last_report_id'
             )";
 $query2 = mysqli_query($condb,$sql2);

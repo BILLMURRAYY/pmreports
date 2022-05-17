@@ -1,6 +1,6 @@
 <?php
 
-    $condb = mysqli_connect("localhost","root","","oprs_new1") 
+    $condb = mysqli_connect("localhost","root","","oprs_new2") 
     or die("Error : ". mysqli_error($condb));
     
     //set utf-8

@@ -14,7 +14,7 @@ mysqli_close($condb);
 if ($query) {
     echo "<script type='text/javascript'>";
     echo "alert('Delete Succesfuly');";
-    echo "window.location = 'index.php'; ";
+    echo "window.location = 'department.php'; ";
     echo "</script>";
 } else {
     echo "<script type='text/javascript'>";

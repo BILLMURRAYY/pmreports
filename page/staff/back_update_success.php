@@ -88,6 +88,11 @@ if($file['size'] == 0){
     '$last_report_id'
     )";
     $query3 = mysqli_query($condb,$sql3);
+    $last_sent_report_id = mysqli_insert_id($condb);
+
+    $sql4 = "UPDATE send_feedback SET
+    sf_sent_report_id = $last_sent_report_id WHERE sf_sent_report_id = $send_report_id";
+    mysqli_query($condb,$sql4);
     
     $delete_send_report ="DELETE FROM send_report WHERE send_report_id = $send_report_id";
     $delete_send_reports = mysqli_query($condb,$delete_send_report);
@@ -217,6 +222,11 @@ if($file['size'] == 0){
                 '$last_report_id'
                 )";
                 $query3 = mysqli_query($condb,$sql3);
+                $last_sent_report_id = mysqli_insert_id($condb);
+
+                $sql4 = "UPDATE send_feedback SET
+                sf_sent_report_id = $last_sent_report_id WHERE sf_sent_report_id = $send_report_id";
+                mysqli_query($condb,$sql4);
 
                 // delete last file
                 $sql2 = "SELECT file FROM report WHERE report_id = $report_id";

@@ -404,7 +404,7 @@ require_once("../service/condb.php");
                     data: success
                 },
                 {
-                    label: "กำลังดำเน้นการ",
+                    label: "กำลังดำเนินการ",
                     yAxisID: 'bar-stack',
                     backgroundColor: "rgb(255, 187, 0)",
                     //   borderColor: "rgb(255, 70, 62)",
@@ -414,7 +414,7 @@ require_once("../service/condb.php");
                     data: progress
                 },
                 {
-                    label: "ยังไม่ได้ดำเน้นการ",
+                    label: "ยังไม่ได้ดำเนินการ",
                     yAxisID: 'bar-stack',
                     backgroundColor: "rgb(255, 70, 62)",
                     //   borderColor: "rgb(255, 70, 62)",
@@ -490,6 +490,7 @@ require_once("../service/condb.php");
         };
     </script>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
     <script>
         $(function() {
             $("#example1").DataTable({

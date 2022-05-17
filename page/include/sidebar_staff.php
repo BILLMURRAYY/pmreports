@@ -1,4 +1,3 @@
-
 <?php
 require_once("../service/condb.php");
 
@@ -119,7 +118,10 @@ require_once("../service/condb.php");
                                 </li>
                                 <li class="nav-item">
                                     <a href="report.php" class="nav-link">
-                                        <i class="nav-icon fas fa-chart-pie"></i>
+                                        <!-- <i class="nav-icon fas fa-chart-pie"></i>
+                                     -->
+                                     <!-- <i class="nav-icon fas fa-file"></i> -->
+                                     <i class="nav-icon fas fa-paper-plane"></i>
                                         <p>
                                             รายงานผลการปฎิบัติงาน
                                             <!-- <i class="fas fa-angle-left right"></i> -->
@@ -129,13 +131,17 @@ require_once("../service/condb.php");
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="feedback.php" class="nav-link">
+                                    <a href="feedback.php" class="nav-link clicks">
                                         <i class="nav-icon fas  fa-comment"></i>
                                        
                                         <p>
                                             ข้อเสนอแนะ
+                                             
+                                            <!-- <span class="glyphicon glyphicon-envelope" style="font-size:18px;"></span> -->
                                             <!-- <i class="fas fa-angle-left right"></i> -->
                                         </p>
+                                        <span class="badge bg-danger count" style="border-radius:10px;"></span>
+                                        <!-- <span class="label label-pill label-danger count" style="border-radius:10px;"></span> -->
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -148,8 +154,9 @@ require_once("../service/condb.php");
                                 </li>
                                 <li class="nav-item">
                                     <a href="summary.php" class="nav-link">
-                                        <i class="nav-icon fas fal fa-table"></i>
-                                       
+                                        <!-- <i class="nav-icon fas fal fa-table"></i> -->
+                                        <!-- <i class="nav-icon fas fa-chart-bar"></i> -->
+                                        <i class="nav-icon fas fa-chart-pie"></i>
                                         <p>
                                         สรุปผลการรายงานของพนักงาน
                                             <!-- <i class="right fas fa-angle-left"></i> -->
@@ -158,8 +165,8 @@ require_once("../service/condb.php");
                                 </li>
                                 <li class="nav-item">
                                     <a href="view_summary.php" class="nav-link">
-                                        <i class="nav-icon fas fal fa-table"></i>
-                                       
+                                        <!-- <i class="nav-icon fas fal fa-table"></i> -->
+                                        <i class="nav-icon fas fa-chart-bar"></i>
                                         <p>
                                         สรุปผลการรายงาน
                                             <!-- <i class="right fas fa-angle-left"></i> -->
@@ -193,7 +200,8 @@ require_once("../service/condb.php");
                                 </li> -->
                                 <li class="nav-item">
                                 <a href=""  class="nav-link" onclick="logout()">
-                                        <i class="nav-icon far fa-circle text-info"></i>
+                                        <!-- <i class="nav-icon far fa-circle text-info"></i> -->
+                                        <i class="nav-icon fas fa-sign-out-alt"></i>
                                         <p>ออกจากระบบ</p>
                                     </a>
                                 </li>
@@ -217,5 +225,7 @@ require_once("../service/condb.php");
         </div>
         <!-- /.sidebar -->
     </aside>
+
+
 
 </body>

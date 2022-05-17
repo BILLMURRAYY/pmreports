@@ -20,7 +20,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a {
@@ -62,6 +62,7 @@
                         // print_r($_SESSION);
                         // echo "</pre>";
                         ?>
+                        <!-- <span class="badge bg-danger count" style="border-radius:10px;"></span> -->
                     </div>
 
 
@@ -80,7 +81,7 @@
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>
-                                    <th>ดู</th>
+                                    <th>ดูรายงาน</th>
                                     <!-- <th>ลบ</th> -->
                                 </tr>
                             </thead>
@@ -154,13 +155,13 @@
                                         <?php
                                         
                                         $date = explode(" ",$value['date']);
-                                        $date = DateThai($date[0]);
+                                        $dates = DateThai($date[0]);
 
                                         ?>
-                                        <td ><?php echo $date ?></td>
+                                        <td ><?php echo $dates ?><br><?php echo $date[1] ?></td>
                                         <td><?php echo $value['name']?></td>
-
-                                        <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
+                                        <!-- style="white-space:normal;display:inline;" -->
+                                        <td style="width:20%"><h5><span  class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
 
                                         <?php
                                         // $report_id = $value['report_id'];
@@ -187,6 +188,9 @@
                                         <td><?php echo $value['header']; ?></td>
                                         <td style="width:20%"><?php echo $value['job_type']; ?></td>
                                         <td style="width:10%"><h5><span class="badge bg-<?php echo $color_suc ?>"><?php echo $value['success']; ?>%</span><h5></td>
+
+                                        <!-- <td style="width:10%" align="center"><a href="view_feedback.php?report_id=<?php echo $value['report_id'] ?>&member_send_name=<?php echo $value['name']?>&member_send_id=<?php echo $value['member_send_id'] ?>&send_report_id=<?php echo $value['send_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td> -->
+
                                         <td style="width:10%" align="center"><a href="view_feedback.php?report_id=<?php echo $value['report_id'] ?>&member_send_name=<?php echo $value['name']?>&member_send_id=<?php echo $value['member_send_id'] ?>&send_report_id=<?php echo $value['send_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
 
                                         <!-- <td><a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a></td> -->
@@ -214,7 +218,7 @@
                                     <th>หัวข้อ</th>
                                     <th>ประเภทงาน</th>
                                     <th>ควมสำเร็จ</th>
-                                    <th>แก้ไข</th>
+                                    <th>ดูรายงาน</th>
                                     <!-- <th>ลบ</th> -->
                                 </tr>
                             </tfoot>
@@ -225,7 +229,9 @@
             </div>
         </div>
     </div>
+
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -251,6 +257,41 @@
 
         
     </script>
+    
+    <!-- <script>
+$(document).ready(function(){
+ 
+ function load_unseen_notification(view = '')
+ {
+    //  alert('gg');
+  $.ajax({
+   url:"../include/fetch.php",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data)
+   {
+    // $('.dropdown-menu').html(data.notification);
+    if(data.unseen_notification > 0)
+    {
+     $('.count').html(data.unseen_notification);
+    }
+   }
+  });
+ }
+ 
+ load_unseen_notification();
+
+ $(document).on('click', '.clicks', function(){
+  $('.count').html('');
+  load_unseen_notification('yes');
+ });
+
+ setInterval(function(){ 
+  load_unseen_notification();; 
+ }, 5000);
+})
+</script> -->
     <script>
         // const Toast = Swal.mixin({
         // toast: true,

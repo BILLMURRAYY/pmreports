@@ -26,7 +26,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a {
@@ -137,10 +137,10 @@
                                         <?php
                                         
                                         $date = explode(" ",$value['date']);
-                                        $date = DateThai($date[0]);
+                                        $dates = DateThai($date[0]);
 
                                         ?>
-                                        <td ><?php echo $date ?></td>
+                                        <td ><?php echo $dates ?><br><?php echo $date[1] ?></td>
                                         <?php
                                         $member_send_id = $value['member_send_id'];
                                         $result2 = "SELECT * FROM member 
@@ -165,7 +165,7 @@
                                             <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value2['department_name'] ?></span><h5></td>
                                             <td><?php echo $value['header'] ?></td>
                                             
-                                            <td style="width:10%" align="center"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
+                                            <td style="width:10%" align="center"><a href="read_feedback.php?feedback_id=<?php echo $value['feedback_id'] ?>&member_send_name=<?php echo $value2['name'] ?>&member_send_id=<?php echo $value['member_send_id'] ?>&sf_sent_report_id=<?php echo $value['sf_sent_report_id'] ?>"><button class="btn btn-success"><i class="fas fa-eye"></i></button></a></td>
                                         <?php
                                         }
                                         ?>
@@ -195,6 +195,7 @@
         </div>
     </div>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
 
 
     <!-- table -->

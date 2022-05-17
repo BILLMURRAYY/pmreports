@@ -42,7 +42,7 @@ mysqli_close($condb);
 if ($result) {
     echo "<script type='text/javascript'>";
     echo "alert('Upload File Succesfuly');";
-    echo "window.location = 'send_report.php'; ";
+    echo "window.location = 'department.php'; ";
     echo "</script>";
 } else {
     echo "<script type='text/javascript'>";

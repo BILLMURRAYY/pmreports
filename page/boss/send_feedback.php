@@ -19,7 +19,7 @@
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
         }
 
         a {
@@ -40,7 +40,7 @@
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
         Swal.fire({
-        title: 'Are you sure Logout?',
+        title: 'ยืนยันการส่ง?',
         // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -50,9 +50,9 @@
         }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire(
-            'Send Feedback!',
+            'ส่งสำเร็จ!',
             // 'Your file has been deleted.',
-            'success'
+            // 'success'
             ).then((result) => {
             form.submit();
             })
@@ -69,7 +69,7 @@
 
         <?php include("nav.php"); ?>
 
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_boss.php"); ?>
 
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
@@ -87,6 +87,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <?php
+                        $send_report_id = $_GET['send_report_id'];
                         $report_id = $_GET['report_id'];
                         $member_send_name = $_GET['member_send_name'];
                         $member_send_id = $_GET['member_send_id'];
@@ -97,10 +98,10 @@
                             // echo "</pre>";
                             // exit()
                         ;        ?>
-                        <h2>ชื่อพนักงาน : <?php echo $member_send_name ?></h2>
+                        <h5>ชื่อพนักงาน : <?php echo $member_send_name ?></h5>
                         <form action="back_send_feedback.php" method="post">
                             <br>
-                            <label for="">เลือกหัวข้องาน</label>
+                            <label for="">หัวข้อรายงาน</label>
                             <select class="select2 form-control" name="header_name" required>
                                 <?php
                                 require_once("../service/condb.php");
@@ -124,8 +125,9 @@
                             <br>
                             <div class="form_group">
                                 <label for="">รายละเอียดข้อความ</label>
-                                <textarea class="form-control" name="detail" id="" cols="30" rows="10" required></textarea>
+                                <textarea class="form-control" name="detail" id="" cols="30" rows="5" required></textarea>
                                 <input type="hidden" name="member_send_id" value="<?php echo $member_send_id ?>">
+                                <input type="hidden" name="send_report_id" value="<?php echo $send_report_id ?>">
                                 <br>
                                 <div class="" style="text-align: center;">
                                     <button style="padding: 10px; text-alight:center;" type="submit" class="btn btn-danger" onclick="archiveFunction()"><i class="fas fa-paper-plane"></i> ส่งข้อเสนอแนะ</button>
@@ -139,6 +141,7 @@
         </div>
     </div>
     <?php include("../include/footer.php"); ?>
+    <?php include("../include/notification.php"); ?>
 
     <script>
         $(function() {
@@ -164,5 +167,14 @@
                 "autoWidth": false
             });
         });
+    </script>
+    <!-- Text Area -->
+    <script>
+    $('textarea').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+    });
     </script>
 </body>

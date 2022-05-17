@@ -236,7 +236,7 @@
                                     <div class="form-group row">
                                         <label for="" class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" name="problem[]" id="" cols="30" rows="10" placeholder=""></textarea>
+                                            <textarea class="form-control" name="problem[]" id="" cols="30" rows="5" placeholder=""></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -263,10 +263,10 @@
                                 </div>
 
                                 <!-- <input type="button" class="btn btn-danger" id="btndel" value="Remove review" onclick="this.parentNode.parentNode.removeChild(this.parentNode);"><br /> <i class="fas fa-trash"></i>ลบรายงาน<br /> -->
-                                <div class="btn btn-danger " id="remove-button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" >
+                                <!-- <div class="btn btn-danger " id="remove-button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" >
                                     <i class="fas fa-trash"></i>
                                     ลบรายงาน
-                                </div>
+                                </div> -->
 
 
                                 <hr>
@@ -280,10 +280,10 @@
                                 <button type="submit" class="btn btn-primary" onclick="archiveFunction()"><i class="fas fa-save"></i> บันทึกรายงาน</button>
                                 <!-- onclick="archiveFunction()" -->
 
-                                <div class="btn btn-info " id="moreFields" onclick="inits()">
+                                <!-- <div class="btn btn-info " id="moreFields" onclick="inits()">
                                     <i class="fas fa-plus-circle"></i>
                                     เพิ่มรายงาน
-                                </div>
+                                </div> -->
                             </div>
                         </form>
                         <!-- </form> -->
@@ -308,8 +308,15 @@
     bsCustomFileInput.init();
     });
     </script>
+    
+    <!-- Text Area -->
     <script>
-       
+    $('textarea').each(function () {
+    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+    });
     </script>
 
     <script type="">
@@ -376,5 +383,6 @@ $('textarea[name="content"]').html($('#summernote').code());
     </script>
 
 <?php include("../include/footer.php"); ?>
+<?php include("../include/notification.php"); ?>
 
 </body>

@@ -60,7 +60,7 @@ if ($result) {
     // exit();
     echo "<script type='text/javascript'>";
     echo "alert('Update Succesfuly');";
-    echo "window.location = 'send_report.php'; ";
+    echo "window.location = 'department.php'; ";
     echo "</script>";
 } else {
     echo "<script type='text/javascript'>";

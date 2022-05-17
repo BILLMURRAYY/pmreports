@@ -72,7 +72,8 @@
  
                   <li class="nav-item">
                     <a href="index.php" class="nav-link">
-                      <i class="nav-icon fas fa-copy"></i>
+                      <!-- <i class="nav-icon fas fa-copy"></i> -->
+                      <i class="nav-icon fas fa-users"></i>
                       <p>
                         จัดการข้อมูลสมาชิก
                         <!-- <i class="fas fa-angle-left right"></i> -->
@@ -92,8 +93,9 @@
                   </li> -->
 
                   <li class="nav-item">
-                    <a href="send_report.php" class="nav-link">
-                      <i class="nav-icon fas fa-list"></i>
+                    <a href="department.php" class="nav-link">
+                      <!-- <i class="nav-icon fas fa-list"></i> -->
+                      <i class="nav-icon fas fa-user-cog"></i>
                       <p>
                         จัดการตำแหน่งงาน
                         <!-- <i class="fas fa-angle-left right"></i> -->
@@ -132,7 +134,8 @@
 
                   <li class="nav-item">
                     <a href="" class="nav-link" onclick="logout()">
-                      <i class="nav-icon far fa-circle text-info"></i>
+                      <!-- <i class="nav-icon far fa-circle text-info"></i> -->
+                      <i class="nav-icon fas fa-sign-out-alt"></i>
                       <p>ออกจากระบบ</p>
                     </a>
                   </li>

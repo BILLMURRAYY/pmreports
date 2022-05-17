@@ -3,7 +3,7 @@
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
         Swal.fire({
-        title: 'Are you sure Logout?',
+        title: 'ออกจากระบบ?',
         // text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -12,11 +12,12 @@
         confirmButtonText: 'Yes!'
         }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire(
-            'Logout!',
+            Swal.fire({
+            title:'ออกจากระบบ สำเร็จ!',
+            icon: 'success'
             // 'Your file has been deleted.',
-            'success'
-            ).then((result) => {
+            // 'success'
+            }).then((result) => {
                 window.location="../../logout.php";
             })
         }
@@ -83,7 +84,7 @@
                                
                                 <li class="nav-item">
                                     <a href="index.php" class="nav-link">
-                                        <i class="nav-icon fas fa-chart-pie"></i>
+                                    <i class="nav-icon fas fa-paper-plane"></i>
                                         <p>
                                             รายงานผลการปฎิบัติงาน
                                             <!-- <i class="fas fa-angle-left right"></i> -->
@@ -96,14 +97,15 @@
                                     <a href="feedback.php" class="nav-link">
                                     <i class="nav-icon fas  fa-comment"></i>
                                         <p>
-                                            feedback
+                                        ข้อเสนอแนะ
                                             <!-- <i class="fas fa-angle-left right"></i> -->
                                         </p>
+                                        <span class="badge bg-danger count" style="border-radius:10px;"></span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="view_summary.php" class="nav-link">
-                                        <i class="nav-icon fas fal fa-table"></i>
+                                    <i class="nav-icon fas fa-chart-bar"></i>
                                        
                                         <p>
                                         สรุปผลการรายงาน
@@ -133,7 +135,7 @@
                                 <!-- </li> -->
                                 <li class="nav-item">
                                 <a  class="nav-link" onclick="logout()">
-                                        <i class="nav-icon far fa-circle text-info"></i>
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
                                         <p>ออกจากระบบ</p>
                                     </a>
                                 </li>

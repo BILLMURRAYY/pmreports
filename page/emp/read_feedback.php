@@ -13,13 +13,19 @@
     <?php include('../include/meta.php') ?>
 
     <?php include("../include/head.php"); ?>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
     <style>
         .contain {
             padding: 25px;
         }
 
         .card-title {
-            font-size: 25px;
+            font-size: 20px;
+        }
+        .font-size {
+            font-size: 18px;
+            color: black;
         }
 
         a {
@@ -59,6 +65,19 @@
 
                     <!--  -->
                     <?php
+                    $sf_sent_report_id = $_GET['sf_sent_report_id'];
+                    $result = "SELECT * FROM send_report 
+                                inner JOIN report
+                                on send_report.report_id = report.report_id
+                                inner JOIN member
+                                on member.member_id = send_report.member_send_id
+                                inner join department
+                                on department.department_id = member.department_id
+                                WHERE send_report_id = $sf_sent_report_id";
+                    $query = mysqli_query($condb, $result);
+                    $rows = mysqli_fetch_array($query, MYSQLI_ASSOC);
+                    $report_id = $rows['report_id'];
+
                     $feedback_id = $_GET['feedback_id'];
                     $member_send_name = $_GET['member_send_name'];
                     // $member_receive_id = $_GET['member_receive_id'];
@@ -87,27 +106,214 @@
                         <div class="card-body">
                             <div class="callout callout-info">
 
-                                <h5>ชื่อผู้ส่ง : <?php echo $member_send_name ?></h5>
+                                <h5 class="font-size">ชื่อผู้ส่ง : <?php echo $member_send_name ?></h5>
                                 <?php
                                     $date = explode(" ",$values['date']);
                                     $date = DateThai($date[0]);
                                 ?>
-                                <span class="">วันที่ส่ง : <?php echo $date; ?></span>
-                    </br></br>
+                                <h5 class="font-size">วันที่ส่ง : <?php echo $date; ?></h5>
                                 <div class="post clearfix">
-                                    <div class="col">
+                                    <!-- <div class="col"> -->
                                         <!-- <img class="img-circle img-bordered-sm" src="" alt="user image"> -->
                                        
-                                    </div>
+                                    <!-- </div> -->
                                     
-                                    <p><span>รายละเอียดข้อความ : <?php echo $values['detail']; ?></span></p>
+                                    <h5 class="font-size">ข้อเสนอแนะ : <textarea style="background-color: white; border:0;resize: none;width: 100%;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea3"  disabled><?php echo $values['detail']; ?></textarea><h5>
                                     
                                         
                                   
                                     </div>
+                                
+                            <!-- <hr> -->
+                            <?php
+                        // $report_id = explode(",", $report_id);
+                        // echo "<per>";
+                        // print_r ($report_id);
+                        // echo "</per>";
+                        $text = [];
+                        $arr = [];
+                        // foreach ($report_id as $value) {
+                            $result = "SELECT * FROM report WHERE report_id = $report_id";
+                            $query = mysqli_query($condb, $result);
+                            $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
+                            // echo "<pre>";
+                            // print_R($rows);
+                            // echo "</pre>";
+                            // $text = ['a', 'b', 'c'];
+                            // $arr = [50, 80, 30];
+
+                            foreach ($rows as $values) {
+                                // if(!empty($values['his_success'])){
+                                //     $arr = explode(",",$values['his_success']);
+                                // }
+                                // array_push($arr, $values['success']);
+                                // if(!empty($values['his_date'])){
+                                // $text = explode(",",$values['his_date']);
+                                // $i = 0;
+                                // foreach($text as $value){
+                                //     // array_push($text, DateThai($value));
+                                //     $text[$i] = DateThai($value);
+                                //     $i++;
+                                // }
+                                // }
+                                // array_push($text, DateThai($values['working_range_end']));
+
+                                if(!empty($values['his_success']) ||$values['his_success']>=0){
+                                    $arr = explode(",",$values['his_success']);
+                                }
+                                array_push($arr, $values['success']);
+                                if(!empty($values['his_date'])){
+                                    $text = explode(",",$values['his_date']);
+                                    $i = 0;
+                                    foreach($text as $value){
+                                        // array_push($text, DateThai($value));
+                                        $text[$i] = DateThai($value);
+                                        $i++;
+                                    }
+                                    }
+                                array_push($text, DateThai($values['working_range_end']));
+
+                                // echo $values['header'];
+                                // echo $values['success'];
+                                // array_push($text, $values['header']);
+                                // array_push($arr, $values['success']);
+                                // print_r($text);
+                                // print_r($arr);
+                        ?>
+                                <div class="card-body">
+                                    <!-- Timelime example  -->
+
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+                                            <!-- The time line -->
+                                            <div class="timeline">
+
+                                                <!-- timeline time label -->
+                                                <!-- <div class="time-label">
+                                                    <span class="bg-info"><?php echo $member_send_name ?></span>
+
+                                                </div> -->
+                                                <!-- /.timeline-label -->
+
+
+                                                <!-- timeline item -->
+                                                <div style="height: auto;">
+                                                    <i class="fas fa-user bg-green"></i>
+
+                                                    <div class="timeline-item">
+                                                        <!-- <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span> -->
+                                                        <h1 class="timeline-header"> <label for="">หัวข้อ : <?php echo $values['header']; ?></label> </h1>
+                                                        <div class="timeline-body">
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">รายละเอียดงาน : </label>
+                                                                <div class="col-10">
+                                                                <textarea style="background-color: white; border:0;resize: none;width: 100%;height: 150px;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea1"  disabled><?php echo $values['detail']; ?></textarea>
+                                                                </div>
+                                                                <!-- <textarea class="col-10 form-control">
+                                                                    
+                                                                </textarea> -->
+                                                            </div>
+
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">สถานที่ปฎิบัติงาน :</label>
+                                                                <div class="col-sm-3">
+                                                                    <label class="col-form-label"><?php echo $values['workplace']; ?></label>
+                                                                </div>
+                                                                <label class="col-sm-2 col-form-label">ประเภทงาน :</label>
+                                                                <div class="col-sm-5">
+                                                                    <label class="col-form-label"><?php echo $values['job_type']; ?></label>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class=".form-group row">
+                                                                <label class="col-sm-2 col-form-label">วันที่และเวลาทำงาน:</label>
+                                                                <div class="col-sm-4">
+                                                                    <label class="col-form-label"><?php echo DateThai($values['working_range_start']); ?>  <span>ถึง <?php echo DateThai($values['working_range_end']); ?></span></label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">ปัญหาที่พบ :</label>
+                                                                <div class="col-10">
+                                                                <textarea style="background-color: white; border:0;resize: none;width: 100%;height: 150px;font-weight: bold;" class="form-control" name="detail" id="exampleFormControlTextarea2"  disabled><?php echo $values['problem']; ?></textarea>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- สร้างเงื่อนไข ถ้าพบว่ามีไฟล์ให้แแสดงหน้า ifame ถ้าไม่เจอให้เเสดงหน้ารูป ถ้าเจอทั้งสองแบ่งเป็ฯ 2 ฝั่ง -->
+                                                            <!-- <div class="">
+                                                                <div class="form-group row">
+
+                                                                    <label class="col-sm-2 col-form-label">ไฟล์เอกสาร</label>
+
+                                                                    <div class="col-10">
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div> -->
+
+                                                            <!-- BAR CHART -->
+                                                            <?php
+                                                            if ($values['file'] != "") {
+                                                                $file = $values['file'];
+
+                                                                echo " <div id='pdfplace'>";
+                                                                echo " <center>";
+                                                                echo "<a href='../../assets/images/$file'><button class='btn btn-danger '>คลิกที่นี้เพื่อดาวน์โหลดไฟล์</button></a>";
+                                                                echo " </center>";
+                                                                echo "<br>";
+                                                            }
+                                                            ?>
+
+
+
+                                                            <!-- Canvas ChartJS -->
+                                                            <div class="card card-success">
+                                                                <div class="card-header">
+                                                                    <h3 class="card-title">ความสำเร็จ</h3>
+
+                                                                    <div class="card-tools">
+                                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                            <i class="fas fa-minus"></i>
+                                                                        </button>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="chart">
+                                                                        <!-- <canvas id="myChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas> -->
+                                                                        <canvas id="myChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- /.card-body -->
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.timeline-body -->
+
+                                                    </div>
+
+                                                    <!-- END timeline item -->
+                                                </div>
+                                            </div>
+
+                                            <!-- /.col -->
+                                        </div>
+
+                                    </div>
+
+                                </div>
                                 </div>
                             </div>
-                            <hr>
+                                <!-- /.timeline -->
+                        <?php }
+                        //} ?>
                         </div>
                     <?php } ?>
                 </div>
@@ -120,6 +326,9 @@
     
 
     <script>
+        autosize(document.getElementById("exampleFormControlTextarea1"));
+        autosize(document.getElementById("exampleFormControlTextarea2"));
+        autosize(document.getElementById("exampleFormControlTextarea3"));
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
@@ -141,6 +350,84 @@
             });
         });
     </script>
+    <script >
+            // const arrq = [];
+            // arrq.push(<?php //echo $arr[0] 
+                            ?>);
+            // arrq.push(<?php //echo $arr[1] 
+                            ?>);
+
+            // arrq.push(<?php //echo $arr[2] 
+                            ?>);
+            // const labels = ['a', 'ฟห'];
+
+            
+            const label = <?php echo json_encode($text); ?>;
+            const arr = <?php echo json_encode($arr); ?>;
+            const data = {
+                // labels:['January'],
+                
+                labels:label,
+                datasets: [{
+                    
+                    data: arr,
+                    // January: 60,
+                    // February: 90, 
+                    // sebruary: 100, 
+                    // sebrduary: 100, 
+                    // sebrgguary: 100, 
+                    // webruary: 20, 
+                    // aFeebruary: 20,
+
+                    backgroundColor: [
+                        'rgba(255, 99, 132)',
+                        'rgba(255, 159, 64)',
+                        'rgba(255, 205, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(54, 162, 235)',
+                        'rgba(153, 102, 255)',
+                        'rgba(201, 203, 207)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    plugins: {
+                        legend: false,
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+            };
+        </script>
+        <script>
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        </script>
+
+        <!-- ChartJS -->
+        <script src="../../assets/bootstrap/template/plugins/chart.js/Chart.min.js"></script>
         <?php include("../include/footer.php"); ?>
+        <?php include("../include/notification.php"); ?>
 
 </body>
