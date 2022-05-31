@@ -9,17 +9,10 @@ require_once("../service/condb.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OPRS SYSTEM</title>
+    <title>สรุปผลการรายงานของพนักงาน - pmreports</title>
     <!-- Section Meta tag -->
     <?php include('../include/meta.php') ?>
-
     <?php include("../include/head.php"); ?>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
-
-
     <style>
         .contain {
             padding: 25px;
@@ -59,7 +52,6 @@ require_once("../service/condb.php");
             color: white;
         }
     </style>
-
     <script charset="UTF-8">
         function showUser(str) {
             // alert(str);
@@ -77,6 +69,7 @@ require_once("../service/condb.php");
                 xmlhttp.send();
             }
         }
+
         function showUser1(str) {
             // alert(str);
             if (str == "") {
@@ -93,7 +86,8 @@ require_once("../service/condb.php");
                 xmlhttp.send();
             }
         }
-        function showUser2(str,str1) {
+
+        function showUser2(str, str1) {
             // alert(str);
             if (str == "") {
                 document.getElementById("txtHint2").innerHTML = "";
@@ -105,11 +99,12 @@ require_once("../service/condb.php");
                         document.getElementById("txtHint2").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajax3.php?q=" + str+"&q1="+str1, true);
+                xmlhttp.open("GET", "ajax3.php?q=" + str + "&q1=" + str1, true);
                 xmlhttp.send();
             }
         }
-        function showUser3(str,job_type,member_id) {
+
+        function showUser3(str, job_type, member_id) {
             // alert(str);
             if (str == "") {
                 document.getElementById("txtHint3").innerHTML = "";
@@ -121,7 +116,7 @@ require_once("../service/condb.php");
                         document.getElementById("txtHint3").innerHTML = this.responseText;
                     }
                 };
-                xmlhttp.open("GET", "ajax4.php?year=" + str+"&job_type="+job_type+"&member_id="+member_id, true);
+                xmlhttp.open("GET", "ajax4.php?year=" + str + "&job_type=" + job_type + "&member_id=" + member_id, true);
                 xmlhttp.send();
             }
         }
@@ -132,7 +127,6 @@ require_once("../service/condb.php");
     <div class="wrapper">
         <?php include("nav.php"); ?>
         <?php include("../include/sidebar_staff.php"); ?>
-
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">
                 <div class=" card">
@@ -141,72 +135,36 @@ require_once("../service/condb.php");
                             <h3 class="card-title">สรุปผลการรายงานของพนักงาน</h3>
                         </div>
                     </div>
-
                     <div class="card-body">
                         <div class="form-group">
-                            <!-- <form> -->
-                                <label class="col col-form-label">ตำแหน่งงาน :</label>
-                                <!-- <div class="col"> -->
-                                    <select class="select2 form-control" name="depart" onchange="showUser(this.value)" style="width: 100%;">
-
-                                        <option value="">เลือกรายการ :</option>
-
-                                        <?php
-
-                                        // !!!!!!!!!!! กำหนดค่า session
-                                        // $department = 'หัวหน้าคณบดี';
-                                        // $_SESSION["department_id"]
-                                        $department_id  = $_SESSION["department_id"];
-
-                                        $result = "SELECT * FROM department 
-                                                -- inner JOIN member
-                                                -- on member.member_id = send_report.member_send_id
-                                                -- inner join department
-                                                -- on department.department_id = member.department_id
+                            <label class="col col-form-label">ตำแหน่งงาน :</label>
+                            <select class="select2 form-control" name="depart" onchange="showUser(this.value)" style="width: 100%;">
+                                <option value="">เลือกรายการ :</option>
+                                <?php
+                                $department_id  = $_SESSION["department_id"];
+                                $result = "SELECT * FROM department 
                                         WHERE department_id = $department_id";
-                                        $query = mysqli_query($condb, $result);
+                                $query = mysqli_query($condb, $result);
+                                $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-                                        $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
-                                        // echo "<pre>";
-                                        // print_R($rows);
-                                        // echo "</pre>";
-                                        // exit();
+                                foreach ($rows as $value) {
+                                    $flow_estimate = $value['flow_estimate'];
+                                    // echo $flow_estimate;
+                                    $flow_estimate = explode(",", $flow_estimate);
+                                    print_r($flow_estimate);
+                                    foreach ($flow_estimate as $value2) {
+                                ?>
+                                        <option value="<?php echo $value2 ?>"><?php echo $value2 ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
 
-                                        foreach ($rows as $value) {
-                                            $flow_estimate = $value['flow_estimate'];
-                                            // echo $flow_estimate;
-                                            $flow_estimate = explode(",", $flow_estimate);
-                                            print_r($flow_estimate);
-                                            foreach ($flow_estimate as $value2) {
-                                        ?>
+                            </select>
 
-                                                <option value="<?php echo $value2 ?>"><?php echo $value2 ?></option>
-
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-
-                                        <!-- <option value="รองคณบดีฝ่ายบริหาร">รองคณบดีฝ่ายบริหาร</option>
-                <option value="กลุ่มงานบริหารและพัฒนาบุคคลกร">กลุ่มงานบริหารและพัฒนาบุคคลกร</option>
-                <option value="หน่วยบุคคล">หน่วยบุคคล</option> -->
-
-                                    </select>
-                                <!-- </div> -->
-                            <!-- </form> -->
-
-                            <!-- <br> -->
                             <div id="txtHint"><b>โปรดเลือกตำแหน่งงานเพื่อดูผลสรุปของพนักงาน</b></div>
 
-                            <!-- <label class="col-2 col-form-label">ชื่อพนักงาน :</label>
-                            <div class="col-sm-4">
-                                <select class="select2 form-control" style="width: 100%;">
-                                    <option value="สำนักงาน">เจษฎา นันติ</option>
-                                    <option value="บ้าน">นิธิภัทร กิจสำเร็จ</option>
-                                </select>
-                            </div> -->
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -228,5 +186,4 @@ require_once("../service/condb.php");
     </script>
     <?php include("../include/footer.php"); ?>
     <?php include("../include/notification.php"); ?>
-
 </body>

@@ -1,19 +1,21 @@
 <?php session_start(); ?>
-<?php include("../include/head.php"); ?>
 <?php include("../service/check_login_page.php"); ?>
-<!-- <?php include("sql_select.php"); ?> -->
 <?php
 require_once("../service/condb.php");
-
 $sql = "SELECT * FROM department ORDER BY department_id asc";
 $result = mysqli_query($condb, $sql);
-
 $count = 1;
 ?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>เพิ่มสมาชิก - pmreports</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -33,39 +35,20 @@ $count = 1;
         }
     </style>
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
-
     <div class="wrapper">
         <?php include("nav.php"); ?>
         <?php include("../include/sidebar_admin.php"); ?>
-
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card card-primary">
                     <div class="card-header" style="background: #004385;color: white;">
                         <h3 class="card-title">เพิ่มสมาชิก</h3>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
                     <form action="back_addmember1.php" id="" method="post" onSubmit="return chkpsw(this)" enctype="multipart/form-data">
                         <div class="card-body">
-
-                            
                             <div class="form-group">
                                 <div class="row">
-                                    <!-- <div class="col-md-2" data-select2-id="83">
-                                        <div class="form-group" data-select2-id="82">
-                                            <label>คำนำหน้า</label>
-                                            <select id="m_prefix" name="prefix" class="select2 form-control" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
-                                                <option value="">-เลือกคำนำหน้า-</option>
-                                                <option value="นาย">นาย</option>
-                                                <option value="นางสาว">นางสาว</option>
-                                                <option value="นาง">นาง</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-
                                     <div class="col-md-6" data-select2-id="56">
                                         <div class="form-group" data-select2-id="55">
                                             <label>ชื่อ</label>
@@ -79,13 +62,6 @@ $count = 1;
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-md-5" data-select2-id="56">
-                                        <div class="form-group" data-select2-id="55">
-                                            <label>นามสกุล</label>
-                                            <input type="text" name="last_name" class="form-control" required placeholder="กรอกนามสกุล" value="" minlength="2">
-
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
 
@@ -116,30 +92,8 @@ $count = 1;
                                     } ?>
                                 </select>
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">รหัสผ่าน</label>
-                                <input type="password" class="form-control" name="pass1" id="m_pass" placeholder="กรอกรหัสผ่าน" required>
-                            </div> -->
-                            <!-- <div class="form-group">
-                                <label for="exampleInputPassword1">ยืนยันรหัสรหัสผ่านอีกครั้ง</label>
-                                <input type="password" class="form-control" name="pass2" id="m_pass2" placeholder="กรอกรหัสผ่านอีกครั้ง" required>
-                            </div> -->
-
-                            <!-- <div class="form-group">
-                                <label>ไฟล์รูปภาพ</label>
-                                <div class="input-group"> -->
-                            <!-- <div class="custom-file"> -->
-                            <!-- <input type="file" name="img" class="form-control" id="m_Img" accept="image/*"> -->
-                            <!-- <label class="" for="exampleInputFile">ใส่รูปภาพ (นามสกุลไฟล์รูปภาพ .jpg และ .png)</label> -->
-                            <!-- </div> -->
-                            <!-- <div class="input-group-append">
-                                        <span class="input-group-text">อัปโหลด</span>
-                                    </div> -->
-                            <!-- </div>
-                            </div> -->
                         </div>
                         <!-- /.card-body -->
-
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
                         </div>
@@ -185,5 +139,4 @@ $count = 1;
             $('.select22').select2()
         });
     </script>
-
 </body>

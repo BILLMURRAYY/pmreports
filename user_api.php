@@ -1,8 +1,6 @@
 <?php
 $access_token = 'yWuvnEt8tgaRm7sWSg_UPA0tcnOC_qVG'; // <----- API - Access Token Here
 $scopes 	= 'personel,student,templecturer'; 	// <----- Scopes for search account type
-// $username 	= 's6104062616139'; // <----- Username for authen
-// $password 	= '1hmg3j05'; 	// <----- Password for authen
 $username 	= $_POST['username']; // <----- Username for authen
 $password 	= $_POST['password']; 	// <----- Password for authen
 
@@ -21,5 +19,3 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, array('scopes' => $scopes, 'username' => $u
 $response = curl_exec($ch);
 // echo $response;
 // exit();
-
-?>

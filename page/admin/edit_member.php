@@ -1,27 +1,20 @@
-<?php session_start(); ?> 
+<?php session_start(); ?>
 <?php include("../include/head.php"); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php
-
 require_once("../service/condb.php");
-
 $member_id = $_GET['member_id'];
-
 $sqli = "SELECT * FROM member 
          INNER JOIN department
          ON department.department_id = member.department_id
          WHERE member.member_id = $member_id";
-
 $resulti = mysqli_query($condb, $sqli);
-
 $sql = "SELECT * FROM department ORDER BY department_id asc";
 $result = mysqli_query($condb, $sql);
 $count = 1;
 ?>
 
 <head>
-
-
     <style>
         .contain {
             padding: 25px;
@@ -44,21 +37,16 @@ $count = 1;
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-
     <div class="wrapper">
-    <?php include("nav.php"); ?>
+        <?php include("nav.php"); ?>
         <?php include("../include/sidebar_admin.php"); ?>
-
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card card-primary">
                     <div class="card-header" style="background: #004385;color: white;">
                         <h3 class="card-title">แก้ไขข้อมูล</h3>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
                     <?php
-
                     foreach ($resulti as $valuei) {
                     ?>
                         <form action="back_update_member.php" id="" method="post" enctype="multipart/form-data" onSubmit="return chkpsw(this)">
@@ -70,7 +58,7 @@ $count = 1;
                                     <label>แผนก</label>
                                     <select id="m_position" name="id_depart" class="select2 form-control" style="width: 100%;" required>
                                         <option value="<?php echo $valuei['department_id'] ?>"><?php echo $valuei['department_name'] ?></option>
-                                        
+
                                         <?php
                                         foreach ($result as $row) {
                                             if ($row['department_name'] != "admin") { ?>
@@ -130,16 +118,11 @@ $count = 1;
                                 <div class="form-group">
                                     <br>
                                     ภาพเก่า <br>
-                                    <img src="../../assets/images/<?php echo $valuei['img']?>" width="300px">
+                                    <img src="../../assets/images/<?php echo $valuei['img'] ?>" width="300px">
                                     <br>
                                     <div class="input-group">
                                         <!-- <div class="custom-file"> -->
                                         <input type="file" name="img" class="form-control" id="m_Img" accept="image/*">
-                                        <!-- <label class="" for="exampleInputFile">ใส่รูปภาพ (นามสกุลไฟล์รูปภาพ .jpg และ .png)</label> -->
-                                        <!-- </div> -->
-                                        <!-- <div class="input-group-append">
-                                        <span class="input-group-text">อัปโหลด</span>
-                                    </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -161,5 +144,4 @@ $count = 1;
             $('.select2').select2()
         });
     </script>
-
 </body>

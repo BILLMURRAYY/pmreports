@@ -115,14 +115,12 @@ if(($response = curl_exec($ch)) === false){
 curl_close($ch);
 exit();
 // ! End Check ICIT Account
-
 // $email = $_POST['email'];
 // $pass = $_POST['password'];
 
 // echo "<pre>";
 // print_r($_POST);
 // echo "</pre>";
-
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password = md5($password);
@@ -133,10 +131,8 @@ $sql = "SELECT * FROM member
 // echo $sql;
 $result = mysqli_query($condb, $sql) or die("Error in query: $sql ");
 $row = mysqli_fetch_array($result);
-
 // exit();
 if ($email == $row["email"] and $password == $row["password"]) {
-
     $_SESSION["level"] = $row["level"];
     $_SESSION["member_id"] = $row["member_id"];
     $_SESSION["member_name"] = $row["first_name"] . " " . $row["last_name"];
@@ -152,7 +148,6 @@ if ($email == $row["email"] and $password == $row["password"]) {
     // echo $_SESSION["Name"];
     // echo $_SESSION["Department"];
     // exit();
-
     if ($_SESSION["level"] == "admin") {
         header("Location: page/admin/");
     } elseif ($_SESSION["level"] == "boss") {
@@ -194,6 +189,3 @@ if ($email == $row["email"] and $password == $row["password"]) {
     // header("Location: login.php");
 }
 ?>
-
-<!-- SweetAlert2 -->
-<!-- <script src="assets/bootstrap/template/plugins/sweetalert2/sweetalert2.all.min.js"></script> -->

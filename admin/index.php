@@ -1,13 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
-
+    <title>Login - pmreports</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicons/logo.png">
     <link href="../assets/bootstrap/template/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -63,7 +61,7 @@
 
                     <form action="check_admin_login.php" method="post">
                         <div class="input-group mb-3">
-                            <input type="username" name="username" class="form-control" placeholder="ชื่อผู้ใช้งาน" required>
+                            <input type="username" name="username" class="form-control" placeholder="username" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -71,7 +69,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="password" class="form-control" placeholder="รหัสผ่าน" required>
+                            <input type="password" name="password" class="form-control" placeholder="password" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -80,7 +78,7 @@
                         </div>
 
                         <div class="social-auth-links text-center mt-2 ">
-                            <button type="submit" class="btn btn-block btn-info btn-lg" >
+                            <button type="submit" class="btn btn-block btn-info btn-lg">
                                 <i class="fas fa-door-open"></i> เข้าสู่ระบบ
                             </button>
                         </div>
@@ -97,16 +95,12 @@
         </div>
     </div>
     <!-- /login -->
-
-
-
     <!-- jQuery -->
     <script src="../assets/bootstrap/template/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="../assets/bootstrap/template/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/bootstrap/template/dist/js/adminlte.min.js"></script>
-
     <!-- <script>
        const Toast = Swal.mixin({
         toast: true,
@@ -125,7 +119,5 @@
         title: 'Signed in successfully'
         })
     </script> -->
-    
 </body>
-
 </html>

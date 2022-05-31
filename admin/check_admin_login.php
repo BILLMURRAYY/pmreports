@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="../assets/bootstrap/template/plugins/sweetalert2/sweetalert2.min.css">
     </head>
     <body>
-        
-    
 <?php
 session_start();
 // echo "<pre>";
@@ -29,6 +27,7 @@ require_once("../page/service/condb.php");
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$password = md5($password);
 // $password = md5($password);
 $sql = "SELECT * FROM login 
     WHERE  username = '" . $username . "' AND password = '" . $password . "' ";
@@ -89,11 +88,24 @@ if ($username == $row["username"] and $password == $row["password"]) {
 } else {
     // echo "hi";
     // exit();
-    echo "<script>";
-    echo "alert('username หรือ Password ไม่ถูกต้อง !!!');";
-    echo "window.location = 'index.php'; ";
-    echo "</script>";
+    // echo "<script>";
+    // echo "alert('username หรือ Password ไม่ถูกต้อง !!!');";
+    // echo "window.location = 'index.php'; ";
+    // echo "</script>";
     // header("Location: admin.php");
+    echo "<script>";
+        // echo "alert('Username หรือ Password ไม่ถูกต้อง !!!');";
+        // echo "window.location = 'index.php'; ";
+        echo "Swal.fire({
+            icon: 'error',
+            title: 'Username หรือ Password ไม่ถูกต้อง !!!',
+            // text: 'Something went wrong!'
+          }).then((result)=>{
+            if(result){
+            window.location.href = 'index.php';
+            }
+        })";
+        echo "</script>";
 }
 ?>
 </body>

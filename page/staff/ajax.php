@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php require_once("../service/condb.php"); ?>
 <html>
-
 <head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/compiled-4.20.0.min.css">
@@ -21,8 +20,6 @@
         th {
             text-align: left;
         }
-
-       
     </style>
 </head>
 
@@ -84,10 +81,10 @@ WHERE department_name ='" . $q . "'";
                     <p style="  font-size: 18px; color:#004385;">เรียงลำดับคะเเนนความพึงพอใจ 5 = ดีเยี่ยม ,4 = ดีมาก ,3 = ดี ,2 = พอใช้ และ 1 = ควรพัฒนา</p>
                 </span>
             </div>
-            <form action="" method="POST" id="txtHint" >
+            <form action="" method="POST" id="txtHint">
 
                 <table class="table table-bordered table-hover table-fixed ">
-                    <div >
+                    <div>
 
                         <tbody>
                             <tr class="head1">

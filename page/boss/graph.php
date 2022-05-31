@@ -12,9 +12,9 @@ require_once("../service/condb.php");
     <!-- Section Meta tag -->
     <?php include('../include/meta.php') ?>
     <?php include("../include/head.php"); ?>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
         .contain {
             padding: 25px;
@@ -62,7 +62,7 @@ require_once("../service/condb.php");
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <?php include("nav.php"); ?>
-        <?php include("../include/sidebar_staff.php"); ?>
+        <?php include("../include/sidebar_boss.php"); ?>
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain ">
                 <div class=" card">
@@ -130,6 +130,7 @@ require_once("../service/condb.php");
                                 <div align="center">
                                     <form method="post" action="graph.php">
                                         <input type="hidden" name="member_id" value="<?php echo $member_id ?>">
+                                           
                                         <div class="contain">
                                             <div class="row">
                                                 <label class="col-2 col-form-label"> เลือกประเภทงาน </label>

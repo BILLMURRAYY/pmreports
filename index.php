@@ -1,18 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
-
+    <title>Login - pmreports</title>
     <!-- Section Meta tag -->
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/logo.png">
-    <?php //include('page/include/meta.php') ?>
-
-    <?php //include('page/include/head.php') ?>
+    <?php //include('page/include/meta.php') 
+    ?>
+    <?php //include('page/include/head.php') 
+    ?>
     <link href="assets/bootstrap/template/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -30,13 +28,14 @@
 </head>
 
 <style>
-    
     @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300&family=Sarabun&display=swap');
-        body {
-            font-family: 'Sarabun', sans-serif;
-            /* font-size: 48px; */
-            font-weight: 100;
-        }
+
+    body {
+        font-family: 'Sarabun', sans-serif;
+        /* font-size: 48px; */
+        font-weight: 100;
+    }
+
     body {
         background: linear-gradient(#05B2DC, #0497C7, #076B96, #065A84, #033860);
         text-align: center;
@@ -64,7 +63,9 @@
             <div class="card ">
                 <div class="card-header text-center">
                     <!-- <a href="#" class="h1"><b>photo_icon_icit</b>LTE</a> -->
-                    <img src="assets/logo/icit_account_logo.png" alt="">
+                    <a href="https://account.kmutnb.ac.th/"><img src="assets/logo/icit_account_logo.png" alt=""></a>
+
+                    <!-- <h3>Online Performance Reporting System</h3> -->
                     <!-- <p>Login</p> -->
                     <!-- <img src="assets/images/icit.png" alt=""> -->
                 </div>
@@ -96,7 +97,9 @@
                             </button>
                         </div>
                         <div class="social-auth-links text-left mt-2 ">
-                            <a href="https://account.kmutnb.ac.th/web/recovery/index"><p>ลืมรหัสผ่าน ICIT Account</p></a>
+                            <a href="https://account.kmutnb.ac.th/web/recovery/index">
+                                <p>ลืมรหัสผ่าน ICIT Account</p>
+                            </a>
                         </div>
                     </form>
                     <!-- /.social-auth-links -->
@@ -113,7 +116,8 @@
     <!-- /login -->
 
 
-    <?php //include('page/include/footer.php') ?>
+    <?php //include('page/include/footer.php') 
+    ?>
     <!-- jQuery -->
     <!-- <script src="assets/bootstrap/template/plugins/jquery/jquery.min.js"></script> -->
     <!-- Bootstrap 4 -->
@@ -140,5 +144,4 @@
         })
     </script> -->
 </body>
-
 </html>

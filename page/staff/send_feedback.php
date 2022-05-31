@@ -1,17 +1,15 @@
-<?php session_start(); ?> 
+<?php session_start(); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php require_once("../service/condb.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OPRS SYSTEM</title>
+    <title>ฟอร์มส่งข้อเสนอแนะ - pmreports</title>
     <!-- Section Meta tag -->
     <?php include('../include/meta.php') ?>
-
     <?php include("../include/head.php"); ?>
     <style>
         .contain {
@@ -31,46 +29,41 @@
             color: white;
         }
 
+        .card-body {
+            color: #495057;
+        }
+
         table {
             text-align: center;
         }
     </style>
     <script>
         function archiveFunction() {
-        event.preventDefault(); // prevent form submit
-        var form = event.target.form; // storing the form
-        Swal.fire({
-        title: 'ยืนยันการส่ง?',
-        // text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-            'ส่งสำเร็จ!',
-            // 'Your file has been deleted.',
-            // 'success'
-            ).then((result) => {
-            form.submit();
+            event.preventDefault(); // prevent form submit
+            var form = event.target.form; // storing the form
+            Swal.fire({
+                title: 'ยืนยันการส่ง?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'ส่งสำเร็จ!',
+                    ).then((result) => {
+                        form.submit();
+                    })
+                }
             })
         }
-        })
-        }
-
-       
     </script>
 </head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <?php include("nav.php"); ?>
-
         <?php include("../include/sidebar_staff.php"); ?>
-
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
@@ -78,12 +71,7 @@
                         <div>
                             <h3 class="card-title">ฟอร์มส่งข้อเสนอแนะ</h3>
                         </div>
-                        <!-- <div style="text-align: right;">
-                            <button type="button" class="btn btn-success text-right "><a href="form_report.php"><span class="fas fa-plus-circle"></span> เพิ่มรายงาน</a></button>
-                        </div> -->
                     </div>
-
-
                     <!-- /.card-header -->
                     <div class="card-body">
                         <?php
@@ -92,27 +80,16 @@
                         $member_send_name = $_GET['member_send_name'];
                         $member_send_id = $_GET['member_send_id'];
                         $report_id = explode(",", $report_id);
-                            // print_r($report_id);
-                            // echo "<pre>";
-                            // print_R($_GET);
-                            // echo "</pre>";
-                            // exit()
-                        ;        ?>
-                        <h5>ชื่อพนักงาน : <?php echo $member_send_name ?></h5>
+                        ?>
+                        <label>ชื่อพนักงาน : <?php echo $member_send_name ?></label>
                         <form action="back_send_feedback.php" method="post">
-                            <br>
                             <label for="">หัวข้อรายงาน</label>
                             <select class="select2 form-control" name="header_name" required>
                                 <?php
                                 require_once("../service/condb.php");
-
                                 foreach ($report_id as $value) {
-                                    // print_r($value);
-
-
                                     $sql = "SELECT * FROM report WHERE report_id = $value";
                                     $result = mysqli_query($condb, $sql);
-
                                 ?>
                                     <?php foreach ($result as $row) {
                                         if ($row['header']) { ?>
@@ -145,8 +122,8 @@
 
     <script>
         $(function() {
-                $('.select2').select2()
-            });
+            $('.select2').select2()
+        });
         $(function() {
             $("#example1").DataTable({
                 "responsive": true,
@@ -170,11 +147,11 @@
     </script>
     <!-- Text Area -->
     <script>
-    $('textarea').each(function () {
-    this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-    }).on('input', function () {
-    this.style.height = 'auto';
-    this.style.height = (this.scrollHeight) + 'px';
-    });
+        $('textarea').each(function() {
+            this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
     </script>
 </body>

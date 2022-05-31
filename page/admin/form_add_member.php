@@ -4,7 +4,6 @@
 <!-- <?php include("sql_select.php"); ?> -->
 <?php
 require_once("../service/condb.php");
-
 $sql = "SELECT * FROM department ORDER BY department_id asc";
 $result = mysqli_query($condb, $sql);
 

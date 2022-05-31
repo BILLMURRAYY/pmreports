@@ -1,24 +1,25 @@
-<?php session_start(); ?> 
-<?php include("../include/head.php"); ?>
+<?php session_start(); ?>
 <?php include("../service/check_login_page.php"); ?>
 <?php
 require_once("../service/condb.php");
-
 $count = 1;
 $result = "SELECT * FROM member 
            inner join department
            on department.department_id = member.department_id";
 $query = mysqli_query($condb, $result);
 $rows = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
 $count = 1;
-
 ?>
-
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ข้อมูลสมาชิก - pmreports</title>
+    <!-- Section Meta tag -->
+    <?php include('../include/meta.php') ?>
+    <?php include("../include/head.php"); ?>
     <style>
         .contain {
             padding: 25px;
@@ -65,15 +66,30 @@ $count = 1;
             transform: translateY(3px);
         }
     </style>
+    <script>
+        function deletes(str) {
+            event.preventDefault(); // prevent form submit
+            var form = event.target.form; // storing the form
+            Swal.fire({
+                title: 'ยืนยันการลบ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes !'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "back_del_member.php?member_id=" + str + "";
+                }
+            })
+        }
+    </script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
         <?php include("nav.php"); ?>
-
         <?php include("../include/sidebar_admin.php"); ?>
-
         <div class="content-wrapper" style="min-height: 608px;">
             <div class="contain">
                 <div class="card">
@@ -82,23 +98,12 @@ $count = 1;
                             <h3 class="card-title">ข้อมูลสมาชิก</h3>
                         </div>
                         <div style="text-align: right;">
-                        <a href="form_add_member1.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มสมาชิก</button></a>
+                            <a href="form_add_member1.php"><button type="button" class="btn b_add text-right "><span class="fas fa-plus-circle"></span> เพิ่มสมาชิก</button></a>
                         </div>
                     </div>
-
-
                     <!-- /.card-header -->
                     <div class="card-body">
-
                         <table id="example1" class="table table-bordered table-striped">
-                            <!-- <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div  id="example1" class="dt-buttons btn-group flex-wrap"> <button class="btn btn-secondary buttons-copy buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Copy</span></button> <button class="btn btn-secondary buttons-csv buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>CSV</span></button> <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>Excel</span></button> <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0" aria-controls="example1" type="button"><span>PDF</span></button> <button class="btn btn-secondary buttons-print" tabindex="0" aria-controls="example1" type="button"><span>Print</span></button> </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div id="example1" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div>
-                                </div>
-                            </div> -->
                             <thead>
                                 <tr>
                                     <th>ลำดับ</th>
@@ -116,44 +121,38 @@ $count = 1;
                                 <?php
                                 foreach ($rows as $value) {
                                     $color = '';
-                                    if($value['level']=='boss'){
+                                    if ($value['level'] == 'boss') {
                                         $color = 'danger';
-                                    } elseif($value['level']=='staff'){
+                                    } elseif ($value['level'] == 'staff') {
                                         $color = 'warning';
-                                    } elseif($value['level']=='employee'){
+                                    } elseif ($value['level'] == 'employee') {
                                         $color = 'success';
                                     }
                                 ?>
                                     <tr>
                                         <td><?php echo $count++ ?></td>
-                                        <!-- <td><?php //echo $value['first_name'] . " " . $value['last_name'] ?></td> -->
                                         <td><?php echo $value['name'] ?></td>
                                         <td><?php echo $value['username'] ?></td>
-                                        <!-- <td><?php echo $value['tel'] ?></td> -->
-                                        <!-- <td><?php echo $value['email'] ?></td> -->
-                                        <!-- <td><?php echo $value['tel'] ?></td> -->
-                                        <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></span><h5></td>
-                                        <td><h5><span class="badge bg-<?php echo $color ?>"><?php echo $value['level'] ?></span><h5></td>
-                                        <!-- <td><a href="repass.php?id_member=<?php echo $value['member_id'] ?>" class="btn btn-warning"><i class="far fa-edit"></i></a></td> -->
+                                        <td style="width:25%;">
+                                            <div style="font-weight:normal;white-space:normal;border-radius: 5px;" class="bg-<?php echo $color ?>"><?php echo $value['department_name'] ?></div>
+                                        </td>
+                                        <td>
+                                            <div style="border-radius: 5px;" class=" bg-<?php echo $color ?>"><?php echo $value['level'] ?></div>
+                                        </td>
+                                       
                                         <td> <a href="edit_member1.php?member_id=<?php echo $value['member_id'] ?>" class="btn btn-info"><i class="far fa-edit"></i></a></td>
-                                        <td><a href="back_del_member.php?member_id=<?php echo $value['member_id'] ?>" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+
+                                        <td><a onclick="deletes(<?php echo $value['member_id'] ?>)" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                 <?php } ?>
-                                <!-- เปลี่ยนรหัสผ่าน -->
-                                <!-- แก้ไข -->
-                                <!-- ลบ -->
-
                             </tbody>
-
                             <tfoot>
                                 <tr>
                                     <th>ลำดับ</th>
                                     <th>ชื่อ - นามสกุล</th>
                                     <th>Username</th>
-                                    <!-- <th>เบอร์โทรศัพท์</th> -->
                                     <th>ตำแหน่งงาน</th>
                                     <th>ระดับตำแหน่ง</th>
-                                    <!-- <th>รีเซตรหัสผ่าน</th> -->
                                     <th>แก้ไข</th>
                                     <th>ลบ</th>
                                 </tr>
@@ -172,14 +171,9 @@ $count = 1;
     </section>
     <!-- /.content -->
     </div>
-                                    
     <!-- /.content-wrapper -->
     <?php include("../include/footer.php"); ?>
-    <!-- <footer class="main-footer">
-
-    </footer> -->
     
-
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -204,8 +198,8 @@ $count = 1;
         });
     </script>
     <?php
-    if($_SESSION['check_login']==1){
-        $_SESSION['check_login'] =0;
+    if ($_SESSION['check_login'] == 1) {
+        $_SESSION['check_login'] = 0;
         echo "<script>";
         echo "const Toast = Swal.mixin({
          toast: true,
@@ -218,13 +212,11 @@ $count = 1;
              toast.addEventListener('mouseleave', Swal.resumeTimer)
          }
          })
- 
          Toast.fire({
          icon: 'success',
          title: 'Signed in successfully'
          })";
-        echo"</script>";
+        echo "</script>";
     }
-
-    ?>  
+    ?>
 </body>

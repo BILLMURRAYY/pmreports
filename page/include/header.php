@@ -1,5 +1,4 @@
 <!-- Main Header -->
-
 <style>
   .dropdown-menu {
     text-align: center;
@@ -14,11 +13,8 @@
   }
 </style>
 <!-- header -->
-
-
 <body class="hold-transition sidebar-mini layout-fixed">
-<!-- Preloader -->
-
+  <!-- Preloader -->
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -36,9 +32,9 @@
 
     <!-- Right navbar links -->
     <!-- <ul class="navbar-nav ml-auto"> -->
-      
-      <!-- Notifications Dropdown Menu -->
-      <!-- <li class="nav-item dropdown">
+
+    <!-- Notifications Dropdown Menu -->
+    <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -73,10 +69,6 @@
     <!-- </ul> -->
   </nav>
   <!-- /.navbar -->
-
   </nav>
-
-
 </body>
-
 <!-- <img src="../../assets/images/<?php echo $_SESSION['m_Img']; ?>" class="img-circle" style="max-width: 28px; max-hight:28px;" alt="User Image" /> -->
