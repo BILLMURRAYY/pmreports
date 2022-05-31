@@ -30,7 +30,7 @@
 <!-- Select2 -->
 <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-<!-- daterange picker ตัวเลือกวันที่ --> 
+<!-- daterange picker ตัวเลือกวันที่ -->
 <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/daterangepicker/daterangepicker.css">
 <!-- iCheck for checkboxes and radio inputs ไม่น่าจะใช้-->
 <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -49,6 +49,9 @@
 <link rel="stylesheet" href="../../assets/bootstrap/template/dist/css/adminlte.min.css">
 <!-- sweetalert2 -->
 <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/sweetalert2/sweetalert2.min.css">
+
+<script src="../../assets/js/chart.js"></script>
+<script src="../../assets/js/autosize.min.js"></script>
 
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');

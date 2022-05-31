@@ -12,8 +12,8 @@
     <!-- Section Meta tag -->
     <?php include('../include/meta.php') ?>
     <?php include("../include/head.php"); ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script> -->
     <style>
         .contain {
             padding: 25px;

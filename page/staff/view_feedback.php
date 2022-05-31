@@ -15,8 +15,8 @@
     <!-- Ekko Lightbox -->
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/chart.js/Chart.min.css">
     <link rel="stylesheet" href="../../assets/bootstrap/template/plugins/ekko-lightbox/ekko-lightbox.css">
-    <script src="../../assets/js/chart.js"></script>
-    <script src="../../assets/js/autosize.min.js"></script>
+    <!-- <script src="../../assets/js/chart.js"></script>
+    <script src="../../assets/js/autosize.min.js"></script> -->
     <style>
         .contain {
             padding: 25px;
