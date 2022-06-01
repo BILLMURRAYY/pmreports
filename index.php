@@ -202,7 +202,7 @@
                 <form class="login100-form validate-form" action="check_login.php" method="post">
                     <span class="login100-form-title">
                         <a href="https://account.kmutnb.ac.th">
-                        <img src="assets/logo/icit_account_logo.png" alt="IMG">
+                        <img src="assets/logo/icit_account_logo.png" alt="IMG" class="img2">
                         </a>
                     </span>
 
@@ -231,7 +231,7 @@
                     <div class="text-center p-t-12">
                         
                         <a class="txt2" href="https://account.kmutnb.ac.th/web/recovery/index">
-                            ลืมรหัสเข้าสู่ระบบโปรดคลิ๊กที่นี่
+                        ลืมรหัสผ่าน?
                         </a>
                     </div>
 
