@@ -42,6 +42,27 @@ $sql = "UPDATE member SET
     WHERE member_id = '$member_id'
     ";
 
+// echo "<script>";
+//     echo "Swal.fire({
+//     icon: 'success',
+//     title: 'อัปเดตสมาชิก สำเร็จ !',
+//     // text: 'Something went wrong!'
+//   }).then((result)=>{
+//     if(result){
+//     window.location.href = 'index.php';
+//     }
+// })";
+//     echo "</script>";
+// $check = "select * from member  where username = '$username' ";
+// $result1 = mysqli_query($condb, $check) or die("Error in query: $sql ");
+// $result_username = mysqli_fetch_array($result1);
+// print_r($result_username);
+// $num = mysqli_num_rows($result1);
+// echo $num;
+// if($num == 0){
+//     echo "Hi 0";
+// }
+// exit();
 $check = "select * from member  where username = '$username' ";
 $result1 = mysqli_query($condb, $check) or die("Error in query: $sql ");
 // print_r($result1);
@@ -49,37 +70,38 @@ $result_username = mysqli_fetch_array($result1);
 // $result_username = mysqli_fetch_array($result1);
 print_r($result_username);
 $num = mysqli_num_rows($result1);
-// echo $num;
+echo $num;
+// exit();
 if ($num == 0) {
     $result = mysqli_query($condb, $sql) or die("Error in query: $sql ");
     if ($result) {
         echo "<script>";
         echo "Swal.fire({
-                icon: 'success',
-                title: 'อัปเดตสมาชิก สำเร็จ !',
-                // text: 'Something went wrong!'
-              }).then((result)=>{
-                if(result){
-                window.location.href = 'index.php';
-                }
-            })";
+            icon: 'success',
+            title: 'อัปเดตสมาชิก สำเร็จ !',
+            // text: 'Something went wrong!'
+          }).then((result)=>{
+            if(result){
+            window.location.href = 'index.php';
+            }
+        })";
         echo "</script>";
     }
 } elseif ($result_username['username'] == $username && $result_username['member_id'] == $member_id) {
     $result = mysqli_query($condb, $sql) or die("Error in query: $sql ");
     if ($result) {
-        //     echo "<script>";
-        //     echo "Swal.fire({
-        //     icon: 'success',
-        //     title: 'อัปเดตสมาชิก สำเร็จ !',
-        //     // text: 'Something went wrong!'
-        //   }).then((result)=>{
-        //     if(result){
-        //     window.location.href = 'index.php';
-        //     }
-        // })";
-        //     echo "</script>";
-        echo "HI";
+            echo "<script>";
+            echo "Swal.fire({
+            icon: 'success',
+            title: 'อัปเดตสมาชิก สำเร็จ !',
+            // text: 'Something went wrong!'
+          }).then((result)=>{
+            if(result){
+            window.location.href = 'index.php';
+            }
+        })";
+            echo "</script>";
+        // echo "HI";
     } else {
         echo "<script>";
         echo "Swal.fire({

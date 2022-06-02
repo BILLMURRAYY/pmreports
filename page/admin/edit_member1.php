@@ -55,7 +55,6 @@ $count = 1;
                 confirmButtonText: 'Yes!'
             }).then((result) => {
                 form.submit();
-
             })
         }
     </script>
@@ -73,7 +72,7 @@ $count = 1;
                     <?php
                     foreach ($resulti as $valuei) {
                     ?>
-                        <form action="back_update_member1.php" id="" method="post" enctype="multipart/form-data" onSubmit="return chkpsw(this)">
+                        <form action="back_update_member1.php" id="" method="post" enctype="multipart/form-data" >
                             <input type="hidden" name="member_id" value="<?php echo $member_id ?>">
 
                             <div class="card-body">

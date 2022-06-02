@@ -41,6 +41,19 @@
 
     if ($num == 0) {
         $result = mysqli_query($condb, $sql) or die("Error in query: $sql ");
+        if ($result) {
+            echo "<script>";
+            echo "Swal.fire({
+                icon: 'success',
+                title: 'อัปเดตสมาชิก สำเร็จ !',
+                // text: 'Something went wrong!'
+              }).then((result)=>{
+                if(result){
+                window.location.href = 'department.php';
+                }
+            })";
+            echo "</script>";
+        }
     } elseif ($result_depart['department_name'] == $department_name && $result_depart['department_id'] == $department_id) {
         $result = mysqli_query($condb, $sql) or die("Error in query: $sql ");
         if ($result) {

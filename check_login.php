@@ -95,9 +95,9 @@ if(($response = curl_exec($ch)) === false){
 
 	}elseif($json_data['api_status'] == 'fail'){ //password ไม่ถูกต้อง
 		// echo "API Error: " . $json_data['api_status_code'] . ' - ' . $json_data['api_message'];
-        echo "<script>";
         // echo "alert('Username หรือ Password ไม่ถูกต้อง !!!');";
         // echo "window.location = 'index.php'; ";
+        echo "<script>";
         echo "Swal.fire({
             icon: 'error',
             title: 'Username หรือ Password ไม่ถูกต้อง !!!',

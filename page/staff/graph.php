@@ -12,9 +12,9 @@ require_once("../service/condb.php");
     <!-- Section Meta tag -->
     <?php include('../include/meta.php') ?>
     <?php include("../include/head.php"); ?>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <style>
         .contain {
             padding: 25px;
